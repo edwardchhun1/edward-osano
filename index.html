@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Osano Product Demos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --osano-blue: #1a3c5e;
+      --osano-teal: #00a896;
+      --osano-light: #f0f7f9;
+      --osano-accent: #e8f4f8;
+      --text-primary: #0f2235;
+      --text-secondary: #4a6278;
+      --text-muted: #7a92a4;
+      --border: #d0e2ec;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--osano-light);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--osano-blue);
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--osano-teal); }
+    .nav-badge {
+      margin-left: 1rem;
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.75);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--osano-blue);
+      padding: 5rem 2.5rem 4rem;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--osano-teal);
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      color: var(--white);
+      line-height: 1.1;
+      max-width: 700px;
+      margin: 0 auto 1.25rem;
+    }
+    .hero h1 em { color: var(--osano-teal); font-style: italic; }
+    .hero-sub {
+      color: rgba(255,255,255,0.65);
+      font-size: 1.05rem;
+      font-weight: 300;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    /* ── PRODUCT CARDS ── */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 960px;
+      margin: -2.5rem auto 0;
+      padding: 0 2.5rem 5rem;
+    }
+
+    .product-card {
+      background: var(--white);
+      border-radius: 16px;
+      border: 1.5px solid var(--border);
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(26,60,94,0.12);
+    }
+
+    .card-header {
+      padding: 2rem 2rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-header::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      opacity: 0.08;
+    }
+    .card-cc .card-header { background: #e8f5f3; }
+    .card-cc .card-header::before { background: #00a896; }
+    .card-dsar .card-header { background: #e8edf5; }
+    .card-dsar .card-header::before { background: #1a3c5e; }
+
+    .card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .card-cc .card-icon { background: var(--osano-teal); }
+    .card-dsar .card-icon { background: var(--osano-blue); }
+    .card-icon svg { width: 26px; height: 26px; fill: none; stroke: white; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .card-header h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.45rem;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+    .card-header p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .card-body { padding: 1.5rem 2rem 2rem; }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 1.75rem;
+    }
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+    .feature-list li::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 1px;
+      background-size: 10px;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .card-cc .feature-list li::before {
+      background-color: #e0f5f2;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpolyline points='1.5,5 4,7.5 8.5,2.5' fill='none' stroke='%2300a896' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    }
+    .card-dsar .feature-list li::before {
+      background-color: #e0e8f0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpolyline points='1.5,5 4,7.5 8.5,2.5' fill='none' stroke='%231a3c5e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    }
+
+    .card-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 0.7rem 1.25rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      text-decoration: none;
+    }
+    .card-cta:hover { opacity: 0.85; }
+    .card-cta svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .card-cc .card-cta { background: var(--osano-teal); color: white; }
+    .card-dsar .card-cta { background: var(--osano-blue); color: white; }
+
+    /* ── DEMO PAGES (hidden until clicked) ── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .demo-nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2.5rem;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .back-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      padding: 0;
+      transition: color 0.15s;
+    }
+    .back-btn:hover { color: var(--text-primary); }
+    .back-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .demo-nav-title {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .demo-content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 2.5rem 5rem;
+    }
+    .demo-content h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    .demo-content .demo-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.65;
+    }
+
+    /* Code panel */
+    .code-panel {
+      background: #0f2235;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    .code-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.25rem;
+      background: rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .code-panel-header span {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .copy-btn {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.6);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      cursor: pointer;
+      padding: 4px 12px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.14); }
+    .code-panel pre {
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: #a8d5c2;
+      font-family: 'Courier New', monospace;
+      white-space: pre;
+    }
+    .code-panel pre .kw { color: #7ec8e3; }
+    .code-panel pre .str { color: #c3e88d; }
+    .code-panel pre .cmt { color: #546e7a; font-style: italic; }
+    .code-panel pre .attr { color: #ffcb6b; }
+
+    /* Demo trigger area */
+    .demo-trigger-section {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .demo-trigger-section h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+    }
+    .demo-trigger-section p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+      line-height: 1.6;
+    }
+    .trigger-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 0.65rem 1.4rem;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.15s;
+    }
+    .trigger-btn:hover { opacity: 0.85; }
+    .trigger-btn.teal { background: var(--osano-teal); color: white; }
+    .trigger-btn.blue { background: var(--osano-blue); color: white; }
+    .trigger-btn.outline {
+      background: none;
+      border: 1.5px solid var(--border);
+      color: var(--text-secondary);
+      margin-left: 0.75rem;
+    }
+
+    /* Info callout */
+    .callout {
+      display: flex;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin-top: 1.25rem;
+    }
+    .callout.info { background: #e8f5f3; color: #0f5c52; border: 1px solid #b0ddd8; }
+    .callout.note { background: #e8edf5; color: #1a3c5e; border: 1px solid #bed0e2; }
+    .callout svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* DSAR Form */
+    .dsar-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-group label { font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      background: var(--osano-light);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem 0.85rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--osano-teal); }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+
+    /* Cookie banner simulation */
+    .cookie-banner {
+      display: none;
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(560px, calc(100vw - 3rem));
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: 0 8px 40px rgba(26,60,94,0.15);
+      z-index: 9999;
+      animation: slideUp 0.3s ease;
+    }
+    .cookie-banner.show { display: block; }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    .cookie-banner h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .cookie-banner p {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 1.1rem;
+    }
+    .cookie-banner-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .cookie-banner-actions button {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.55rem 1.1rem;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .cookie-banner-actions button:hover { opacity: 0.85; }
+    .btn-accept-all { background: var(--osano-teal); color: white; border: none; }
+    .btn-reject { background: none; border: 1.5px solid var(--border); color: var(--text-secondary); }
+    .btn-manage { background: none; border: 1.5px solid var(--border); color: var(--osano-blue); }
+
+    /* Consent categories */
+    .consent-categories { display: flex; flex-direction: column; gap: 0.65rem; margin-top: 1rem; }
+    .consent-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 1rem;
+      background: var(--osano-light);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .consent-item-info h4 { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+    .consent-item-info p { font-size: 0.78rem; color: var(--text-secondary); }
+    .toggle-wrap { display: flex; align-items: center; gap: 0.5rem; }
+    .toggle-label { font-size: 0.75rem; color: var(--text-muted); }
+    .toggle {
+      width: 38px;
+      height: 22px;
+      border-radius: 100px;
+      background: #cdd8e0;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .toggle.on { background: var(--osano-teal); }
+    .toggle.required { background: var(--osano-teal); cursor: not-allowed; opacity: 0.8; }
+    .toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: white;
+      transition: left 0.2s;
+    }
+    .toggle.on::after, .toggle.required::after { left: 19px; }
+
+    .status-toast {
+      display: none;
+      position: fixed;
+      top: 80px;
+      right: 1.5rem;
+      background: var(--osano-blue);
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.7rem 1.2rem;
+      border-radius: 8px;
+      z-index: 9999;
+      animation: fadeIn 0.2s ease;
+    }
+    .status-toast.show { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; } }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 1.25rem; }
+      .hero { padding: 3.5rem 1.25rem 3rem; }
+      .products { padding: 0 1.25rem 3rem; gap: 1.25rem; }
+      .demo-content { padding: 2rem 1.25rem 4rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .demo-nav { padding: 0 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════
+     LANDING PAGE
+════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <nav>
+    <div class="nav-logo">osano<span>.</span></div>
+    <span class="nav-badge">Demo Portal</span>
+  </nav>
+
+  <div class="hero">
+    <p class="hero-eyebrow">Interactive Product Demos</p>
+    <h1>See Osano's privacy<br/>tools <em>in action</em></h1>
+    <p class="hero-sub">Click a product below to explore how the Osano implementation works live on this page.</p>
+  </div>
+
+  <div class="products">
+
+    <!-- Cookie Consent -->
+    <a class="product-card card-cc" href="#" onclick="showPage('page-cc'); return false;">
+      <div class="card-header">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <h2>Cookie Consent</h2>
+        <p>Compliant cookie consent management with customizable banners, preference centers, and opt-in/opt-out controls.</p>
+      </div>
+      <div class="card-body">
+        <ul class="feature-list">
+          <li>Auto-detects cookies and categorizes them</li>
+          <li>Geo-targeted consent rules (GDPR, CCPA, etc.)</li>
+          <li>Preference center with granular category toggles</li>
+          <li>Consent receipts and audit logs</li>
+        </ul>
+        <span class="card-cta">
+          Explore demo
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </a>
+
+    <!-- DSAR -->
+    <a class="product-card card-dsar" href="#" onclick="showPage('page-dsar'); return false;">
+      <div class="card-header">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h2>Data Subject Access Rights</h2>
+        <p>Streamline DSAR intake, routing, and fulfillment — so you can respond to privacy requests on time, every time.</p>
+      </div>
+      <div class="card-body">
+        <ul class="feature-list">
+          <li>Branded, embeddable request intake form</li>
+          <li>Automatic identity verification workflow</li>
+          <li>Configurable request types (access, delete, port)</li>
+          <li>Deadline tracking and team assignment</li>
+        </ul>
+        <span class="card-cta">
+          Explore demo
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </a>
+
+  </div>
+
+</div><!-- /page-home -->
+
+
+<!-- ════════════════════════════
+     COOKIE CONSENT DEMO
+════════════════════════════ -->
+<div id="page-cc" class="page">
+
+  <nav>
+    <div class="nav-logo">osano<span>.</span></div>
+    <span class="nav-badge">Demo Portal</span>
+  </nav>
+
+  <div class="demo-nav">
+    <button class="back-btn" onclick="showPage('page-home')">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back
+    </button>
+    <span style="color:var(--border);">|</span>
+    <span class="demo-nav-title">Cookie Consent Demo</span>
+  </div>
+
+  <div class="demo-content">
+    <h2>Cookie Consent</h2>
+    <p class="demo-desc">This demo shows how the Osano Cookie Consent script integrates into a webpage. The banner below is rendered by the Osano script tag placed in the <code style="background:#eef4f7;padding:2px 6px;border-radius:4px;font-size:0.82em;">&lt;head&gt;</code> of your site. You can trigger the banner and the preference center independently.</p>
+
+    <!-- Code snippet -->
+    <div class="code-panel">
+      <div class="code-panel-header">
+        <span>Implementation · HTML</span>
+        <button class="copy-btn" onclick="copyCode('cc-code')">Copy</button>
+      </div>
+      <pre id="cc-code"><span class="cmt">&lt;!-- Paste this in your &lt;head&gt; --&gt;</span>
+<span class="kw">&lt;script</span> <span class="attr">src</span>=<span class="str">"https://cmp.osano.com/YOUR_CONFIG_ID/osano.js"</span><span class="kw">&gt;&lt;/script&gt;</span>
+
+<span class="cmt">&lt;!-- Trigger banner programmatically --&gt;</span>
+<span class="kw">&lt;script&gt;</span>
+  <span class="cmt">// Show cookie preferences dialog</span>
+  Osano.cm.showDrawer(<span class="str">'osano-cm-dom-info-dialog-open'</span>);
+
+  <span class="cmt">// Listen for consent changes</span>
+  window.addEventListener(<span class="str">'osano_consentSaved'</span>, (e) =&gt; {
+    console.log(<span class="str">'Consent saved:'</span>, e.detail);
+  });
+<span class="kw">&lt;/script&gt;</span></pre>
+    </div>
+
+    <!-- Trigger section -->
+    <div class="demo-trigger-section">
+      <h3>Simulate the cookie banner</h3>
+      <p>On a real page, the Osano script fires the consent banner automatically based on your configuration and the visitor's jurisdiction. Use the buttons below to simulate that interaction.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+        <button class="trigger-btn teal" onclick="showCookieBanner()">Show consent banner</button>
+        <button class="trigger-btn outline" onclick="showPreferenceCenter()">Open preference center</button>
+      </div>
+
+      <div class="callout info" style="margin-top:1.25rem;">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span>In your production integration, replace <strong>YOUR_CONFIG_ID</strong> with the ID from your Osano dashboard. The script handles geo-detection, A/B testing, and consent recording automatically.</span>
+      </div>
+    </div>
+
+    <!-- Consent category preview -->
+    <div class="demo-trigger-section">
+      <h3>Consent categories (preference center preview)</h3>
+      <p>These are the cookie categories visitors can control. Toggle each category to see how consent state changes.</p>
+      <div class="consent-categories">
+
+        <div class="consent-item">
+          <div class="consent-item-info">
+            <h4>Strictly Necessary</h4>
+            <p>Required for the site to function — cannot be disabled.</p>
+          </div>
+          <div class="toggle-wrap">
+            <span class="toggle-label">Always on</span>
+            <button class="toggle required" aria-label="Strictly necessary cookies — always on" disabled></button>
+          </div>
+        </div>
+
+        <div class="consent-item">
+          <div class="consent-item-info">
+            <h4>Performance &amp; Analytics</h4>
+            <p>Help us understand how visitors use the site (e.g. Google Analytics).</p>
+          </div>
+          <div class="toggle-wrap">
+            <span class="toggle-label" id="lbl-analytics">Off</span>
+            <button class="toggle" id="tog-analytics" aria-label="Toggle analytics" onclick="toggleConsent('analytics')"></button>
+          </div>
+        </div>
+
+        <div class="consent-item">
+          <div class="consent-item-info">
+            <h4>Targeting &amp; Advertising</h4>
+            <p>Used to show personalized ads and track ad campaign performance.</p>
+          </div>
+          <div class="toggle-wrap">
+            <span class="toggle-label" id="lbl-targeting">Off</span>
+            <button class="toggle" id="tog-targeting" aria-label="Toggle targeting" onclick="toggleConsent('targeting')"></button>
+          </div>
+        </div>
+
+        <div class="consent-item">
+          <div class="consent-item-info">
+            <h4>Functional</h4>
+            <p>Enable enhanced features like saved preferences, chat widgets, and embeds.</p>
+          </div>
+          <div class="toggle-wrap">
+            <span class="toggle-label" id="lbl-functional">Off</span>
+            <button class="toggle" id="tog-functional" aria-label="Toggle functional" onclick="toggleConsent('functional')"></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div><!-- /page-cc -->
+
+
+<!-- ════════════════════════════
+     DSAR DEMO
+════════════════════════════ -->
+<div id="page-dsar" class="page">
+
+  <nav>
+    <div class="nav-logo">osano<span>.</span></div>
+    <span class="nav-badge">Demo Portal</span>
+  </nav>
+
+  <div class="demo-nav">
+    <button class="back-btn" onclick="showPage('page-home')">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back
+    </button>
+    <span style="color:var(--border);">|</span>
+    <span class="demo-nav-title">DSAR Demo</span>
+  </div>
+
+  <div class="demo-content">
+    <h2>Data Subject Access Rights</h2>
+    <p class="demo-desc">Osano DSAR embeds a privacy request form directly into your website. When a data subject submits a request, Osano automatically routes it to the right team, starts the compliance clock, and handles identity verification — all configurable from your dashboard.</p>
+
+    <!-- Code snippet -->
+    <div class="code-panel">
+      <div class="code-panel-header">
+        <span>Implementation · HTML</span>
+        <button class="copy-btn" onclick="copyCode('dsar-code')">Copy</button>
+      </div>
+      <pre id="dsar-code"><span class="cmt">&lt;!-- Drop the Osano DSAR widget anywhere on your page --&gt;</span>
+<span class="kw">&lt;div</span> <span class="attr">id</span>=<span class="str">"osano-dsar-widget"</span><span class="kw">&gt;&lt;/div&gt;</span>
+
+<span class="kw">&lt;script</span>
+  <span class="attr">src</span>=<span class="str">"https://privacyportal.onetrust.com/embeddedRequestForm/YOUR_UUID"</span>
+  <span class="attr">type</span>=<span class="str">"text/javascript"</span>
+  <span class="attr">charset</span>=<span class="str">"UTF-8"</span>
+<span class="kw">&gt;&lt;/script&gt;</span>
+
+<span class="cmt">&lt;!-- Optional: listen for submission events --&gt;</span>
+<span class="kw">&lt;script&gt;</span>
+  window.addEventListener(<span class="str">'message'</span>, (e) =&gt; {
+    if (e.data?.type === <span class="str">'DSAR_SUBMITTED'</span>) {
+      console.log(<span class="str">'Request ref:'</span>, e.data.referenceId);
+    }
+  });
+<span class="kw">&lt;/script&gt;</span></pre>
+    </div>
+
+    <!-- Simulated DSAR form -->
+    <div class="demo-trigger-section">
+      <h3>Live request form (simulated)</h3>
+      <p>This is how the embedded Osano DSAR form appears to your site visitors. Fill it out and click Submit to see the confirmation flow.</p>
+
+      <div class="dsar-form" id="dsar-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First name *</label>
+            <input type="text" id="dsar-first" placeholder="Jane" />
+          </div>
+          <div class="form-group">
+            <label>Last name *</label>
+            <input type="text" id="dsar-last" placeholder="Smith" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email address *</label>
+          <input type="email" id="dsar-email" placeholder="jane@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Country of residence</label>
+          <select id="dsar-country">
+            <option value="">Select country…</option>
+            <option>United States</option>
+            <option>United Kingdom</option>
+            <option>Germany</option>
+            <option>France</option>
+            <option>Canada</option>
+            <option>Australia</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Request type *</label>
+          <select id="dsar-type">
+            <option value="">Select a request type…</option>
+            <option>Access — I want to know what data you hold about me</option>
+            <option>Deletion — I want my data deleted</option>
+            <option>Rectification — I want to correct my data</option>
+            <option>Portability — I want a copy of my data</option>
+            <option>Opt-out of sale — Do not sell my personal information</option>
+            <option>Restriction — Limit how you use my data</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Additional details</label>
+          <textarea id="dsar-details" placeholder="Describe your request in more detail (optional)…"></textarea>
+        </div>
+        <div>
+          <button class="trigger-btn blue" onclick="submitDSAR()">Submit request</button>
+        </div>
+      </div>
+
+      <!-- Confirmation (hidden until submit) -->
+      <div id="dsar-confirm" style="display:none;text-align:center;padding:2rem 0;">
+        <div style="width:56px;height:56px;background:#e0f5f2;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00a896" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p style="font-weight:600;font-size:1rem;color:var(--text-primary);margin-bottom:0.4rem;">Request submitted</p>
+        <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:1.25rem;">Reference ID: <strong id="dsar-ref"></strong><br/>Osano has started the 30-day response clock and sent a verification email.</p>
+        <button class="trigger-btn outline" onclick="resetDSAR()">Submit another</button>
+      </div>
+    </div>
+
+    <div class="callout note">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <span>In production, Osano automatically verifies the requester's identity, assigns the request to a team member, and tracks the regulatory deadline (30 days for GDPR, 45 days for CCPA). Replace <strong>YOUR_UUID</strong> with your Osano workflow ID found in the DSAR dashboard.</span>
+    </div>
+
+  </div>
+</div><!-- /page-dsar -->
+
+
+<!-- ── Cookie Banner Simulation ── -->
+<div class="cookie-banner" id="cookie-banner">
+  <h4>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--osano-teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    We use cookies
+  </h4>
+  <p>We use cookies and similar technologies to personalize content, analyze traffic, and improve your experience. Choose your preferences or accept all to continue.</p>
+  <div class="cookie-banner-actions">
+    <button class="btn-accept-all" onclick="acceptAll()">Accept all</button>
+    <button class="btn-reject" onclick="rejectAll()">Reject optional</button>
+    <button class="btn-manage" onclick="closeBanner(); showPreferenceCenter()">Manage preferences</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="status-toast" id="toast"></div>
+
+
+<script>
+  // ── Page routing ──
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
+    closeBanner();
+  }
+
+  // ── Cookie banner ──
+  function showCookieBanner() {
+    document.getElementById('cookie-banner').classList.add('show');
+  }
+  function closeBanner() {
+    document.getElementById('cookie-banner').classList.remove('show');
+  }
+  function acceptAll() {
+    closeBanner();
+    ['analytics','targeting','functional'].forEach(cat => setConsent(cat, true));
+    showToast('All cookies accepted ✓');
+  }
+  function rejectAll() {
+    closeBanner();
+    ['analytics','targeting','functional'].forEach(cat => setConsent(cat, false));
+    showToast('Optional cookies rejected');
+  }
+
+  // ── Preference center ──
+  function showPreferenceCenter() {
+    document.getElementById('page-cc').querySelector('.demo-trigger-section:last-child').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // ── Consent toggles ──
+  const consentState = { analytics: false, targeting: false, functional: false };
+
+  function setConsent(cat, val) {
+    consentState[cat] = val;
+    const tog = document.getElementById('tog-' + cat);
+    const lbl = document.getElementById('lbl-' + cat);
+    if (!tog) return;
+    tog.classList.toggle('on', val);
+    lbl.textContent = val ? 'On' : 'Off';
+  }
+
+  function toggleConsent(cat) {
+    setConsent(cat, !consentState[cat]);
+    showToast('Consent preference updated');
+  }
+
+  // ── Toast ──
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  // ── DSAR ──
+  function submitDSAR() {
+    const first = document.getElementById('dsar-first').value.trim();
+    const last  = document.getElementById('dsar-last').value.trim();
+    const email = document.getElementById('dsar-email').value.trim();
+    const type  = document.getElementById('dsar-type').value;
+
+    if (!first || !last || !email || !type) {
+      showToast('Please fill in the required fields');
+      return;
+    }
+
+    const refId = 'DSR-' + Math.random().toString(36).slice(2,8).toUpperCase();
+    document.getElementById('dsar-ref').textContent = refId;
+    document.getElementById('dsar-form').style.display = 'none';
+    document.getElementById('dsar-confirm').style.display = 'block';
+  }
+
+  function resetDSAR() {
+    document.getElementById('dsar-form').style.display = 'block';
+    document.getElementById('dsar-confirm').style.display = 'none';
+    ['dsar-first','dsar-last','dsar-email','dsar-details'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('dsar-country').value = '';
+    document.getElementById('dsar-type').value = '';
+  }
+
+  // ── Copy code ──
+  function copyCode(id) {
+    const text = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(text).then(() => showToast('Code copied ✓')).catch(() => showToast('Copy failed'));
+  }
+</script>
+
+</body>
+</html>
