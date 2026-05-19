@@ -6,134 +6,83 @@
 <title>Osano Product Demos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
-<!-- Osano Cookie Consent Script -->
 <script src="https://cmp.osano.com/AzZcpvRm9bbsqngN/7fdaff7c-c6fe-4d31-8e57-0d08ee29dbaf/osano.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#1b3a5c;
-  --navy-dark:#112540;
-  --navy-mid:#1e4570;
-  --teal:#00a896;
-  --teal-light:#e0f5f2;
-  --teal-mid:#b0ddd8;
-  --purple:#6b5ce7;
-  --purple-light:#eeebff;
-  --bg:#f0f6f9;
-  --white:#ffffff;
-  --text:#0f2235;
-  --text-2:#3d5a72;
-  --text-3:#7a92a4;
-  --border:#cde0ec;
-  --card-radius:14px;
+  --navy:#1b3a5c;--navy-dark:#112540;--teal:#00a896;--teal-light:#e0f5f2;--teal-mid:#b0ddd8;
+  --purple:#6b5ce7;--purple-light:#eeebff;--bg:#f0f6f9;--white:#ffffff;
+  --text:#0f2235;--text-2:#3d5a72;--text-3:#7a92a4;--border:#cde0ec;--card-radius:14px;
 }
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 a{text-decoration:none;color:inherit}
 button{font-family:'DM Sans',sans-serif}
+.page{display:none}.page.active{display:block}
 
-/* ── NAV ── */
+/* NAV */
 .main-nav{background:var(--navy-dark);padding:0 2.5rem;display:flex;align-items:center;height:64px;position:sticky;top:0;z-index:200}
-.nav-logo{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--white);letter-spacing:-0.01em}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--white)}
 .nav-logo span{color:var(--teal)}
 .nav-pill{margin-left:.85rem;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-size:.68rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:3px 10px;border-radius:100px}
 
-/* ── PAGE SWITCHER ── */
-.page{display:none}
-.page.active{display:block}
-
-/* ════════════ LANDING ════════════ */
-.hero{background:linear-gradient(160deg,var(--navy-dark) 0%,var(--navy) 100%);padding:5rem 2rem 6rem;text-align:center}
-.hero-eye{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem}
-.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.1;max-width:640px;margin:0 auto .9rem}
-.hero h1 em{color:var(--teal);font-style:italic}
-.hero-sub{color:rgba(255,255,255,.6);font-size:.95rem;max-width:480px;margin:0 auto;line-height:1.65}
-
-.cards-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.75rem;max-width:900px;margin:-3rem auto 0;padding:0 2rem 5rem}
-
-.prod-card{background:var(--white);border-radius:var(--card-radius);border:1.5px solid var(--border);display:flex;flex-direction:column;overflow:hidden;transition:transform .2s,box-shadow .2s;cursor:pointer}
-.prod-card:hover{transform:translateY(-5px);box-shadow:0 14px 44px rgba(27,58,92,.13)}
-
-.card-top{padding:2rem 2rem 1.5rem;position:relative;overflow:hidden;flex:1}
-.card-top::after{content:'';position:absolute;top:-50px;right:-50px;width:160px;height:160px;border-radius:50%;opacity:.12}
-.cc-top{background:#e4f6f3}.cc-top::after{background:var(--teal)}
-.dsar-top{background:#e8edf5}.dsar-top::after{background:var(--navy)}
-
-.card-icon{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem}
-.cc-icon{background:var(--teal)}.dsar-icon{background:var(--navy)}
-.card-icon svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-
-.card-top h2{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--text);margin-bottom:.5rem;line-height:1.2}
-.card-top p{font-size:.875rem;color:var(--text-2);line-height:1.65}
-
-.card-bottom{padding:1.25rem 2rem 1.75rem;border-top:1px solid var(--border)}
-.card-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;padding:.72rem 1.25rem;border-radius:8px;border:none;font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .15s,transform .1s}
-.card-btn:hover{opacity:.88;transform:translateY(-1px)}
-.card-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.cc-btn{background:var(--teal);color:#fff}
-.dsar-btn{background:var(--navy);color:#fff}
-
-/* ════════════ INNER PAGE SHELL ════════════ */
+/* SUBNAV */
 .demo-subnav{background:var(--white);border-bottom:1px solid var(--border);padding:0 2.5rem;height:50px;display:flex;align-items:center;gap:.75rem}
 .back-btn{background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:.4rem;font-size:.83rem;color:var(--text-2);transition:color .15s}
 .back-btn:hover{color:var(--text)}
 .back-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.subnav-div{color:var(--border)}
-.subnav-title{font-size:.83rem;font-weight:500;color:var(--text)}
+.subnav-div{color:var(--border)}.subnav-title{font-size:.83rem;font-weight:500;color:var(--text)}
 
-/* ════════════ COOKIE CONSENT PAGE ════════════ */
-.cc-layout{max-width:1060px;margin:0 auto;padding:2.5rem 2rem 5rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem}
-@media(max-width:760px){.cc-layout{grid-template-columns:1fr}}
-.cc-left,.cc-right{}
+/* LANDING */
+.hero{background:linear-gradient(160deg,var(--navy-dark) 0%,var(--navy) 100%);padding:4rem 2rem 5.5rem;text-align:center}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3rem);color:var(--white);line-height:1.1;margin:0 auto}
+.hero h1 span{color:var(--teal)}
+.cards-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.75rem;max-width:860px;margin:-2.75rem auto 0;padding:0 2rem 5rem}
+.prod-card{background:var(--white);border-radius:var(--card-radius);border:1.5px solid var(--border);display:flex;flex-direction:column;overflow:hidden;transition:transform .2s,box-shadow .2s;cursor:pointer}
+.prod-card:hover{transform:translateY(-5px);box-shadow:0 14px 44px rgba(27,58,92,.13)}
+.card-top{padding:2rem 2rem 1.75rem;position:relative;overflow:hidden;flex:1;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start}
+.card-top::after{content:'';position:absolute;top:-50px;right:-50px;width:160px;height:160px;border-radius:50%;opacity:.12}
+.cc-top{background:#e4f6f3}.cc-top::after{background:var(--teal)}
+.dsar-top{background:#e8edf5}.dsar-top::after{background:var(--navy)}
+.card-icon{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;flex-shrink:0}
+.cc-icon{background:var(--teal)}.dsar-icon{background:var(--navy)}
+.card-icon svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.card-top h2{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--text);line-height:1.2}
+.card-bottom{padding:1.25rem 2rem 1.75rem;border-top:1px solid var(--border)}
+.card-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;padding:.72rem 1.25rem;border-radius:8px;border:none;font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .15s,transform .1s}
+.card-btn:hover{opacity:.88;transform:translateY(-1px)}
+.card-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.cc-btn{background:var(--teal);color:#fff}.dsar-btn{background:var(--navy);color:#fff}
 
-.section-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:.85rem}
+/* PANELS */
+.section-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:.85rem;display:block}
 .panel{background:var(--white);border:1.5px solid var(--border);border-radius:var(--card-radius);overflow:hidden;margin-bottom:1.5rem}
 .panel-head{padding:.85rem 1.25rem;background:#f7fbfd;border-bottom:1px solid var(--border);font-size:.82rem;font-weight:600;color:var(--text-2);display:flex;align-items:center;justify-content:space-between}
 .panel-body{padding:1.25rem}
 
-/* Geo Dropdown */
+/* CALLOUT */
+.callout{display:flex;gap:.75rem;padding:.9rem 1.1rem;border-radius:9px;font-size:.82rem;line-height:1.6}
+.callout svg{width:17px;height:17px;flex-shrink:0;margin-top:1px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.callout.teal{background:#e0f5f2;color:#0a6e60;border:1px solid var(--teal-mid)}
+.callout.blue{background:#e8edf5;color:#1b3a5c;border:1px solid #bed0e2}
+
+/* GEO SELECTS */
+.geo-label{font-size:.75rem;font-weight:500;color:var(--text-2);margin-bottom:.3rem;display:block}
 .geo-select{width:100%;font-family:'DM Sans',sans-serif;font-size:.875rem;color:var(--text);background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:.6rem .85rem;outline:none;transition:border-color .15s;cursor:pointer;margin-bottom:.6rem}
 .geo-select:focus{border-color:var(--teal)}
-.geo-label{font-size:.75rem;font-weight:500;color:var(--text-2);margin-bottom:.3rem;display:block}
-
 .banner-badge{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .85rem;border-radius:100px;font-size:.78rem;font-weight:600;margin-top:.75rem}
 .badge-gdpr{background:#e4f6f3;color:#0a6e60}
 .badge-ccpa{background:#e8edf5;color:#1b3a5c}
-.badge-none{background:#f0f0f0;color:#666}
-.badge-opt-in{background:#fff8e6;color:#7a4f00}
+.badge-notice{background:#f5f0ff;color:#4a30b0}
+.badge-none{background:#f0f0f0;color:#555}
 
-/* Live preview panel */
-.preview-wrap{background:#f7fbfd;border:1.5px dashed var(--teal-mid);border-radius:10px;min-height:200px;padding:1.25rem;position:relative;display:flex;align-items:flex-end;justify-content:center}
-.preview-label{position:absolute;top:.6rem;left:.85rem;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
+/* LIVE BANNER FRAME */
+.live-banner-frame{background:#f7fbfd;border:1.5px dashed var(--teal-mid);border-radius:10px;min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;text-align:center;gap:1rem}
+.live-banner-frame p{font-size:.82rem;color:var(--text-2);line-height:1.55;max-width:360px}
+.trigger-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--teal);color:#fff;border:none;padding:.65rem 1.3rem;border-radius:8px;font-size:.855rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.trigger-btn:hover{opacity:.85}
+.trigger-btn svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
-/* Simulated banners */
-.sim-banner{width:100%;border-radius:10px;padding:1rem 1.1rem;font-size:.78rem;line-height:1.55}
-.sim-banner h4{font-size:.82rem;font-weight:700;margin-bottom:.4rem}
-.sim-banner p{margin-bottom:.75rem;color:var(--text-2)}
-.sim-btns{display:flex;flex-wrap:wrap;gap:.45rem}
-.sim-btn{padding:.38rem .85rem;border-radius:6px;font-size:.72rem;font-weight:600;border:none;cursor:default}
-.sb-accept{background:var(--teal);color:#fff}
-.sb-reject{background:none;border:1.5px solid var(--border)!important;color:var(--text-2)}
-.sb-manage{background:none;border:1.5px solid var(--navy)!important;color:var(--navy)}
-.sb-confirm{background:var(--navy);color:#fff}
-
-/* GDPR template 3 has toggles */
-.sim-toggles{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.7rem}
-.sim-tog-row{display:flex;align-items:center;justify-content:space-between;font-size:.72rem;color:var(--text-2)}
-.mini-tog{width:28px;height:16px;border-radius:100px;position:relative;border:none;cursor:default;flex-shrink:0}
-.mini-tog.on{background:var(--teal)}.mini-tog.off{background:#c8d8e4}
-.mini-tog::after{content:'';position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:#fff;transition:left .15s}
-.mini-tog.on::after{left:14px}
-
-/* Code panel */
-.code-block{background:#0f2235;border-radius:10px;overflow:hidden;margin-bottom:1.5rem}
-.code-head{display:flex;align-items:center;justify-content:space-between;padding:.65rem 1.1rem;background:rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.07)}
-.code-head span{font-size:.72rem;font-weight:500;color:rgba(255,255,255,.5);letter-spacing:.06em;text-transform:uppercase}
-.copy-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.55);font-family:'DM Sans',sans-serif;font-size:.72rem;cursor:pointer;padding:3px 10px;border-radius:5px;transition:background .15s}
-.copy-btn:hover{background:rgba(255,255,255,.14)}
-.code-block pre{padding:1.1rem 1.25rem;overflow-x:auto;font-size:.78rem;line-height:1.7;color:#a8d5c2;font-family:'Courier New',monospace;white-space:pre}
-pre .kw{color:#7ec8e3}pre .str{color:#c3e88d}pre .cmt{color:#546e7a;font-style:italic}pre .attr{color:#ffcb6b}
-
-/* Consent categories interactive */
+/* CONSENT CATEGORY TOGGLES */
 .cat-list{display:flex;flex-direction:column;gap:.6rem}
 .cat-row{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;background:var(--bg);border-radius:8px;border:1px solid var(--border)}
 .cat-info h4{font-size:.82rem;font-weight:600;margin-bottom:2px}
@@ -145,19 +94,20 @@ pre .kw{color:#7ec8e3}pre .str{color:#c3e88d}pre .cmt{color:#546e7a;font-style:i
 .tog-btn::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left .2s}
 .tog-btn.on::after,.tog-btn.req::after{left:18px}
 
-/* Advanced settings btn */
-.adv-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--purple);color:#fff;border:none;padding:.7rem 1.35rem;border-radius:8px;font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+/* ADVANCED SETTINGS BTN */
+.adv-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--purple);color:#fff;border:none;padding:.7rem 1.35rem;border-radius:8px;font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .15s;margin-top:.25rem}
 .adv-btn:hover{opacity:.86}
 .adv-btn svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
-/* Callout */
-.callout{display:flex;gap:.75rem;padding:.9rem 1.1rem;border-radius:9px;font-size:.82rem;line-height:1.6;margin-top:1rem}
-.callout svg{width:17px;height:17px;flex-shrink:0;margin-top:1px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.callout.teal{background:#e0f5f2;color:#0a6e60;border:1px solid var(--teal-mid)}
-.callout.blue{background:#e8edf5;color:#1b3a5c;border:1px solid #bed0e2}
+/* CC PAGE LAYOUT */
+.cc-layout{max-width:1060px;margin:0 auto;padding:2.5rem 2rem 5rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+@media(max-width:760px){.cc-layout{grid-template-columns:1fr}}
 
-/* ════════════ DSAR PAGE ════════════ */
-.dsar-layout{max-width:900px;margin:0 auto;padding:2.5rem 2rem 5rem}
+/* OSANO STATUS DOT */
+.status-dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex-shrink:0}
+
+/* DSAR PAGE */
+.dsar-layout{max-width:860px;margin:0 auto;padding:2.5rem 2rem 5rem}
 .dsar-form-wrap{background:var(--white);border:1.5px solid var(--border);border-radius:var(--card-radius);padding:2rem}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 @media(max-width:600px){.form-grid{grid-template-columns:1fr}}
@@ -171,55 +121,34 @@ pre .kw{color:#7ec8e3}pre .str{color:#c3e88d}pre .cmt{color:#546e7a;font-style:i
 .confirm-box{display:none;text-align:center;padding:2.5rem 0}
 .confirm-icon{width:54px;height:54px;background:#e0f5f2;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
 
-/* ════════════ ADVANCED SETTINGS PAGE ════════════ */
+/* ADVANCED SETTINGS PAGE */
 .adv-layout{max-width:1100px;margin:0 auto;padding:2.5rem 2rem 5rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem}
 @media(max-width:820px){.adv-layout{grid-template-columns:1fr}}
-.adv-left{}
 .adv-right{position:sticky;top:80px;align-self:start}
-
 .adv-section{margin-bottom:2rem}
 .adv-section-title{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
-
 .adv-toggle-row{display:flex;align-items:flex-start;gap:.85rem;padding:.9rem 0;border-bottom:1px solid var(--border)}
 .adv-toggle-row:last-child{border-bottom:none}
 .adv-tog{width:40px;height:22px;border-radius:100px;border:none;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0;margin-top:2px}
 .adv-tog.on{background:var(--purple)}.adv-tog.off{background:#c8d8e4}
 .adv-tog::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left .2s}
 .adv-tog.on::after{left:21px}
-.adv-tog-info{flex:1}
 .adv-tog-info strong{font-size:.855rem;font-weight:600;color:var(--text);display:block;margin-bottom:.25rem;cursor:pointer}
 .adv-tog-info strong:hover{color:var(--purple)}
 .adv-tog-info p{font-size:.78rem;color:var(--text-3);line-height:1.55}
-
-/* Preview panel on right */
 .preview-panel{background:var(--white);border:1.5px solid var(--border);border-radius:var(--card-radius);overflow:hidden}
 .preview-panel-head{padding:.85rem 1.25rem;background:#f7fbfd;border-bottom:1px solid var(--border);font-size:.82rem;font-weight:600;color:var(--text-2)}
 .preview-panel-body{padding:1.25rem}
 .preview-effect{font-size:.82rem;color:var(--text-2);line-height:1.6;margin-bottom:.75rem;padding:.75rem;border-radius:8px;background:var(--bg);border:1px solid var(--border)}
 .preview-effect strong{display:block;color:var(--text);margin-bottom:.3rem;font-size:.83rem}
-.preview-none{color:var(--text-3);font-style:italic;font-size:.82rem}
-
 .active-effects-list{display:flex;flex-direction:column;gap:.5rem}
 .effect-chip{display:flex;align-items:flex-start;gap:.5rem;padding:.6rem .85rem;background:var(--purple-light);border-radius:7px;font-size:.78rem;color:#3d2db5;line-height:1.45}
 .effect-chip::before{content:'✓';font-weight:700;flex-shrink:0;margin-top:1px}
 
-/* Toast */
+/* TOAST */
 .toast{display:none;position:fixed;top:76px;right:1.5rem;background:var(--navy);color:#fff;font-size:.83rem;font-weight:500;padding:.65rem 1.1rem;border-radius:8px;z-index:9999;animation:fadeIn .2s}
 .toast.show{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1}}
-
-/* Cookie banner simulation overlay */
-.cookie-overlay-sim{display:none;position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);width:min(520px,calc(100vw - 3rem));background:var(--white);border:1.5px solid var(--border);border-radius:14px;padding:1.5rem;box-shadow:0 10px 44px rgba(27,58,92,.18);z-index:9000;animation:slideUp .3s ease}
-.cookie-overlay-sim.show{display:block}
-@keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(12px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-.cos-title{font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.45rem}
-.cos-body{font-size:.8rem;color:var(--text-2);line-height:1.6;margin-bottom:1rem}
-.cos-btns{display:flex;flex-wrap:wrap;gap:.5rem}
-.cos-btns button{font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:500;padding:.5rem 1rem;border-radius:7px;cursor:pointer;transition:opacity .15s}
-.cos-btns button:hover{opacity:.85}
-.cos-accept{background:var(--teal);color:#fff;border:none}
-.cos-reject{background:none;border:1.5px solid var(--border);color:var(--text-2)}
-.cos-manage{background:none;border:1.5px solid var(--navy);color:var(--navy)}
 
 @media(max-width:600px){
   .main-nav,.demo-subnav{padding:0 1.25rem}
@@ -231,41 +160,33 @@ pre .kw{color:#7ec8e3}pre .str{color:#c3e88d}pre .cmt{color:#546e7a;font-style:i
 </head>
 <body>
 
-<!-- ═══════════════════════════════════
-     LANDING PAGE
-═══════════════════════════════════ -->
+<!-- ═══════════════ LANDING PAGE ═══════════════ -->
 <div id="pg-home" class="page active">
   <nav class="main-nav">
     <span class="nav-logo">osano<span>.</span></span>
     <span class="nav-pill">Demo Portal</span>
   </nav>
   <div class="hero">
-    <p class="hero-eye">Interactive Product Demos</p>
-    <h1>See Osano's privacy<br/>tools <em>in action</em></h1>
-    <p class="hero-sub">Select a product to explore how your Osano implementation works live — banners, consent flows, and advanced settings all reflected in real time.</p>
+    <h1>Osano <span>Products</span></h1>
   </div>
   <div class="cards-wrap">
-    <!-- Cookie Consent Card -->
     <div class="prod-card" onclick="showPage('pg-cc')">
       <div class="card-top cc-top">
         <div class="card-icon cc-icon">
           <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
         </div>
         <h2>Cookie Consent</h2>
-        <p>Osano Cookie Consent simplifies consent management. Ensure compliance with regulations in 50+ countries, save resources, and maintain brand trust with out-of-the-box compliant banner templates.</p>
       </div>
       <div class="card-bottom">
         <button class="card-btn cc-btn">Click Here <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
       </div>
     </div>
-    <!-- DSAR Card -->
     <div class="prod-card" onclick="showPage('pg-dsar')">
       <div class="card-top dsar-top">
         <div class="card-icon dsar-icon">
           <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
         <h2>Data Subject Access Rights</h2>
-        <p>A comprehensive solution to centralize and automate subject rights request processing. Streamline DSAR intake, routing, and fulfillment so you can respond on time, every time.</p>
       </div>
       <div class="card-bottom">
         <button class="card-btn dsar-btn">Click Here <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
@@ -275,9 +196,7 @@ pre .kw{color:#7ec8e3}pre .str{color:#c3e88d}pre .cmt{color:#546e7a;font-style:i
 </div>
 
 
-<!-- ═══════════════════════════════════
-     COOKIE CONSENT PAGE
-═══════════════════════════════════ -->
+<!-- ═══════════════ COOKIE CONSENT PAGE ═══════════════ -->
 <div id="pg-cc" class="page">
   <nav class="main-nav">
     <span class="nav-logo">osano<span>.</span></span>
@@ -292,12 +211,12 @@ pre .kw{color:#7ec8e3}pre .str{color:#c3e88d}pre .cmt{color:#546e7a;font-style:i
   </div>
 
   <div class="cc-layout">
-    <!-- LEFT COL -->
-    <div class="cc-left">
 
-      <p class="section-label">Geo-Based Banner Preview</p>
+    <!-- LEFT -->
+    <div>
+      <span class="section-label">Geo-Based Banner Preview</span>
       <div class="panel">
-        <div class="panel-head">Select a location to preview banner</div>
+        <div class="panel-head">Select a location</div>
         <div class="panel-body">
           <label class="geo-label">Continent</label>
           <select class="geo-select" id="sel-continent" onchange="onContinentChange()">
@@ -310,21 +229,18 @@ pre .kw{color:#7ec8e3}pre .str{color:#c3e88d}pre .cmt{color:#546e7a;font-style:i
             <option value="oceania">Oceania</option>
             <option value="middle-east">Middle East</option>
           </select>
-
           <div id="country-wrap" style="display:none">
             <label class="geo-label">Country</label>
             <select class="geo-select" id="sel-country" onchange="onCountryChange()">
               <option value="">— Select Country —</option>
             </select>
           </div>
-
           <div id="state-wrap" style="display:none">
             <label class="geo-label">State</label>
             <select class="geo-select" id="sel-state" onchange="onStateChange()">
               <option value="">— Select State —</option>
             </select>
           </div>
-
           <div id="geo-result" style="display:none;margin-top:.5rem">
             <div id="geo-badge" class="banner-badge"></div>
             <p id="geo-explain" style="font-size:.78rem;color:var(--text-2);margin-top:.6rem;line-height:1.55"></p>
@@ -332,16 +248,18 @@ pre .kw{color:#7ec8e3}pre .str{color:#c3e88d}pre .cmt{color:#546e7a;font-style:i
         </div>
       </div>
 
-      <p class="section-label">Consent Categories</p>
+      <span class="section-label">Consent Categories</span>
       <div class="panel">
         <div class="panel-head">
-          Preference Center Preview
-          <button class="copy-btn" style="font-size:.7rem" onclick="showOsanoBanner()">Open Live Banner</button>
+          Preference Center
+          <button class="trigger-btn" style="padding:.4rem .9rem;font-size:.75rem" onclick="openPreferenceCenter()">
+            Open Live Preferences
+          </button>
         </div>
         <div class="panel-body">
           <div class="cat-list">
             <div class="cat-row">
-              <div class="cat-info"><h4>Strictly Necessary</h4><p>Required for the site to function — cannot be disabled.</p></div>
+              <div class="cat-info"><h4>Strictly Necessary</h4><p>Required for the site to function.</p></div>
               <div class="tog-wrap"><span class="tog-lbl">Always on</span><button class="tog-btn req" disabled></button></div>
             </div>
             <div class="cat-row">
@@ -353,30 +271,15 @@ pre .kw{color:#7ec8e3}pre .str{color:#c3e88d}pre .cmt{color:#546e7a;font-style:i
               <div class="tog-wrap"><span class="tog-lbl" id="lbl-targeting">Off</span><button class="tog-btn off" id="tog-targeting" onclick="toggleCat('targeting')"></button></div>
             </div>
             <div class="cat-row">
-              <div class="cat-info"><h4>Functional</h4><p>Enhanced features like chat, embeds, saved preferences.</p></div>
+              <div class="cat-info"><h4>Functional</h4><p>Chat widgets, embeds, saved preferences.</p></div>
               <div class="tog-wrap"><span class="tog-lbl" id="lbl-functional">Off</span><button class="tog-btn off" id="tog-functional" onclick="toggleCat('functional')"></button></div>
             </div>
           </div>
           <div class="callout teal" style="margin-top:1rem">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-            <span>These categories reflect what your Osano configuration defines. The live banner above is served by the Osano script — toggle your categories in the Osano dashboard and refresh to see changes.</span>
+            <span>Toggle categories in your Osano dashboard and click "Open Live Preferences" above to see changes reflected immediately via the live osano.js.</span>
           </div>
         </div>
-      </div>
-
-      <p class="section-label">Implementation</p>
-      <div class="code-block">
-        <div class="code-head"><span>Script Tag · HTML Head</span><button class="copy-btn" onclick="copyText('cc-snippet')">Copy</button></div>
-        <pre id="cc-snippet"><span class="cmt">&lt;!-- Paste inside &lt;head&gt; --&gt;</span>
-<span class="kw">&lt;script</span> <span class="attr">src</span>=<span class="str">"https://cmp.osano.com/AzZcpvRm9bbsqngN/
-7fdaff7c-c6fe-4d31-8e57-0d08ee29dbaf/osano.js"</span><span class="kw">&gt;&lt;/script&gt;</span>
-
-<span class="cmt">// Programmatic API</span>
-Osano.cm.showDrawer(<span class="str">'osano-cm-dom-info-dialog-open'</span>);
-
-window.addEventListener(<span class="str">'osano_consentSaved'</span>, (e) =&gt; {
-  console.log(<span class="str">'Consent:'</span>, e.detail);
-});</pre>
       </div>
 
       <button class="adv-btn" onclick="showPage('pg-adv')">
@@ -385,49 +288,48 @@ window.addEventListener(<span class="str">'osano_consentSaved'</span>, (e) =&gt;
       </button>
     </div>
 
-    <!-- RIGHT COL: Live preview -->
-    <div class="cc-right">
-      <p class="section-label">Live Banner Preview</p>
+    <!-- RIGHT -->
+    <div>
+      <span class="section-label">Live Osano Banner</span>
       <div class="panel">
         <div class="panel-head">
-          Banner variant for selected location
+          Regulation for selected location
           <span id="variant-tag" style="font-size:.7rem;font-weight:600;padding:2px 8px;background:var(--teal-light);color:#0a6e60;border-radius:100px">—</span>
         </div>
         <div class="panel-body">
-          <div class="preview-wrap" id="banner-preview-wrap">
-            <span class="preview-label">Banner Preview</span>
-            <p style="font-size:.8rem;color:var(--text-3);text-align:center;width:100%">Select a location on the left to preview the banner variant.</p>
-          </div>
-          <div id="geo-framework-info" style="display:none;margin-top:1rem">
+          <div id="geo-framework-info" style="display:none;margin-bottom:1rem">
             <div class="callout blue">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
               <span id="framework-text"></span>
             </div>
           </div>
+          <div class="live-banner-frame">
+            <p>The live Osano banner is injected by <strong>osano.js</strong> exactly as configured in your Osano dashboard — including your real banner text, colors, and button layout. Click below to clear consent cookies and trigger it now.</p>
+            <button class="trigger-btn" onclick="clearAndShowOsano()">
+              <svg viewBox="0 0 24 24"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+              Clear Consent &amp; Show Live Banner
+            </button>
+            <p style="font-size:.72rem;color:var(--text-3);margin-top:0">Any changes saved in your Osano dashboard appear here immediately after clearing consent.</p>
+          </div>
         </div>
       </div>
 
-      <p class="section-label" style="margin-top:1.5rem">Osano Script Status</p>
+      <span class="section-label" style="margin-top:1.5rem;display:block">Script Status</span>
       <div class="panel">
-        <div class="panel-head">Live script detection</div>
+        <div class="panel-head">Live osano.js detection</div>
         <div class="panel-body">
           <div id="osano-status-block">
             <p style="font-size:.82rem;color:var(--text-2)">Checking for Osano script…</p>
           </div>
-          <div class="callout teal" style="margin-top:.85rem">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-            <span>This page loads your real Osano script. Any changes made in your Osano dashboard (banner text, categories, appearance) will reflect here after a page refresh, since consent is cleared on each visit.</span>
-          </div>
         </div>
       </div>
     </div>
+
   </div>
 </div>
 
 
-<!-- ═══════════════════════════════════
-     DSAR PAGE
-═══════════════════════════════════ -->
+<!-- ═══════════════ DSAR PAGE ═══════════════ -->
 <div id="pg-dsar" class="page">
   <nav class="main-nav">
     <span class="nav-logo">osano<span>.</span></span>
@@ -442,18 +344,7 @@ window.addEventListener(<span class="str">'osano_consentSaved'</span>, (e) =&gt;
   </div>
   <div class="dsar-layout">
     <h2 style="font-family:'DM Serif Display',serif;font-size:1.8rem;margin-bottom:.4rem">DSAR Request Form</h2>
-    <p style="font-size:.9rem;color:var(--text-2);margin-bottom:2rem;line-height:1.65">Osano DSAR embeds a privacy request intake form into your website. Submissions are automatically routed, identity-verified, and tracked against regulatory deadlines.</p>
-
-    <div class="code-block" style="margin-bottom:1.75rem">
-      <div class="code-head"><span>Embed Snippet · HTML</span><button class="copy-btn" onclick="copyText('dsar-snippet')">Copy</button></div>
-      <pre id="dsar-snippet"><span class="cmt">&lt;!-- Drop anywhere on your page --&gt;</span>
-<span class="kw">&lt;div</span> <span class="attr">id</span>=<span class="str">"osano-dsar-widget"</span><span class="kw">&gt;&lt;/div&gt;</span>
-
-<span class="kw">&lt;script</span> <span class="attr">src</span>=<span class="str">"https://privacyportal.onetrust.com/
-  embeddedRequestForm/YOUR_WORKFLOW_UUID"</span>
-  <span class="attr">charset</span>=<span class="str">"UTF-8"</span><span class="kw">&gt;&lt;/script&gt;</span></pre>
-    </div>
-
+    <p style="font-size:.9rem;color:var(--text-2);margin-bottom:2rem;line-height:1.65">Submit a privacy request. Osano automatically routes, identity-verifies, and tracks against regulatory deadlines.</p>
     <div class="dsar-form-wrap">
       <div id="dsar-form">
         <div class="form-grid" style="margin-bottom:1rem">
@@ -491,7 +382,7 @@ window.addEventListener(<span class="str">'osano_consentSaved'</span>, (e) =&gt;
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
         <p style="font-weight:600;font-size:1rem;margin-bottom:.4rem">Request submitted</p>
-        <p style="font-size:.83rem;color:var(--text-2);line-height:1.6;margin-bottom:1.25rem">Reference ID: <strong id="dsar-ref"></strong><br/>Osano has started the response clock and sent a verification email to the address provided.</p>
+        <p style="font-size:.83rem;color:var(--text-2);line-height:1.6;margin-bottom:1.25rem">Reference ID: <strong id="dsar-ref"></strong><br/>Osano has started the response clock and sent a verification email.</p>
         <button class="submit-btn" style="background:var(--teal)" onclick="resetDSAR()">Submit another</button>
       </div>
     </div>
@@ -499,9 +390,7 @@ window.addEventListener(<span class="str">'osano_consentSaved'</span>, (e) =&gt;
 </div>
 
 
-<!-- ═══════════════════════════════════
-     ADVANCED SETTINGS PAGE
-═══════════════════════════════════ -->
+<!-- ═══════════════ ADVANCED SETTINGS PAGE ═══════════════ -->
 <div id="pg-adv" class="page">
   <nav class="main-nav">
     <span class="nav-logo">osano<span>.</span></span>
@@ -514,68 +403,38 @@ window.addEventListener(<span class="str">'osano_consentSaved'</span>, (e) =&gt;
     <span class="subnav-div">|</span>
     <span class="subnav-title">Advanced Settings</span>
   </div>
-
   <div class="adv-layout">
-    <!-- LEFT: toggles -->
     <div class="adv-left">
 
       <div class="adv-section">
         <div class="adv-section-title">Frameworks</div>
-
         <div class="adv-toggle-row">
           <button class="adv-tog on" id="at-gpc" onclick="toggleAdv('gpc')"></button>
-          <div class="adv-tog-info">
-            <strong onclick="highlightEffect('gpc')">Support Global Privacy Control (GPC)</strong>
-            <p>When enabled, visitors using a GPC-compliant browser or extension will have their signal automatically applied to their consent settings.</p>
-          </div>
+          <div class="adv-tog-info"><strong onclick="highlightEffect('gpc')">Support Global Privacy Control (GPC)</strong><p>Visitors using a GPC-compliant browser or extension will have their signal automatically applied to their consent settings. When disabled, GPC signals will not be honored.</p></div>
         </div>
-
         <div class="adv-toggle-row">
           <button class="adv-tog on" id="at-dnt" onclick="toggleAdv('dnt')"></button>
-          <div class="adv-tog-info">
-            <strong onclick="highlightEffect('dnt')">Support Do Not Track</strong>
-            <p>When enabled, visitors using a browser that sends a Do Not Track signal will have it automatically applied to their consent settings.</p>
-          </div>
+          <div class="adv-tog-info"><strong onclick="highlightEffect('dnt')">Support Do Not Track</strong><p>Visitors using a browser that sends a Do Not Track signal will have it automatically applied to their consent settings. When disabled, DNT signals will not be honored.</p></div>
         </div>
-
         <div class="adv-toggle-row">
           <button class="adv-tog off" id="at-iab" onclick="toggleAdv('iab')"></button>
-          <div class="adv-tog-info">
-            <strong onclick="highlightEffect('iab')">IAB GPP &amp; EU TCF 2.x Frameworks</strong>
-            <p>When enabled, Osano CMP will implement the IAB Global Privacy Platform and IAB EU TCF 2.x Frameworks along with their respective APIs.</p>
-          </div>
+          <div class="adv-tog-info"><strong onclick="highlightEffect('iab')">IAB GPP &amp; EU TCF 2.x Frameworks</strong><p>When enabled, Osano CMP will implement the IAB Global Privacy Platform and IAB EU TCF 2.x Frameworks along with their respective APIs.</p></div>
         </div>
-
         <div class="adv-toggle-row">
           <button class="adv-tog off" id="at-iabUS" onclick="toggleAdv('iabUS')"></button>
-          <div class="adv-tog-info">
-            <strong onclick="highlightEffect('iabUS')">IAB US Privacy String Notice Confirmation</strong>
-            <p>By enabling this toggle, Customer confirms they have provided consumer notice and Do Not Sell or Share links under applicable regulations.</p>
-          </div>
+          <div class="adv-tog-info"><strong onclick="highlightEffect('iabUS')">IAB US Privacy String Notice Confirmation</strong><p>By enabling this toggle, Customer confirms they have provided consumer notice and Do Not Sell or Share links under applicable regulations and laws.</p></div>
         </div>
-
         <div class="adv-toggle-row">
           <button class="adv-tog on" id="at-gcm" onclick="toggleAdv('gcm')"></button>
-          <div class="adv-tog-info">
-            <strong onclick="highlightEffect('gcm')">Google Consent Mode</strong>
-            <p>When enabled, Google Consent Mode for Google Analytics is supported. GCM must be implemented via your Google configuration for this option to function.</p>
-          </div>
+          <div class="adv-tog-info"><strong onclick="highlightEffect('gcm')">Google Consent Mode</strong><p>Google Consent Mode for Google Analytics is supported. GCM must be implemented via your Google configuration for this option to function.</p></div>
         </div>
-
         <div class="adv-toggle-row">
           <button class="adv-tog off" id="at-amz" onclick="toggleAdv('amz')"></button>
-          <div class="adv-tog-info">
-            <strong onclick="highlightEffect('amz')">Amazon Consent</strong>
-            <p>When enabled, Amazon Consent Signal will be shared with Amazon Ads scripts on your site.</p>
-          </div>
+          <div class="adv-tog-info"><strong onclick="highlightEffect('amz')">Amazon Consent</strong><p>Amazon Consent Signal will be shared with Amazon Ads scripts on your site. If you're not using Amazon Ads scripts, leave this off.</p></div>
         </div>
-
         <div class="adv-toggle-row">
           <button class="adv-tog off" id="at-ms" onclick="toggleAdv('ms')"></button>
-          <div class="adv-tog-info">
-            <strong onclick="highlightEffect('ms')">Microsoft UET Consent Mode</strong>
-            <p>When enabled, Osano will share user consent choices with Microsoft UET. Note: incompatible with IAB TCF 2.x consent signals.</p>
-          </div>
+          <div class="adv-tog-info"><strong onclick="highlightEffect('ms')">Microsoft UET Consent Mode</strong><p>Osano will share user consent choices with Microsoft UET. Note: incompatible with IAB TCF 2.x consent signals.</p></div>
         </div>
       </div>
 
@@ -583,351 +442,221 @@ window.addEventListener(<span class="str">'osano_consentSaved'</span>, (e) =&gt;
         <div class="adv-section-title">Performance</div>
         <div class="adv-toggle-row">
           <button class="adv-tog off" id="at-split" onclick="toggleAdv('split')"></button>
-          <div class="adv-tog-info">
-            <strong onclick="highlightEffect('split')">Split Payload</strong>
-            <p>When enabled, osano.js is segmented into a reduced initial payload and additional requests are made as needed. May improve site render performance.</p>
-          </div>
+          <div class="adv-tog-info"><strong onclick="highlightEffect('split')">Split Payload</strong><p>osano.js is segmented into a reduced initial payload; additional requests are made as needed. This may help your site render more efficiently.</p></div>
         </div>
       </div>
 
       <div class="adv-section">
         <div class="adv-section-title">Experience</div>
-
         <div class="adv-toggle-row">
           <button class="adv-tog on" id="at-curated" onclick="toggleAdv('curated')"></button>
-          <div class="adv-tog-info">
-            <strong onclick="highlightEffect('curated')">Curated Block List</strong>
-            <p>When enabled, Osano automatically blocks a curated list of scripts and cookies in regions where their usage has been declared illegal.</p>
-          </div>
+          <div class="adv-tog-info"><strong onclick="highlightEffect('curated')">Curated Block List</strong><p>Osano automatically blocks a curated list of scripts and cookies in regions where their specific usage has been declared illegal by regulatory bodies.</p></div>
         </div>
-
         <div class="adv-toggle-row">
           <button class="adv-tog off" id="at-uuid" onclick="toggleAdv('uuid')"></button>
-          <div class="adv-tog-info">
-            <strong onclick="highlightEffect('uuid')">Add Consent UUID to Preference Drawer</strong>
-            <p>When enabled, the end user's consent UUID will be present in the Preference Drawer with a copy button.</p>
-          </div>
+          <div class="adv-tog-info"><strong onclick="highlightEffect('uuid')">Add Consent UUID to Preference Drawer</strong><p>The end user's consent UUID will be present in the Preference Drawer with a copy button. When disabled, users must access their Osano cookie in the browser.</p></div>
         </div>
-
         <div class="adv-toggle-row">
           <button class="adv-tog on" id="at-firstlayer" onclick="toggleAdv('firstlayer')"></button>
-          <div class="adv-tog-info">
-            <strong onclick="highlightEffect('firstlayer')">First Layer Categories</strong>
-            <p>When enabled, users in EEA member countries and the UK are shown cookie category toggles directly in the banner. When disabled, category toggles are only in the preference drawer.</p>
-          </div>
+          <div class="adv-tog-info"><strong onclick="highlightEffect('firstlayer')">First Layer Categories</strong><p>Users in EEA member countries and the UK are shown cookie category toggles in the banner. When disabled, category toggles only appear in the preference drawer.</p></div>
         </div>
-
         <div class="adv-toggle-row">
           <button class="adv-tog off" id="at-manpref" onclick="toggleAdv('manpref')"></button>
-          <div class="adv-tog-info">
-            <strong onclick="highlightEffect('manpref')">Add Manage Preferences Button</strong>
-            <p>When enabled, a Manage Preferences button will be present on banner templates 1 and 3.</p>
-          </div>
+          <div class="adv-tog-info"><strong onclick="highlightEffect('manpref')">Add Manage Preferences Button</strong><p>A Manage Preferences button will be present on banner templates 1 and 3. When disabled, these templates will have no Manage Preferences button.</p></div>
         </div>
-
         <div class="adv-toggle-row">
           <button class="adv-tog off" id="at-usstate" onclick="toggleAdv('usstate')"></button>
-          <div class="adv-tog-info">
-            <strong onclick="highlightEffect('usstate')">US State Level Legislation Opt-Out Banner Format</strong>
-            <p>When enabled, visitors in states with active privacy legislation will be shown banner format 1 (implied consent/opt-out). When disabled, banner format 3 is shown (explicit opt-in required).</p>
-          </div>
+          <div class="adv-tog-info"><strong onclick="highlightEffect('usstate')">US State Level Legislation Opt-Out Banner Format</strong><p>Visitors in states with active privacy legislation are shown banner format 1 (implied consent). When disabled, banner format 3 is shown (explicit opt-in required).</p></div>
         </div>
-
         <div class="adv-toggle-row">
           <button class="adv-tog off" id="at-crossdomain" onclick="toggleAdv('crossdomain')"></button>
-          <div class="adv-tog-info">
-            <strong onclick="highlightEffect('crossdomain')">Cross Domain Support</strong>
-            <p>When enabled, user consent from one domain applies to other distinct domains added to the same configuration.</p>
-          </div>
+          <div class="adv-tog-info"><strong onclick="highlightEffect('crossdomain')">Cross Domain Support</strong><p>User consent from one domain applies to other distinct domains in the same configuration. When disabled, consent only applies to the single domain.</p></div>
         </div>
-
         <div class="adv-toggle-row">
           <button class="adv-tog off" id="at-delstorage" onclick="toggleAdv('delstorage')"></button>
-          <div class="adv-tog-info">
-            <strong onclick="highlightEffect('delstorage')">Delete Storage on Category Opt-Out</strong>
-            <p>When enabled, cookies and local storage items belonging to a consent category will be automatically deleted when a user withdraws consent. Warning: may break third-party functionality.</p>
-          </div>
+          <div class="adv-tog-info"><strong onclick="highlightEffect('delstorage')">Delete Storage on Category Opt-Out</strong><p>Cookies and local storage items belonging to a consent category will be automatically deleted when a user withdraws consent. Warning: may break third-party functionality.</p></div>
         </div>
       </div>
     </div>
 
-    <!-- RIGHT: preview panel -->
     <div class="adv-right">
       <div class="preview-panel">
         <div class="preview-panel-head">Active Setting Effects</div>
         <div class="preview-panel-body">
-          <p style="font-size:.75rem;color:var(--text-3);margin-bottom:1rem">Toggle settings on the left to see what effect each has on your site and visitors. Click a setting name to highlight its effect.</p>
+          <p style="font-size:.75rem;color:var(--text-3);margin-bottom:1rem">Toggle settings on the left or click a setting name to see its effect.</p>
           <div class="active-effects-list" id="adv-effects-list">
-            <p class="preview-none">No active setting effects to display yet.</p>
+            <p style="font-size:.82rem;font-style:italic;color:var(--text-3)">No active effects yet.</p>
           </div>
         </div>
       </div>
-
       <div class="preview-panel" style="margin-top:1.5rem">
         <div class="preview-panel-head" id="highlighted-setting-name">Setting Preview</div>
         <div class="preview-panel-body" id="highlighted-setting-body">
-          <p class="preview-none">Click a setting name to see a detailed preview of its effect.</p>
+          <p style="font-size:.82rem;font-style:italic;color:var(--text-3)">Click a setting name to see a detailed preview.</p>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Live Osano banner trigger -->
 <div id="toast" class="toast"></div>
 
 <script>
-// ══════════════════════════════
-// PAGE ROUTING
-// ══════════════════════════════
+// ── PAGE ROUTING ──
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
-  if(id==='pg-cc'){
-    setTimeout(checkOsanoStatus,400);
-    // Clear Osano consent to simulate fresh visit
-    try{
-      if(window.Osano && Osano.cm){
-        Osano.cm.eraseCookie && Osano.cm.eraseCookie();
-      }
-    }catch(e){}
-  }
+  if(id==='pg-cc') setTimeout(checkOsanoStatus,500);
 }
 
-// ══════════════════════════════
-// TOAST
-// ══════════════════════════════
+// ── TOAST ──
 let _t;
 function showToast(msg){
   const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  clearTimeout(_t);_t=setTimeout(()=>t.classList.remove('show'),2600);
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(_t); _t=setTimeout(()=>t.classList.remove('show'),2600);
 }
 
-// ══════════════════════════════
-// COPY
-// ══════════════════════════════
-function copyText(id){
-  const text=document.getElementById(id).innerText;
-  navigator.clipboard.writeText(text).then(()=>showToast('Copied to clipboard ✓')).catch(()=>showToast('Copy failed'));
-}
+// ── OSANO: clear consent & trigger live banner ──
+function clearAndShowOsano(){
+  // Wipe all Osano consent cookies
+  ['osano_consentmanager','osano_consentmanager_uuid','osano_consentmanager_expdate'].forEach(name=>{
+    document.cookie=name+'=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    document.cookie=name+'=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain='+location.hostname+';';
+  });
+  try{ Object.keys(localStorage).filter(k=>k.toLowerCase().includes('osano')).forEach(k=>localStorage.removeItem(k)); }catch(e){}
+  try{ if(window.Osano&&Osano.cm&&Osano.cm.eraseCookie) Osano.cm.eraseCookie(); }catch(e){}
 
-// ══════════════════════════════
-// OSANO BANNER TRIGGER
-// ══════════════════════════════
-function showOsanoBanner(){
-  try{
-    if(window.Osano && Osano.cm){
+  // Show the real Osano consent dialog
+  if(window.Osano&&Osano.cm){
+    try{
       Osano.cm.showDrawer('osano-cm-dom-info-dialog-open');
-      showToast('Opening Osano preference center…');
-    } else {
-      showToast('Osano script loading — try again in a moment');
+      showToast('Consent cleared — live Osano banner displayed');
+    }catch(e){
+      showToast('Reloading to show fresh banner…');
+      setTimeout(()=>location.reload(),900);
     }
-  }catch(e){showToast('Osano: '+e.message)}
+  } else {
+    showToast('Osano script not ready — try again in a moment');
+  }
 }
 
+// ── Open preference center drawer ──
+function openPreferenceCenter(){
+  if(window.Osano&&Osano.cm){
+    try{ Osano.cm.showDrawer('osano-cm-dom-info-dialog-open'); showToast('Opening Osano preference center…'); }
+    catch(e){ showToast('Error: '+e.message); }
+  } else { showToast('Osano script loading — try again shortly'); }
+}
+
+// ── OSANO STATUS CHECK ──
 function checkOsanoStatus(){
   const el=document.getElementById('osano-status-block');
-  if(!el)return;
-  if(window.Osano && Osano.cm){
+  if(!el) return;
+  if(window.Osano&&Osano.cm){
     el.innerHTML=`<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
-      <span style="width:9px;height:9px;background:#00a896;border-radius:50%;display:inline-block"></span>
-      <span style="font-size:.83rem;font-weight:600;color:#0a6e60">Osano script active</span>
+      <span class="status-dot" style="background:#00a896"></span>
+      <span style="font-size:.83rem;font-weight:600;color:#0a6e60">osano.js active</span>
     </div>
-    <p style="font-size:.78rem;color:var(--text-2)">Script loaded successfully. The live consent banner from your Osano configuration will fire based on visitor jurisdiction. Consent cookies are cleared on each visit to this demo page.</p>`;
+    <p style="font-size:.78rem;color:var(--text-2);line-height:1.55">Script loaded and running. Changes made in your Osano dashboard — banner text, category names, button labels, colors — are reflected the moment you clear consent and retrigger the banner.</p>`;
   } else {
     el.innerHTML=`<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
-      <span style="width:9px;height:9px;background:#e2a000;border-radius:50%;display:inline-block"></span>
-      <span style="font-size:.83rem;font-weight:600;color:#7a4f00">Osano script initializing…</span>
+      <span class="status-dot" style="background:#e2a000"></span>
+      <span style="font-size:.83rem;font-weight:600;color:#7a4f00">Initializing…</span>
     </div>
     <p style="font-size:.78rem;color:var(--text-2)">The Osano script is loading. Refresh if the banner does not appear automatically.</p>`;
+    setTimeout(checkOsanoStatus,1500);
   }
 }
 
-// ══════════════════════════════
-// CONSENT CAT TOGGLES
-// ══════════════════════════════
-const catState={analytics:false,targeting:false,functional:false};
-function toggleCat(cat){
-  catState[cat]=!catState[cat];
-  const btn=document.getElementById('tog-'+cat);
-  const lbl=document.getElementById('lbl-'+cat);
-  btn.className='tog-btn '+(catState[cat]?'on':'off');
-  lbl.textContent=catState[cat]?'On':'Off';
-  showToast('Consent preference updated');
-}
+// ── GEO DATA ──
+// Exact regions per Osano's official documentation:
+// Template 3 (Explicit Opt-In / GDPR): EEA + UK + Monaco
+// Template 3 (Explicit Opt-In / Other laws): Bahrain, Brazil, Israel + active US privacy states
+// Template 1 (Notice / Opt-Out): Canada (excl. Quebec), Japan, Russia + US default (non-privacy-law states)
+// Template 2 (Notice-Only): All other unspecified countries
 
-// ══════════════════════════════
-// GEO SELECTOR DATA
-// ══════════════════════════════
-const US_STATES=['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
+const GDPR_COUNTRIES=new Set(['Austria','Belgium','Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Finland','France','Germany','Greece','Hungary','Iceland','Ireland','Italy','Latvia','Liechtenstein','Lithuania','Luxembourg','Malta','Monaco','Netherlands','Norway','Poland','Portugal','Romania','Slovakia','Slovenia','Spain','Sweden','Switzerland','United Kingdom']);
 
-// States with active US privacy legislation (CCPA/state laws)
-const US_PRIVACY_STATES=['California','Colorado','Connecticut','Virginia','Utah','Montana','Texas','Oregon','Florida','Delaware','New Hampshire','New Jersey','Tennessee','Iowa','Nebraska','Maryland'];
+// US states with active privacy legislation (Osano's exact list)
+const US_PRIVACY_STATES=new Set(['California','Colorado','Connecticut','Delaware','Indiana','Iowa','Kentucky','Maryland','Minnesota','Montana','Nebraska','New Hampshire','New Jersey','Oregon','Rhode Island','Tennessee','Texas','Utah','Virginia']);
+
+// Template 3 non-GDPR countries
+const OPT_IN_OTHER=new Set(['Brazil','Bahrain','Israel']);
+
+// Template 1 (notice/opt-out) countries
+const NOTICE_COUNTRIES=new Set(['Canada','Japan','Russia']);
 
 const GEO_DATA={
-  'europe':{
-    label:'Europe',
-    countries:['Austria','Belgium','Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Finland','France','Germany','Greece','Hungary','Ireland','Italy','Latvia','Lithuania','Luxembourg','Malta','Netherlands','Poland','Portugal','Romania','Slovakia','Slovenia','Spain','Sweden','United Kingdom','Norway','Switzerland']
-  },
-  'north-america':{
-    label:'North America',
-    countries:['United States','Canada','Mexico','Guatemala','Cuba','Haiti','Dominican Republic','Honduras','El Salvador','Nicaragua','Costa Rica','Panama']
-  },
-  'south-america':{
-    label:'South America',
-    countries:['Brazil','Argentina','Colombia','Chile','Peru','Venezuela','Ecuador','Bolivia','Paraguay','Uruguay','Guyana','Suriname']
-  },
-  'asia':{
-    label:'Asia',
-    countries:['China','India','Japan','South Korea','Indonesia','Thailand','Vietnam','Philippines','Malaysia','Singapore','Bangladesh','Pakistan','Sri Lanka','Nepal','Myanmar','Cambodia']
-  },
-  'africa':{
-    label:'Africa',
-    countries:['Nigeria','South Africa','Kenya','Ethiopia','Ghana','Tanzania','Uganda','Egypt','Morocco','Tunisia','Algeria','Senegal','Rwanda','Ivory Coast']
-  },
-  'oceania':{
-    label:'Oceania',
-    countries:['Australia','New Zealand','Fiji','Papua New Guinea','Samoa','Tonga','Vanuatu']
-  },
-  'middle-east':{
-    label:'Middle East',
-    countries:['Saudi Arabia','UAE','Israel','Turkey','Iran','Iraq','Jordan','Lebanon','Kuwait','Qatar','Bahrain','Oman']
-  }
+  'europe':{countries:['Austria','Belgium','Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Finland','France','Germany','Greece','Hungary','Iceland','Ireland','Italy','Latvia','Liechtenstein','Lithuania','Luxembourg','Malta','Monaco','Netherlands','Norway','Poland','Portugal','Romania','Slovakia','Slovenia','Spain','Sweden','Switzerland','United Kingdom','Albania','Armenia','Azerbaijan','Belarus','Bosnia and Herzegovina','Georgia','Kosovo','Moldova','North Macedonia','Serbia','Ukraine']},
+  'north-america':{countries:['United States','Canada','Mexico','Guatemala','Cuba','Haiti','Dominican Republic','Honduras','El Salvador','Nicaragua','Costa Rica','Panama','Jamaica','Trinidad and Tobago','Barbados']},
+  'south-america':{countries:['Brazil','Argentina','Colombia','Chile','Peru','Venezuela','Ecuador','Bolivia','Paraguay','Uruguay','Guyana','Suriname']},
+  'asia':{countries:['China','India','Japan','South Korea','Indonesia','Thailand','Vietnam','Philippines','Malaysia','Singapore','Bangladesh','Pakistan','Sri Lanka','Nepal','Myanmar','Cambodia','Taiwan','Hong Kong','Macau','Kazakhstan','Uzbekistan','Mongolia']},
+  'africa':{countries:['Nigeria','South Africa','Kenya','Ethiopia','Ghana','Tanzania','Uganda','Egypt','Morocco','Tunisia','Algeria','Senegal','Rwanda','Ivory Coast','Angola','Mozambique','Madagascar','Zimbabwe','Cameroon','Zambia']},
+  'oceania':{countries:['Australia','New Zealand','Fiji','Papua New Guinea','Samoa','Tonga','Vanuatu','Solomon Islands']},
+  'middle-east':{countries:['Saudi Arabia','UAE','Israel','Turkey','Iran','Iraq','Jordan','Lebanon','Kuwait','Qatar','Bahrain','Oman','Yemen','Syria']}
 };
 
-// Banner rules per country
-const GDPR_COUNTRIES=['Austria','Belgium','Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Finland','France','Germany','Greece','Hungary','Ireland','Italy','Latvia','Lithuania','Luxembourg','Malta','Netherlands','Poland','Portugal','Romania','Slovakia','Slovenia','Spain','Sweden','United Kingdom','Norway','Switzerland','Iceland','Liechtenstein'];
-const LGPD_COUNTRIES=['Brazil'];
-const PIPEDA_COUNTRIES=['Canada'];
-const PDPA_COUNTRIES=['Thailand','Singapore','Malaysia'];
-const APPI_COUNTRIES=['Japan'];
+const US_STATES=['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
 
 function getBannerInfo(country,state){
-  if(GDPR_COUNTRIES.includes(country)){
+  if(GDPR_COUNTRIES.has(country)){
     return{
-      badge:'GDPR / ePrivacy — Opt-In Required',cls:'badge-gdpr',
-      variant:'Template 3 (Explicit Opt-In)',
-      framework:'GDPR',
-      explain:'GDPR requires explicit, informed consent before setting non-essential cookies. Osano serves an opt-in banner with category-level granularity.',
-      frameworkText:'GDPR & ePrivacy Directive apply. Explicit consent required before any non-essential cookies are set. IAB TCF 2.x may also apply if enabled in Advanced Settings.',
-      bannerType:'gdpr'
+      badge:'GDPR — Template 3 (Opt-In)',cls:'badge-gdpr',
+      variant:'Template 3 — Explicit Opt-In',
+      frameworkText:`${country} is covered under GDPR / ePrivacy. Osano serves Template 3: an explicit opt-in banner requiring active consent before any non-essential cookies are set. Category toggles appear in the banner when First Layer Categories is enabled.`
     };
   }
   if(country==='United States'){
-    if(state && US_PRIVACY_STATES.includes(state)){
+    const s=state||'';
+    if(US_PRIVACY_STATES.has(s)){
       return{
-        badge:'CCPA / State Privacy Law — Opt-Out',cls:'badge-ccpa',
-        variant:'Template 1 (Opt-Out / Notice)',
-        framework:'CCPA/State',
-        explain:`${state} has active privacy legislation. Osano serves a notice-and-opt-out banner. Consent is implied unless the user opts out.`,
-        frameworkText:`${state} is covered under US state privacy law. Osano uses Template 1 (implied consent) unless "US State Level Legislation Opt-Out Banner Format" is disabled in Advanced Settings, which switches to Template 3.`,
-        bannerType:'ccpa'
+        badge:'State Privacy Law — Template 3 (Opt-In)',cls:'badge-gdpr',
+        variant:'Template 3 — Explicit Opt-In',
+        frameworkText:`${s} has active state privacy legislation. Osano serves Template 3 by default (explicit opt-in). If "US State Level Legislation Opt-Out Banner Format" is enabled in Advanced Settings, Template 1 (implied consent / opt-out) is shown instead.`
       };
     }
     return{
-      badge:'No Specific Law — Informational',cls:'badge-none',
-      variant:'Template 1 (Informational)',
-      framework:'None active',
-      explain:`${state||'This US state'} does not currently have active state privacy legislation. Osano may serve an informational banner based on your configuration defaults.`,
-      frameworkText:'No active state-level privacy law detected for this location. Global defaults from your Osano configuration apply.',
-      bannerType:'info'
+      badge:'No State Law — Template 1 (Notice)',cls:'badge-notice',
+      variant:'Template 1 — Notice / Opt-Out',
+      frameworkText:`${s||'This US state'} does not have active state privacy legislation. Osano serves Template 1: a notice-and-opt-out banner where consent is implied unless the visitor opts out.`
     };
   }
-  if(LGPD_COUNTRIES.includes(country)){
+  if(OPT_IN_OTHER.has(country)){
+    const laws={Brazil:'LGPD',Bahrain:'PDPL',Israel:'Privacy Protection Law'};
     return{
-      badge:'LGPD (Brazil) — Opt-In Required',cls:'badge-gdpr',
-      variant:'Template 3 (Explicit Opt-In)',
-      framework:'LGPD',
-      explain:'Brazil\'s LGPD requires a legal basis for data processing including cookies. Osano serves an opt-in banner.',
-      frameworkText:'Brazil\'s Lei Geral de Proteção de Dados (LGPD) requires explicit consent for non-essential cookies.',
-      bannerType:'gdpr'
+      badge:`${laws[country]||'Local Law'} — Template 3 (Opt-In)`,cls:'badge-gdpr',
+      variant:'Template 3 — Explicit Opt-In',
+      frameworkText:`${country} is covered under ${laws[country]||'local privacy law'}. Osano serves Template 3: explicit opt-in required before non-essential cookies are set.`
     };
   }
-  if(PIPEDA_COUNTRIES.includes(country)){
+  if(NOTICE_COUNTRIES.has(country)){
+    const laws={Canada:'PIPEDA / Law 25',Japan:'APPI',Russia:'Federal Law No. 152-FZ'};
     return{
-      badge:'PIPEDA (Canada) — Opt-In',cls:'badge-opt-in',
-      variant:'Template 2 (Opt-In)',
-      framework:'PIPEDA',
-      explain:'Canada\'s PIPEDA and provincial privacy laws require meaningful consent. Osano serves an opt-in banner.',
-      frameworkText:'Canada\'s PIPEDA and provincial laws (e.g. Quebec Law 25) require opt-in consent for non-essential data collection.',
-      bannerType:'gdpr'
+      badge:`${laws[country]||'Local Law'} — Template 1 (Notice)`,cls:'badge-notice',
+      variant:'Template 1 — Notice / Opt-Out',
+      frameworkText:`${country} falls under ${laws[country]||'local privacy regulation'}. Osano serves Template 1: a notice banner informing users of cookie use. Consent is implied unless the visitor opts out.`
     };
   }
   return{
-    badge:'No Specific Regulation Detected',cls:'badge-none',
-    variant:'Default Configuration',
-    framework:'Global default',
-    explain:'No specific privacy regulation detected for this location. Your Osano global default configuration applies.',
-    frameworkText:'Osano applies your global default banner configuration for visitors from this region.',
-    bannerType:'info'
+    badge:'All Other Regions — Template 2 (Notice Only)',cls:'badge-none',
+    variant:'Template 2 — Notice Only',
+    frameworkText:`${country} is not covered by a specific privacy regulation in Osano's region map. Osano serves Template 2: a basic notice-only banner. No specific opt-in or opt-out action is required.`
   };
-}
-
-function renderBanner(type){
-  const wrap=document.getElementById('banner-preview-wrap');
-  if(type==='gdpr'){
-    wrap.innerHTML=`<span class="preview-label">Simulated Banner — GDPR Template 3</span>
-    <div class="sim-banner" style="background:#fff;border:1.5px solid var(--border)">
-      <h4 style="color:var(--text)">🍪 We value your privacy</h4>
-      <p>We use cookies to enhance your browsing experience and analyze site traffic. Please choose your preferences below.</p>
-      <div class="sim-toggles">
-        <div class="sim-tog-row"><span>Strictly Necessary</span><button class="mini-tog on" disabled></button></div>
-        <div class="sim-tog-row"><span>Performance &amp; Analytics</span><button class="mini-tog off" id="sim-tog-a" onclick="simToggle('a')"></button></div>
-        <div class="sim-tog-row"><span>Targeting</span><button class="mini-tog off" id="sim-tog-t" onclick="simToggle('t')"></button></div>
-      </div>
-      <div class="sim-btns">
-        <button class="sim-btn sb-accept">Accept All</button>
-        <button class="sim-btn sb-reject">Reject Optional</button>
-        <button class="sim-btn sb-manage">Save Preferences</button>
-      </div>
-    </div>`;
-  } else if(type==='ccpa'){
-    wrap.innerHTML=`<span class="preview-label">Simulated Banner — CCPA Template 1</span>
-    <div class="sim-banner" style="background:#fff;border:1.5px solid var(--border)">
-      <h4 style="color:var(--text)">Your Privacy Choices</h4>
-      <p>We use cookies and similar technologies. You may opt out of the sale or sharing of your personal information at any time.</p>
-      <div class="sim-btns">
-        <button class="sim-btn sb-confirm">OK / Got It</button>
-        <button class="sim-btn sb-reject">Do Not Sell My Info</button>
-        <button class="sim-btn sb-manage">Manage Preferences</button>
-      </div>
-    </div>`;
-  } else {
-    wrap.innerHTML=`<span class="preview-label">Simulated Banner — Informational</span>
-    <div class="sim-banner" style="background:#fff;border:1.5px solid var(--border)">
-      <h4 style="color:var(--text)">Cookie Notice</h4>
-      <p>This site uses cookies to improve your experience. By continuing, you agree to our use of cookies.</p>
-      <div class="sim-btns">
-        <button class="sim-btn sb-accept">Accept</button>
-        <button class="sim-btn sb-manage">Learn More</button>
-      </div>
-    </div>`;
-  }
-}
-
-let simTogState={a:false,t:false};
-function simToggle(key){
-  simTogState[key]=!simTogState[key];
-  const btn=document.getElementById('sim-tog-'+key);
-  if(btn)btn.className='mini-tog '+(simTogState[key]?'on':'off');
 }
 
 function onContinentChange(){
   const cont=document.getElementById('sel-continent').value;
   const cw=document.getElementById('country-wrap');
   const sw=document.getElementById('state-wrap');
-  const gr=document.getElementById('geo-result');
-  const cc=document.getElementById('sel-country');
-  sw.style.display='none';
-  gr.style.display='none';
+  document.getElementById('geo-result').style.display='none';
   document.getElementById('geo-framework-info').style.display='none';
   document.getElementById('variant-tag').textContent='—';
-  renderBanner('info');
-
+  sw.style.display='none';
   if(!cont){cw.style.display='none';return;}
   cw.style.display='block';
+  const cc=document.getElementById('sel-country');
   cc.innerHTML='<option value="">— Select Country —</option>';
   (GEO_DATA[cont]?.countries||[]).forEach(c=>{
     const o=document.createElement('option');o.value=c;o.textContent=c;cc.appendChild(o);
@@ -937,15 +666,15 @@ function onContinentChange(){
 function onCountryChange(){
   const country=document.getElementById('sel-country').value;
   const sw=document.getElementById('state-wrap');
-  const gr=document.getElementById('geo-result');
-  if(!country){sw.style.display='none';gr.style.display='none';return;}
-
+  document.getElementById('geo-result').style.display='none';
+  if(!country){sw.style.display='none';return;}
   if(country==='United States'){
     sw.style.display='block';
     const ss=document.getElementById('sel-state');
     ss.innerHTML='<option value="">— Select State —</option>';
     US_STATES.forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;ss.appendChild(o);});
-    gr.style.display='none';
+    document.getElementById('geo-framework-info').style.display='none';
+    document.getElementById('variant-tag').textContent='—';
     return;
   }
   sw.style.display='none';
@@ -954,37 +683,39 @@ function onCountryChange(){
 
 function onStateChange(){
   const state=document.getElementById('sel-state').value;
-  if(!state)return;
+  if(!state) return;
   showGeoResult('United States',state);
 }
 
 function showGeoResult(country,state){
   const info=getBannerInfo(country,state);
   const badge=document.getElementById('geo-badge');
-  const explain=document.getElementById('geo-explain');
-  const gr=document.getElementById('geo-result');
   badge.className='banner-badge '+info.cls;
   badge.textContent=info.badge;
-  explain.textContent=info.explain;
-  gr.style.display='block';
-
+  document.getElementById('geo-explain').textContent='';
+  document.getElementById('geo-result').style.display='block';
   document.getElementById('variant-tag').textContent=info.variant;
   document.getElementById('framework-text').textContent=info.frameworkText;
   document.getElementById('geo-framework-info').style.display='block';
-  renderBanner(info.bannerType);
 }
 
-// ══════════════════════════════
-// DSAR
-// ══════════════════════════════
+// ── CONSENT CAT TOGGLES ──
+const catState={analytics:false,targeting:false,functional:false};
+function toggleCat(cat){
+  catState[cat]=!catState[cat];
+  document.getElementById('tog-'+cat).className='tog-btn '+(catState[cat]?'on':'off');
+  document.getElementById('lbl-'+cat).textContent=catState[cat]?'On':'Off';
+  showToast('Preference updated');
+}
+
+// ── DSAR ──
 function submitDSAR(){
   const f=document.getElementById('d-first').value.trim();
   const l=document.getElementById('d-last').value.trim();
   const e=document.getElementById('d-email').value.trim();
   const t=document.getElementById('d-type').value;
   if(!f||!l||!e||!t){showToast('Please fill in all required fields');return;}
-  const ref='DSR-'+Math.random().toString(36).slice(2,8).toUpperCase();
-  document.getElementById('dsar-ref').textContent=ref;
+  document.getElementById('dsar-ref').textContent='DSR-'+Math.random().toString(36).slice(2,8).toUpperCase();
   document.getElementById('dsar-form').style.display='none';
   document.getElementById('dsar-confirm').style.display='block';
 }
@@ -995,37 +726,29 @@ function resetDSAR(){
   document.getElementById('dsar-confirm').style.display='none';
 }
 
-// ══════════════════════════════
-// ADVANCED SETTINGS TOGGLES
-// ══════════════════════════════
-const advState={
-  gpc:true,dnt:true,iab:false,iabUS:false,gcm:true,amz:false,ms:false,
-  split:false,curated:true,uuid:false,firstlayer:true,manpref:false,
-  usstate:false,crossdomain:false,delstorage:false
-};
-
+// ── ADVANCED SETTINGS ──
+const advState={gpc:true,dnt:true,iab:false,iabUS:false,gcm:true,amz:false,ms:false,split:false,curated:true,uuid:false,firstlayer:true,manpref:false,usstate:false,crossdomain:false,delstorage:false};
 const advEffects={
-  gpc:{name:'Global Privacy Control',effect:'Browser GPC signals are automatically honored — visitors using GPC-enabled browsers will have all non-essential cookies blocked without needing to interact with the banner.'},
-  dnt:{name:'Do Not Track',effect:'Browsers sending DNT:1 headers will have non-essential consent automatically denied. Users with DNT enabled won\'t see a banner.'},
-  iab:{name:'IAB GPP & TCF 2.x',effect:'The IAB TCF 2.x string is written to the page. Ad tech vendors read this string to determine consent. Required for IAB-compliant programmatic advertising.'},
-  iabUS:{name:'IAB US Privacy String',effect:'A US Privacy String (1YNN format) is set on the page confirming consumer notice and opt-out links are present per CCPA/state law.'},
-  gcm:{name:'Google Consent Mode',effect:'Osano writes window.dataLayer consent events. Google Analytics and Google Ads adjust data collection behavior (modeling vs. full data) based on user consent choices.'},
-  amz:{name:'Amazon Consent',effect:'Osano signals consent state to Amazon Ads scripts. Amazon ad pixels only fire when the visitor has consented to targeting cookies.'},
-  ms:{name:'Microsoft UET',effect:'Osano shares consent state with Microsoft Universal Event Tracking. UET tag behavior adapts based on whether the visitor has consented.'},
-  split:{name:'Split Payload',effect:'The initial osano.js bundle is smaller — the banner UI assets load on-demand. Reduces time-to-first-byte impact of the consent script, especially on mobile.'},
-  curated:{name:'Curated Block List',effect:'Osano actively blocks scripts on the curated illegal-use list (e.g. certain tracking pixels banned by DPA rulings) before they can fire, regardless of category settings.'},
-  uuid:{name:'Consent UUID in Drawer',effect:'The visitor\'s unique consent record ID is shown in the preference drawer with a copy button — useful for consent audit trail lookups.'},
-  firstlayer:{name:'First Layer Categories',effect:'EEA and UK visitors see category toggles (Necessary, Analytics, Targeting, Functional) directly in the banner — no need to open the preference drawer to make granular choices.'},
-  manpref:{name:'Manage Preferences Button',effect:'A "Manage Preferences" button appears on banner templates 1 & 3, giving visitors a direct path to the preference drawer from the initial banner.'},
-  usstate:{name:'US Opt-Out Banner Format',effect:'US state visitors see Template 1 (notice-and-opt-out, implied consent). When OFF, they see Template 3 (explicit opt-in required), which is stricter.'},
-  crossdomain:{name:'Cross Domain Support',effect:'Consent given on one domain in your configuration is shared across other domains in the same config. Visitors won\'t be re-prompted when navigating between your properties.'},
-  delstorage:{name:'Delete Storage on Opt-Out',effect:'When a visitor withdraws consent from a category, all cookies and localStorage entries for that category are automatically purged — ensuring downstream tracking tools can\'t continue using stale data.'}
+  gpc:{name:'Global Privacy Control (GPC)',effect:'Browsers sending a GPC signal automatically have all non-essential consent denied — no banner interaction required. Visitors with GPC-enabled browsers (e.g. Firefox with Global Privacy Control) are opted out instantly.'},
+  dnt:{name:'Do Not Track',effect:'Browsers sending a DNT:1 header have non-essential consent automatically denied. Users will not see a banner; their preference is applied silently.'},
+  iab:{name:'IAB GPP & TCF 2.x',effect:'The IAB TCF 2.x consent string is written to the page. Ad tech vendors and DSPs read this string to gate data processing. Required for IAB-compliant programmatic advertising ecosystems.'},
+  iabUS:{name:'IAB US Privacy String',effect:'A US Privacy String (1YNN/1YYN format) is set on the page confirming consumer notice and opt-out links are present, as required under CCPA/state law.'},
+  gcm:{name:'Google Consent Mode',effect:'Osano fires window.dataLayer consent events (ad_storage, analytics_storage, etc.). Google Analytics and Google Ads adjust behavior — using modeled data when consent is denied vs. full data when granted.'},
+  amz:{name:'Amazon Consent',effect:'Osano signals consent state to Amazon Ads scripts on the page. Amazon ad pixels only activate when the visitor has consented to targeting cookies.'},
+  ms:{name:'Microsoft UET Consent Mode',effect:'Osano shares consent state with Microsoft UET tags. The UET tag adapts its tracking behavior based on the visitor\'s consent choices.'},
+  split:{name:'Split Payload',effect:'The initial osano.js download is smaller — banner UI assets load on-demand after the initial script. Reduces the blocking impact of the consent script on page load performance.'},
+  curated:{name:'Curated Block List',effect:'Osano actively blocks scripts on its curated illegal-use list (e.g. tracking pixels banned by DPA rulings) before they can fire — regardless of category consent settings.'},
+  uuid:{name:'Consent UUID in Preference Drawer',effect:'The visitor\'s unique consent record ID appears in the preference drawer with a one-click copy button. Useful for matching consent records during audits or DSAR fulfillment.'},
+  firstlayer:{name:'First Layer Categories',effect:'EEA and UK visitors see category toggles (Necessary, Analytics, Targeting, Functional) directly inside the consent banner. When off, toggles only appear in the preference drawer — requiring an extra click.'},
+  manpref:{name:'Manage Preferences Button',effect:'A "Manage Preferences" button appears on banner templates 1 and 3, giving visitors a direct shortcut to the preference drawer from the initial banner view.'},
+  usstate:{name:'US Opt-Out Banner Format',effect:'Visitors in US privacy-law states (CA, CO, CT, etc.) see Template 1 (notice + opt-out, implied consent). When OFF, they see Template 3 (explicit opt-in), which is a stricter standard.'},
+  crossdomain:{name:'Cross Domain Support',effect:'Consent recorded on one domain in your Osano configuration is shared across all other domains in the same config. Visitors won\'t be re-prompted when navigating between your properties.'},
+  delstorage:{name:'Delete Storage on Category Opt-Out',effect:'When a visitor withdraws consent from a category, Osano automatically purges all cookies and localStorage entries for that category — preventing downstream tools from continuing to use stale data.'}
 };
 
 function toggleAdv(key){
   advState[key]=!advState[key];
-  const btn=document.getElementById('at-'+key);
-  btn.className='adv-tog '+(advState[key]?'on':'off');
+  document.getElementById('at-'+key).className='adv-tog '+(advState[key]?'on':'off');
   refreshEffectsList();
   highlightEffect(key);
   showToast((advState[key]?'Enabled: ':'Disabled: ')+advEffects[key].name);
@@ -1034,40 +757,27 @@ function toggleAdv(key){
 function refreshEffectsList(){
   const list=document.getElementById('adv-effects-list');
   const active=Object.keys(advState).filter(k=>advState[k]);
-  if(active.length===0){
-    list.innerHTML='<p class="preview-none">No settings enabled. Toggle settings on the left to see effects.</p>';
-    return;
-  }
+  if(!active.length){list.innerHTML='<p style="font-size:.82rem;font-style:italic;color:var(--text-3)">No settings currently enabled.</p>';return;}
   list.innerHTML=active.map(k=>`<div class="effect-chip"><span><strong style="display:block;margin-bottom:2px">${advEffects[k].name}</strong>${advEffects[k].effect}</span></div>`).join('');
 }
 
 function highlightEffect(key){
-  const nameEl=document.getElementById('highlighted-setting-name');
-  const bodyEl=document.getElementById('highlighted-setting-body');
-  const info=advEffects[key];
-  const on=advState[key];
-  nameEl.textContent=info.name;
-  bodyEl.innerHTML=`
+  const info=advEffects[key]; const on=advState[key];
+  document.getElementById('highlighted-setting-name').textContent=info.name;
+  document.getElementById('highlighted-setting-body').innerHTML=`
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.85rem">
-      <span style="width:9px;height:9px;border-radius:50%;background:${on?'var(--teal)':'#c0d5e4'};display:inline-block"></span>
-      <span style="font-size:.78rem;font-weight:600;color:${on?'#0a6e60':'var(--text-3)'}">${on?'Currently ENABLED':'Currently DISABLED'}</span>
+      <span class="status-dot" style="background:${on?'var(--teal)':'#c0d5e4'}"></span>
+      <span style="font-size:.78rem;font-weight:600;color:${on?'#0a6e60':'var(--text-3)'}">${on?'ENABLED':'DISABLED'}</span>
     </div>
-    <div class="preview-effect">
-      <strong>Effect on your site:</strong>
-      ${info.effect}
-    </div>
-    ${on?`<div class="callout teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><polyline points="20 6 9 17 4 12"/></svg><span>This setting is <strong>active</strong>. Visitors to your site are affected by this behavior now.</span></div>`
-    :`<div class="callout blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>This setting is <strong>disabled</strong>. Enable it in your Osano dashboard and refresh this page to activate the behavior above.</span></div>`}
-  `;
+    <div class="preview-effect"><strong>Effect on your site:</strong>${info.effect}</div>
+    ${on
+      ?'<div class="callout teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><polyline points="20 6 9 17 4 12"/></svg><span>This setting is <strong>active</strong>. Visitors to your site are affected by this behavior now.</span></div>'
+      :'<div class="callout blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>This setting is <strong>disabled</strong>. Enable it in your Osano dashboard and refresh to activate.</span></div>'
+    }`;
 }
 
-// Init effects list on load
 refreshEffectsList();
-
-// Check Osano on window load
-window.addEventListener('load',()=>{
-  setTimeout(checkOsanoStatus,1000);
-});
+window.addEventListener('load',()=>setTimeout(checkOsanoStatus,1000));
 </script>
 </body>
 </html>
