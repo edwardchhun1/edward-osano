@@ -145,6 +145,88 @@ button{font-family:'DM Sans',sans-serif}
 .effect-chip{display:flex;align-items:flex-start;gap:.5rem;padding:.6rem .85rem;background:var(--purple-light);border-radius:7px;font-size:.78rem;color:#3d2db5;line-height:1.45}
 .effect-chip::before{content:'✓';font-weight:700;flex-shrink:0;margin-top:1px}
 
+/* GEO PREVIEW TOOLBAR */
+.gp-toolbar{background:var(--white);border-bottom:1px solid var(--border);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.65rem;flex-wrap:wrap;position:sticky;top:114px;z-index:100}
+.gp-tabs{display:flex;gap:2px;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:3px;flex-shrink:0}
+.gp-tab{padding:.35rem .9rem;border-radius:5px;border:none;font-size:.78rem;font-weight:600;cursor:pointer;color:var(--text-2);background:transparent;transition:all .15s}
+.gp-tab.active{background:var(--purple);color:#fff;box-shadow:0 1px 4px rgba(107,92,231,.3)}
+.gp-sel{font-family:'DM Sans',sans-serif;font-size:.78rem;color:var(--text);background:var(--bg);border:1.5px solid var(--border);border-radius:7px;padding:.35rem .65rem;outline:none;cursor:pointer;transition:border-color .15s}
+.gp-sel:focus{border-color:var(--purple)}
+.gp-signal{display:flex;align-items:center;gap:.45rem;margin-left:auto;background:var(--bg);border:1.5px solid var(--border);border-radius:7px;padding:.3rem .75rem;flex-shrink:0}
+.gp-signal-lbl{font-size:.72rem;font-weight:500;color:var(--text-2);white-space:nowrap}
+.gp-signal-tog{width:32px;height:18px;border-radius:100px;border:none;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0}
+.gp-signal-tog.on{background:var(--teal)}.gp-signal-tog.off{background:#c0d5e4}
+.gp-signal-tog::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:left .2s}
+.gp-signal-tog.on::after{left:16px}
+/* GEO PREVIEW FRAME */
+.gp-frame{background:#cfd8e0;padding:1.25rem;display:flex;justify-content:center;min-height:calc(100vh - 220px)}
+.gp-browser{width:100%;max-width:880px;border-radius:10px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.2);display:flex;flex-direction:column}
+.gp-browserbar{background:#edf1f5;border-bottom:1px solid #d0dae3;padding:.45rem .85rem;display:flex;align-items:center;gap:.6rem}
+.gp-bdots{display:flex;gap:.32rem}
+.gp-bdot{width:10px;height:10px;border-radius:50%}
+.gp-bdot.r{background:#ff5f57}.gp-bdot.y{background:#febc2e}.gp-bdot.g{background:#28c840}
+.gp-burl{flex:1;background:#fff;border:1px solid #d0dae3;border-radius:4px;padding:.2rem .55rem;font-size:.68rem;color:#888;font-family:monospace}
+.gp-tbadge{font-size:.67rem;font-weight:700;padding:.2rem .65rem;border-radius:100px;flex-shrink:0;white-space:nowrap}
+.gp-tbadge.t1{background:#e8edf5;color:var(--navy)}.gp-tbadge.t2{background:#f0f0f0;color:#666}.gp-tbadge.t3{background:var(--purple-light);color:#4a30b0}.gp-tbadge.none{background:var(--bg);color:var(--text-3)}
+.gp-simpage{background:#f5f7f9;position:relative;min-height:420px;overflow:hidden}
+.gp-simcontent{padding:1.5rem}
+.gp-simbar{border-radius:3px;margin-bottom:.45rem}
+.gp-simbar.h{height:14px;background:#dde3e8;width:52%}.gp-simbar.p{height:8px;background:#e5eaee}
+.gp-simbar.w95{width:95%}.gp-simbar.w80{width:80%}.gp-simbar.w88{width:88%}.gp-simbar.w65{width:65%}.gp-simbar.w72{width:72%}
+.gp-sim-img{height:100px;background:#dde5eb;border-radius:6px;margin:.85rem 0}
+.gp-sim-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.75rem}
+.gp-sim-card{height:56px;background:#e2e9ee;border-radius:5px}
+/* BANNER OVERLAY */
+.gp-render-area{position:absolute;inset:0;pointer-events:none}
+.gp-banner-wrap{position:absolute;bottom:0;left:0;right:0}
+.gp-banner{padding:.9rem 1.1rem}
+.gp-banner.t1{background:#fff;border-top:2.5px solid var(--teal);box-shadow:0 -3px 20px rgba(0,0,0,.09)}
+.gp-banner.t2{background:var(--navy-dark);box-shadow:0 -3px 20px rgba(0,0,0,.16)}
+.gp-banner.t3{background:#fff;border-top:2.5px solid var(--purple);box-shadow:0 -3px 20px rgba(0,0,0,.09)}
+.gp-btitle{font-size:.8rem;font-weight:700;margin-bottom:.28rem;color:var(--text)}
+.gp-banner.t2 .gp-btitle{color:#fff}
+.gp-btext{font-size:.7rem;line-height:1.55;color:var(--text-2);margin-bottom:.7rem}
+.gp-banner.t2 .gp-btext{color:rgba(255,255,255,.75)}
+.gp-bcats{display:flex;gap:.38rem;flex-wrap:wrap;margin-bottom:.65rem}
+.gp-bcat{font-size:.64rem;padding:.18rem .5rem;border-radius:100px;display:flex;align-items:center;gap:.28rem;background:var(--bg);border:1px solid var(--border);color:var(--text-2)}
+.gp-bcat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.gp-bcat-dot.on{background:var(--teal)}.gp-bcat-dot.off{background:#bdd0dc}
+.gp-bbtns{display:flex;gap:.4rem;flex-wrap:wrap}
+.gp-bbtn{padding:.34rem .8rem;border-radius:5px;border:none;font-size:.7rem;font-weight:600;cursor:default}
+.gp-bbtn.accept{background:var(--teal);color:#fff}.gp-bbtn.reject{background:transparent;border:1.5px solid var(--border);color:var(--text-2)}.gp-bbtn.manage{background:transparent;border:1.5px solid var(--border);color:var(--text-2)}.gp-bbtn.ok{background:var(--navy);color:#fff}.gp-bbtn.wout{background:transparent;border:1.5px solid rgba(255,255,255,.32);color:#fff}
+/* OPT-OUT OVERLAY */
+.gp-optout-overlay{position:absolute;inset:0;background:rgba(17,37,64,.87);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.65rem;z-index:20}
+.gp-optout-chip{background:var(--teal);color:#fff;font-size:.73rem;font-weight:700;padding:.38rem .9rem;border-radius:100px;display:flex;align-items:center;gap:.38rem}
+.gp-optout-msg{font-size:.75rem;color:rgba(255,255,255,.78);text-align:center;max-width:290px;line-height:1.55}
+/* DRAWER */
+.gp-drawer{position:absolute;top:0;right:0;bottom:0;width:300px;background:#fff;box-shadow:-3px 0 20px rgba(0,0,0,.14);display:flex;flex-direction:column;overflow-y:auto}
+.gp-drawer-hd{background:var(--navy-dark);padding:.9rem 1rem;flex-shrink:0}
+.gp-drawer-hd h4{font-family:'DM Serif Display',serif;font-size:.95rem;color:#fff}
+.gp-drawer-hd p{font-size:.65rem;color:rgba(255,255,255,.7);margin-top:.18rem;line-height:1.45}
+.gp-drawer-bd{padding:.75rem;flex:1}
+.gp-dcat{border:1px solid var(--border);border-radius:7px;margin-bottom:.5rem;overflow:hidden}
+.gp-dcat-hd{padding:.5rem .75rem;background:#f7fbfd;display:flex;justify-content:space-between;align-items:center;font-size:.73rem;font-weight:600;color:var(--text)}
+.gp-dcat-bd{padding:.45rem .75rem;font-size:.65rem;color:var(--text-2);line-height:1.5;border-top:1px solid var(--border)}
+.gp-dtog{width:28px;height:16px;border-radius:100px;border:none;flex-shrink:0;position:relative;cursor:default}
+.gp-dtog.on{background:var(--teal)}.gp-dtog.off{background:#c0d5e4}.gp-dtog.req{background:var(--teal);opacity:.65}
+.gp-dtog::after{content:'';position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:#fff}
+.gp-dtog.on::after,.gp-dtog.req::after{left:14px}
+.gp-drawer-ft{padding:.75rem;border-top:1px solid var(--border);display:flex;gap:.4rem;flex-shrink:0}
+/* WIDGET */
+.gp-widget{position:absolute;bottom:1rem;right:1rem;width:46px;height:46px;border-radius:50%;background:var(--navy);border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.22);cursor:default}
+.gp-widget svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* DNS */
+.gp-dns{padding:1.25rem;max-width:420px}
+.gp-dns h3{font-family:'DM Serif Display',serif;font-size:1rem;margin-bottom:.45rem;color:var(--text)}
+.gp-dns p{font-size:.72rem;color:var(--text-2);line-height:1.6;margin-bottom:.75rem}
+.gp-dns-row{display:flex;align-items:center;justify-content:space-between;padding:.65rem .85rem;background:var(--bg);border:1px solid var(--border);border-radius:7px;margin-bottom:.5rem}
+.gp-dns-info strong{font-size:.75rem;font-weight:600;display:block;color:var(--text)}
+.gp-dns-info span{font-size:.65rem;color:var(--text-3)}
+.gp-dns-tog{width:30px;height:17px;border-radius:100px;border:none;cursor:default;position:relative;background:#c0d5e4}
+.gp-dns-tog::after{content:'';position:absolute;top:2px;left:2px;width:13px;height:13px;border-radius:50%;background:#fff}
+/* NO REGION PLACEHOLDER */
+.gp-no-region{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.gp-no-region p{font-size:.78rem;color:var(--text-3)}
 /* TOAST */
 .toast{display:none;position:fixed;top:76px;right:1.5rem;background:var(--navy);color:#fff;font-size:.83rem;font-weight:500;padding:.65rem 1.1rem;border-radius:8px;z-index:9999;animation:fadeIn .2s}
 .toast.show{display:block}
@@ -209,10 +291,14 @@ button{font-family:'DM Sans',sans-serif}
     <span class="subnav-div">|</span>
     <span class="subnav-title">Cookie Consent</span>
   </div>
-  <div style="padding:2.5rem 2rem">
+  <div style="padding:2.5rem 2rem;display:flex;gap:1rem;flex-wrap:wrap">
     <button class="adv-btn" onclick="showPage('pg-adv')">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       Review Advanced Settings
+    </button>
+    <button class="adv-btn" onclick="showPage('pg-geo-preview')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      Geolocation Preview
     </button>
   </div>
 </div>
@@ -234,6 +320,85 @@ button{font-family:'DM Sans',sans-serif}
 </div>
 
 
+
+<!-- ═══════════════ GEO PREVIEW PAGE ═══════════════ -->
+<div id="pg-geo-preview" class="page">
+  <nav class="main-nav">
+    <span class="nav-logo">osano<span>.</span></span>
+    <span class="nav-pill">Demo Portal</span>
+  </nav>
+  <div class="demo-subnav">
+    <button class="back-btn" onclick="showPage('pg-cc')">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back
+    </button>
+    <span class="subnav-div">|</span>
+    <span class="subnav-title">Geolocation Preview</span>
+  </div>
+  <div class="gp-toolbar">
+    <div class="gp-tabs">
+      <button class="gp-tab active" data-tab="banner" onclick="gpSwitchTab('banner')">Banner</button>
+      <button class="gp-tab" data-tab="drawer" onclick="gpSwitchTab('drawer')">Drawer</button>
+      <button class="gp-tab" data-tab="widget" onclick="gpSwitchTab('widget')">Widget</button>
+      <button class="gp-tab" data-tab="dns" onclick="gpSwitchTab('dns')">Do Not Sell</button>
+    </div>
+    <select class="gp-sel" id="gp-cont" onchange="gpContinentChange()">
+      <option value="">— Continent —</option>
+      <option value="europe">Europe</option>
+      <option value="north-america">North America</option>
+      <option value="south-america">South America</option>
+      <option value="asia">Asia</option>
+      <option value="africa">Africa</option>
+      <option value="oceania">Oceania</option>
+      <option value="middle-east">Middle East</option>
+    </select>
+    <select class="gp-sel" id="gp-country" style="display:none" onchange="gpCountryChange()"></select>
+    <select class="gp-sel" id="gp-state" style="display:none" onchange="gpStateChange()"></select>
+    <select class="gp-sel" id="gp-locale" onchange="gpLocaleChange()">
+      <option value="en">English</option>
+      <option value="fr">French</option>
+      <option value="de">German</option>
+      <option value="es">Spanish</option>
+      <option value="pt">Portuguese</option>
+      <option value="ja">Japanese</option>
+      <option value="it">Italian</option>
+    </select>
+    <div class="gp-signal">
+      <span class="gp-signal-lbl">Simulate Opt-Out Signal</span>
+      <button class="gp-signal-tog off" id="gp-sig-tog" onclick="gpToggleOptOut()"></button>
+    </div>
+  </div>
+  <div class="gp-frame">
+    <div class="gp-browser">
+      <div class="gp-browserbar">
+        <div class="gp-bdots">
+          <div class="gp-bdot r"></div><div class="gp-bdot y"></div><div class="gp-bdot g"></div>
+        </div>
+        <div class="gp-burl">https://example.com</div>
+        <span class="gp-tbadge none" id="gp-badge">Select a region</span>
+      </div>
+      <div class="gp-simpage">
+        <div class="gp-simcontent">
+          <div class="gp-simbar h"></div>
+          <div class="gp-simbar p w95" style="margin-bottom:.65rem"></div>
+          <div class="gp-simbar p w80"></div>
+          <div class="gp-simbar p w88"></div>
+          <div class="gp-simbar p w72"></div>
+          <div class="gp-sim-img"></div>
+          <div class="gp-sim-grid">
+            <div class="gp-sim-card"></div>
+            <div class="gp-sim-card"></div>
+          </div>
+          <div class="gp-simbar p w95"></div>
+          <div class="gp-simbar p w65"></div>
+          <div class="gp-simbar p w80"></div>
+        </div>
+        <div class="gp-render-area" id="gp-render-area">
+          <div class="gp-no-region"><p>Select a region to preview</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════════════ ADVANCED SETTINGS PAGE ═══════════════ -->
 <div id="pg-adv" class="page">
@@ -410,6 +575,170 @@ function highlightEffect(key){
 }
 
 refreshEffectsList();
+
+// ── GEO PREVIEW ──
+let gpTab='banner', gpContinent='', gpCountry='', gpState='', gpLocale='en', gpOptOut=false;
+
+const GP_S={
+  en:{title:'We Value Your Privacy',body:'We use cookies to enhance your experience, serve personalized content, and analyze our traffic. By clicking "Accept All" you consent to our use of cookies.',accept:'Accept All',reject:'Reject All',manage:'Manage Preferences',ok:'Got It',optout:'Opt Out',save:'Save Preferences',necessary:'Strictly Necessary',analytics:'Analytics',targeting:'Targeting',functional:'Functional',dnsTitle:'Do Not Sell My Personal Information',dnsBody:'You have the right to opt out of the sale of your personal information. Use the toggles below to exercise this right.',dnsSell:'Sale of Personal Information',dnsShare:'Sharing of Personal Information'},
+  fr:{title:'Nous respectons votre vie privée',body:'Nous utilisons des cookies pour améliorer votre expérience et analyser notre trafic. En cliquant sur "Tout accepter", vous consentez à notre utilisation des cookies.',accept:'Tout accepter',reject:'Tout refuser',manage:'Gérer les préférences',ok:'OK',optout:'Refuser',save:'Enregistrer',necessary:'Nécessaires',analytics:'Analyse',targeting:'Publicité',functional:'Fonctionnel',dnsTitle:'Ne pas vendre mes données',dnsBody:'Vous avez le droit de vous opposer à la vente de vos informations personnelles.',dnsSell:'Vente de données personnelles',dnsShare:'Partage de données personnelles'},
+  de:{title:'Wir schätzen Ihre Privatsphäre',body:'Wir verwenden Cookies, um Ihre Erfahrung zu verbessern und unseren Traffic zu analysieren. Mit „Alle akzeptieren" stimmen Sie zu.',accept:'Alle akzeptieren',reject:'Alle ablehnen',manage:'Einstellungen',ok:'OK',optout:'Ablehnen',save:'Speichern',necessary:'Notwendig',analytics:'Analyse',targeting:'Werbung',functional:'Funktional',dnsTitle:'Meine Daten nicht verkaufen',dnsBody:'Sie haben das Recht, dem Verkauf Ihrer personenbezogenen Daten zu widersprechen.',dnsSell:'Verkauf personenbezogener Daten',dnsShare:'Weitergabe personenbezogener Daten'},
+  es:{title:'Valoramos su privacidad',body:'Utilizamos cookies para mejorar su experiencia y analizar nuestro tráfico. Al hacer clic en "Aceptar todo", da su consentimiento.',accept:'Aceptar todo',reject:'Rechazar todo',manage:'Gestionar preferencias',ok:'De acuerdo',optout:'Rechazar',save:'Guardar',necessary:'Necesarias',analytics:'Análisis',targeting:'Publicidad',functional:'Funcional',dnsTitle:'No vender mis datos personales',dnsBody:'Tiene derecho a oponerse a la venta de su información personal.',dnsSell:'Venta de información personal',dnsShare:'Uso compartido de información personal'},
+  pt:{title:'Valorizamos sua privacidade',body:'Usamos cookies para melhorar sua experiência e analisar nosso tráfego. Ao clicar em "Aceitar tudo", você consente com o uso de cookies.',accept:'Aceitar tudo',reject:'Rejeitar tudo',manage:'Gerenciar preferências',ok:'OK',optout:'Recusar',save:'Salvar',necessary:'Necessários',analytics:'Análise',targeting:'Publicidade',functional:'Funcional',dnsTitle:'Não vender meus dados pessoais',dnsBody:'Você tem o direito de se opor à venda de suas informações pessoais.',dnsSell:'Venda de informações pessoais',dnsShare:'Compartilhamento de informações pessoais'},
+  ja:{title:'プライバシーを大切にします',body:'当サイトではCookieを使用して閲覧体験の向上やトラフィック分析を行っています。「すべて同意」をクリックするとCookieの使用に同意したことになります。',accept:'すべて同意',reject:'すべて拒否',manage:'設定を管理',ok:'閉じる',optout:'拒否する',save:'保存',necessary:'必須',analytics:'分析',targeting:'広告',functional:'機能',dnsTitle:'個人情報の販売を拒否する',dnsBody:'あなたは個人情報の販売に異議を申し立てる権利があります。',dnsSell:'個人情報の販売',dnsShare:'個人情報の共有'},
+  it:{title:'Rispettiamo la tua privacy',body:'Utilizziamo i cookie per migliorare la tua esperienza e analizzare il traffico. Cliccando "Accetta tutto" acconsenti all\'uso dei cookie.',accept:'Accetta tutto',reject:'Rifiuta tutto',manage:'Gestisci preferenze',ok:'OK',optout:'Rifiuta',save:'Salva',necessary:'Necessari',analytics:'Analisi',targeting:'Pubblicità',functional:'Funzionale',dnsTitle:'Non vendere i miei dati personali',dnsBody:'Hai il diritto di opporti alla vendita delle tue informazioni personali.',dnsSell:'Vendita di informazioni personali',dnsShare:'Condivisione di informazioni personali'}
+};
+
+const GP_GEO={
+  europe:{countries:['Austria','Belgium','Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Finland','France','Germany','Greece','Hungary','Iceland','Ireland','Italy','Latvia','Liechtenstein','Lithuania','Luxembourg','Malta','Monaco','Netherlands','Norway','Poland','Portugal','Romania','Slovakia','Slovenia','Spain','Sweden','Switzerland','United Kingdom','Albania','Armenia','Azerbaijan','Belarus','Bosnia and Herzegovina','Georgia','Kosovo','Moldova','North Macedonia','Serbia','Ukraine']},
+  'north-america':{countries:['United States','Canada','Mexico','Guatemala','Cuba','Haiti','Dominican Republic','Honduras','El Salvador','Nicaragua','Costa Rica','Panama','Jamaica','Trinidad and Tobago','Barbados']},
+  'south-america':{countries:['Brazil','Argentina','Colombia','Chile','Peru','Venezuela','Ecuador','Bolivia','Paraguay','Uruguay','Guyana','Suriname']},
+  asia:{countries:['China','India','Japan','South Korea','Indonesia','Thailand','Vietnam','Philippines','Malaysia','Singapore','Bangladesh','Pakistan','Sri Lanka','Nepal','Myanmar','Cambodia','Taiwan','Hong Kong','Macau','Kazakhstan','Uzbekistan','Mongolia']},
+  africa:{countries:['Nigeria','South Africa','Kenya','Ethiopia','Ghana','Tanzania','Uganda','Egypt','Morocco','Tunisia','Algeria','Senegal','Rwanda','Ivory Coast','Angola','Mozambique','Madagascar','Zimbabwe','Cameroon','Zambia']},
+  oceania:{countries:['Australia','New Zealand','Fiji','Papua New Guinea','Samoa','Tonga','Vanuatu','Solomon Islands']},
+  'middle-east':{countries:['Saudi Arabia','UAE','Israel','Turkey','Iran','Iraq','Jordan','Lebanon','Kuwait','Qatar','Bahrain','Oman','Yemen','Syria']}
+};
+
+const GP_US_STATES=['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
+const GP_GDPR=new Set(['Austria','Belgium','Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Finland','France','Germany','Greece','Hungary','Iceland','Ireland','Italy','Latvia','Liechtenstein','Lithuania','Luxembourg','Malta','Monaco','Netherlands','Norway','Poland','Portugal','Romania','Slovakia','Slovenia','Spain','Sweden','Switzerland','United Kingdom']);
+const GP_T3_OTHER=new Set(['Brazil','Bahrain','Israel']);
+const GP_T1=new Set(['Canada','Japan','Russia']);
+const GP_US_PRIV=new Set(['California','Colorado','Connecticut','Delaware','Indiana','Iowa','Kentucky','Maryland','Minnesota','Montana','Nebraska','New Hampshire','New Jersey','Oregon','Rhode Island','Tennessee','Texas','Utah','Virginia']);
+
+function gpGetTemplate(){
+  if(!gpCountry) return null;
+  if(GP_GDPR.has(gpCountry)) return{n:3,law:'GDPR',label:'Template 3 — Opt-In',cls:'t3'};
+  if(GP_T3_OTHER.has(gpCountry)){const laws={Brazil:'LGPD',Bahrain:'PDPL',Israel:'Privacy Protection Law'};return{n:3,law:laws[gpCountry],label:'Template 3 — Opt-In',cls:'t3'};}
+  if(gpCountry==='United States'){
+    if(!gpState) return null;
+    if(GP_US_PRIV.has(gpState)) return{n:3,law:gpState+' Privacy Law',label:'Template 3 — Opt-In',cls:'t3'};
+    return{n:1,law:'No State Law',label:'Template 1 — Notice/Opt-Out',cls:'t1'};
+  }
+  if(GP_T1.has(gpCountry)){const laws={Canada:'PIPEDA/Law 25',Japan:'APPI',Russia:'FZ-152'};return{n:1,law:laws[gpCountry],label:'Template 1 — Notice/Opt-Out',cls:'t1'};}
+  return{n:2,law:'None',label:'Template 2 — Notice Only',cls:'t2'};
+}
+
+function gpSwitchTab(tab){
+  gpTab=tab;
+  document.querySelectorAll('.gp-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelector('.gp-tab[data-tab="'+tab+'"]').classList.add('active');
+  gpRender();
+}
+
+function gpContinentChange(){
+  gpContinent=document.getElementById('gp-cont').value;
+  gpCountry='';gpState='';
+  const csel=document.getElementById('gp-country');
+  document.getElementById('gp-state').style.display='none';
+  if(!gpContinent){csel.style.display='none';gpRender();return;}
+  csel.innerHTML='<option value="">— Country —</option>';
+  (GP_GEO[gpContinent]?.countries||[]).forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;csel.appendChild(o);});
+  csel.style.display='block';
+  gpRender();
+}
+
+function gpCountryChange(){
+  gpCountry=document.getElementById('gp-country').value;
+  gpState='';
+  const ssel=document.getElementById('gp-state');
+  if(gpCountry==='United States'){
+    ssel.innerHTML='<option value="">— State —</option>';
+    GP_US_STATES.forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;ssel.appendChild(o);});
+    ssel.style.display='block';
+  } else {
+    ssel.style.display='none';
+  }
+  gpRender();
+}
+
+function gpStateChange(){gpState=document.getElementById('gp-state').value;gpRender();}
+function gpLocaleChange(){gpLocale=document.getElementById('gp-locale').value;gpRender();}
+
+function gpToggleOptOut(){
+  gpOptOut=!gpOptOut;
+  document.getElementById('gp-sig-tog').className='gp-signal-tog '+(gpOptOut?'on':'off');
+  gpRender();
+}
+
+function gpRender(){
+  const tmpl=gpGetTemplate();
+  const s=GP_S[gpLocale]||GP_S.en;
+  const badge=document.getElementById('gp-badge');
+  if(!tmpl){badge.className='gp-tbadge none';badge.textContent='Select a region';}
+  else{badge.className='gp-tbadge '+tmpl.cls;badge.textContent=tmpl.label+(tmpl.law!=='None'?' · '+tmpl.law:'');}
+  const area=document.getElementById('gp-render-area');
+  if(gpOptOut){area.innerHTML=gpRenderOptOut(s);return;}
+  if(!tmpl){area.innerHTML='<div class="gp-no-region"><p>Select a region to preview</p></div>';return;}
+  switch(gpTab){
+    case 'banner':area.innerHTML=gpRenderBanner(tmpl,s);break;
+    case 'drawer':area.innerHTML=gpRenderDrawer(tmpl,s);break;
+    case 'widget':area.innerHTML=gpRenderWidget();break;
+    case 'dns':area.innerHTML=gpRenderDNS(s);break;
+  }
+}
+
+function gpRenderOptOut(s){
+  return`<div class="gp-optout-overlay">
+    <div class="gp-optout-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Opt-Out Signal Detected</div>
+    <p class="gp-optout-msg">A GPC or Do Not Track signal has been received. Osano automatically denies non-essential consent — no banner interaction required.</p>
+    <div style="font-size:.67rem;color:rgba(255,255,255,.45)">Strictly Necessary cookies remain active</div>
+  </div>`;
+}
+
+function gpRenderBanner(tmpl,s){
+  if(tmpl.n===1) return`<div class="gp-banner-wrap"><div class="gp-banner t1">
+    <div class="gp-btitle">${s.title}</div>
+    <div class="gp-btext">${s.body}</div>
+    <div class="gp-bbtns"><button class="gp-bbtn accept">${s.accept}</button><button class="gp-bbtn reject">${s.optout}</button><button class="gp-bbtn manage">${s.manage}</button></div>
+  </div></div>`;
+  if(tmpl.n===2) return`<div class="gp-banner-wrap"><div class="gp-banner t2">
+    <div class="gp-btitle">${s.title}</div>
+    <div class="gp-btext">${s.body}</div>
+    <div class="gp-bbtns"><button class="gp-bbtn ok">${s.ok}</button><button class="gp-bbtn wout">${s.manage}</button></div>
+  </div></div>`;
+  return`<div class="gp-banner-wrap"><div class="gp-banner t3">
+    <div class="gp-btitle">${s.title}</div>
+    <div class="gp-btext">${s.body}</div>
+    <div class="gp-bcats">
+      <div class="gp-bcat"><span class="gp-bcat-dot on"></span>${s.necessary}</div>
+      <div class="gp-bcat"><span class="gp-bcat-dot off"></span>${s.analytics}</div>
+      <div class="gp-bcat"><span class="gp-bcat-dot off"></span>${s.targeting}</div>
+      <div class="gp-bcat"><span class="gp-bcat-dot off"></span>${s.functional}</div>
+    </div>
+    <div class="gp-bbtns"><button class="gp-bbtn accept">${s.accept}</button><button class="gp-bbtn reject">${s.reject}</button><button class="gp-bbtn manage">${s.manage}</button></div>
+  </div></div>`;
+}
+
+function gpRenderDrawer(tmpl,s){
+  const cats=[
+    {key:'necessary',req:true,desc:'Essential for the site to function properly.'},
+    {key:'analytics',req:false,desc:'Help us understand how visitors interact with the site.'},
+    {key:'targeting',req:false,desc:'Used to deliver relevant ads and track campaigns.'},
+    {key:'functional',req:false,desc:'Enable enhanced functionality and personalization.'}
+  ];
+  const catHTML=cats.map(c=>`<div class="gp-dcat">
+    <div class="gp-dcat-hd">${s[c.key]}<button class="gp-dtog ${c.req?'req':(tmpl.n===3?'off':'on')}"></button></div>
+    <div class="gp-dcat-bd">${c.desc}</div>
+  </div>`).join('');
+  return`<div class="gp-drawer">
+    <div class="gp-drawer-hd"><h4>${s.title}</h4><p>${s.body.substring(0,75)}…</p></div>
+    <div class="gp-drawer-bd">${catHTML}</div>
+    <div class="gp-drawer-ft"><button class="gp-bbtn accept" style="flex:1">${s.accept}</button><button class="gp-bbtn manage" style="flex:1">${s.save}</button></div>
+  </div>`;
+}
+
+function gpRenderWidget(){
+  return`<div class="gp-widget"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>`;
+}
+
+function gpRenderDNS(s){
+  return`<div class="gp-dns">
+    <h3>${s.dnsTitle}</h3>
+    <p>${s.dnsBody}</p>
+    <div class="gp-dns-row"><div class="gp-dns-info"><strong>${s.dnsSell}</strong><span>Currently: Active</span></div><button class="gp-dns-tog"></button></div>
+    <div class="gp-dns-row"><div class="gp-dns-info"><strong>${s.dnsShare}</strong><span>Currently: Active</span></div><button class="gp-dns-tog"></button></div>
+  </div>`;
+}
 </script>
 </body>
 </html>
