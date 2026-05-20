@@ -6,7 +6,6 @@
 <title>Osano Product Demos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
-<script src="https://cmp.osano.com/AzZcpvRm9bbsqngN/7fdaff7c-c6fe-4d31-8e57-0d08ee29dbaf/osano.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -209,122 +208,11 @@ button{font-family:'DM Sans',sans-serif}
     <span class="subnav-div">|</span>
     <span class="subnav-title">Cookie Consent</span>
   </div>
-
-  <div class="cc-layout">
-
-    <!-- LEFT -->
-    <div>
-      <span class="section-label">Geo-Based Banner Preview</span>
-      <div class="panel">
-        <div class="panel-head">Select a location</div>
-        <div class="panel-body">
-          <label class="geo-label">Continent</label>
-          <select class="geo-select" id="sel-continent" onchange="onContinentChange()">
-            <option value="">— Select Continent —</option>
-            <option value="europe">Europe</option>
-            <option value="north-america">North America</option>
-            <option value="south-america">South America</option>
-            <option value="asia">Asia</option>
-            <option value="africa">Africa</option>
-            <option value="oceania">Oceania</option>
-            <option value="middle-east">Middle East</option>
-          </select>
-          <div id="country-wrap" style="display:none">
-            <label class="geo-label">Country</label>
-            <select class="geo-select" id="sel-country" onchange="onCountryChange()">
-              <option value="">— Select Country —</option>
-            </select>
-          </div>
-          <div id="state-wrap" style="display:none">
-            <label class="geo-label">State</label>
-            <select class="geo-select" id="sel-state" onchange="onStateChange()">
-              <option value="">— Select State —</option>
-            </select>
-          </div>
-          <div id="geo-result" style="display:none;margin-top:.5rem">
-            <div id="geo-badge" class="banner-badge"></div>
-            <p id="geo-explain" style="font-size:.78rem;color:var(--text-2);margin-top:.6rem;line-height:1.55"></p>
-          </div>
-        </div>
-      </div>
-
-      <span class="section-label">Consent Categories</span>
-      <div class="panel">
-        <div class="panel-head">
-          Preference Center
-          <button class="trigger-btn" style="padding:.4rem .9rem;font-size:.75rem" onclick="openPreferenceCenter()">
-            Open Live Preferences
-          </button>
-        </div>
-        <div class="panel-body">
-          <div class="cat-list">
-            <div class="cat-row">
-              <div class="cat-info"><h4>Strictly Necessary</h4><p>Required for the site to function.</p></div>
-              <div class="tog-wrap"><span class="tog-lbl">Always on</span><button class="tog-btn req" disabled></button></div>
-            </div>
-            <div class="cat-row">
-              <div class="cat-info"><h4>Performance &amp; Analytics</h4><p>Understand how visitors use the site.</p></div>
-              <div class="tog-wrap"><span class="tog-lbl" id="lbl-analytics">Off</span><button class="tog-btn off" id="tog-analytics" onclick="toggleCat('analytics')"></button></div>
-            </div>
-            <div class="cat-row">
-              <div class="cat-info"><h4>Targeting &amp; Advertising</h4><p>Personalized ads and campaign tracking.</p></div>
-              <div class="tog-wrap"><span class="tog-lbl" id="lbl-targeting">Off</span><button class="tog-btn off" id="tog-targeting" onclick="toggleCat('targeting')"></button></div>
-            </div>
-            <div class="cat-row">
-              <div class="cat-info"><h4>Functional</h4><p>Chat widgets, embeds, saved preferences.</p></div>
-              <div class="tog-wrap"><span class="tog-lbl" id="lbl-functional">Off</span><button class="tog-btn off" id="tog-functional" onclick="toggleCat('functional')"></button></div>
-            </div>
-          </div>
-          <div class="callout teal" style="margin-top:1rem">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-            <span>Toggle categories in your Osano dashboard and click "Open Live Preferences" above to see changes reflected immediately via the live osano.js.</span>
-          </div>
-        </div>
-      </div>
-
-      <button class="adv-btn" onclick="showPage('pg-adv')">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        Review Advanced Settings
-      </button>
-    </div>
-
-    <!-- RIGHT -->
-    <div>
-      <span class="section-label">Live Osano Banner</span>
-      <div class="panel">
-        <div class="panel-head">
-          Regulation for selected location
-          <span id="variant-tag" style="font-size:.7rem;font-weight:600;padding:2px 8px;background:var(--teal-light);color:#0a6e60;border-radius:100px">—</span>
-        </div>
-        <div class="panel-body">
-          <div id="geo-framework-info" style="display:none;margin-bottom:1rem">
-            <div class="callout blue">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-              <span id="framework-text"></span>
-            </div>
-          </div>
-          <div class="live-banner-frame">
-            <p>The live Osano banner is injected by <strong>osano.js</strong> exactly as configured in your Osano dashboard — including your real banner text, colors, and button layout. Click below to clear consent cookies and trigger it now.</p>
-            <button class="trigger-btn" onclick="clearAndShowOsano()">
-              <svg viewBox="0 0 24 24"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
-              Clear Consent &amp; Show Live Banner
-            </button>
-            <p style="font-size:.72rem;color:var(--text-3);margin-top:0">Any changes saved in your Osano dashboard appear here immediately after clearing consent.</p>
-          </div>
-        </div>
-      </div>
-
-      <span class="section-label" style="margin-top:1.5rem;display:block">Script Status</span>
-      <div class="panel">
-        <div class="panel-head">Live osano.js detection</div>
-        <div class="panel-body">
-          <div id="osano-status-block">
-            <p style="font-size:.82rem;color:var(--text-2)">Checking for Osano script…</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
+  <div style="padding:2.5rem 2rem">
+    <button class="adv-btn" onclick="showPage('pg-adv')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      Review Advanced Settings
+    </button>
   </div>
 </div>
 
@@ -342,52 +230,8 @@ button{font-family:'DM Sans',sans-serif}
     <span class="subnav-div">|</span>
     <span class="subnav-title">Data Subject Access Rights</span>
   </div>
-  <div class="dsar-layout">
-    <h2 style="font-family:'DM Serif Display',serif;font-size:1.8rem;margin-bottom:.4rem">DSAR Request Form</h2>
-    <p style="font-size:.9rem;color:var(--text-2);margin-bottom:2rem;line-height:1.65">Submit a privacy request. Osano automatically routes, identity-verifies, and tracks against regulatory deadlines.</p>
-    <div class="dsar-form-wrap">
-      <div id="dsar-form">
-        <div class="form-grid" style="margin-bottom:1rem">
-          <div class="fg"><label>First name *</label><input type="text" id="d-first" placeholder="Jane"/></div>
-          <div class="fg"><label>Last name *</label><input type="text" id="d-last" placeholder="Smith"/></div>
-        </div>
-        <div class="fg" style="margin-bottom:1rem"><label>Email address *</label><input type="email" id="d-email" placeholder="jane@example.com"/></div>
-        <div class="form-grid" style="margin-bottom:1rem">
-          <div class="fg">
-            <label>Country</label>
-            <select id="d-country">
-              <option value="">Select country…</option>
-              <option>United States</option><option>United Kingdom</option><option>Germany</option>
-              <option>France</option><option>Canada</option><option>Australia</option><option>Other</option>
-            </select>
-          </div>
-          <div class="fg">
-            <label>Request type *</label>
-            <select id="d-type">
-              <option value="">Select type…</option>
-              <option>Access — Know what data you hold</option>
-              <option>Deletion — Delete my data</option>
-              <option>Rectification — Correct my data</option>
-              <option>Portability — Copy of my data</option>
-              <option>Opt-out — Do not sell my info</option>
-              <option>Restriction — Limit how you use my data</option>
-            </select>
-          </div>
-        </div>
-        <div class="fg" style="margin-bottom:1.25rem"><label>Additional details</label><textarea id="d-details" placeholder="Optional — describe your request further…"></textarea></div>
-        <button class="submit-btn" onclick="submitDSAR()">Submit Request</button>
-      </div>
-      <div class="confirm-box" id="dsar-confirm">
-        <div class="confirm-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
-        <p style="font-weight:600;font-size:1rem;margin-bottom:.4rem">Request submitted</p>
-        <p style="font-size:.83rem;color:var(--text-2);line-height:1.6;margin-bottom:1.25rem">Reference ID: <strong id="dsar-ref"></strong><br/>Osano has started the response clock and sent a verification email.</p>
-        <button class="submit-btn" style="background:var(--teal)" onclick="resetDSAR()">Submit another</button>
-      </div>
-    </div>
-  </div>
 </div>
+
 
 
 <!-- ═══════════════ ADVANCED SETTINGS PAGE ═══════════════ -->
@@ -502,15 +346,12 @@ button{font-family:'DM Sans',sans-serif}
 <div id="toast" class="toast"></div>
 
 <script>
-// ── PAGE ROUTING ──
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
-  if(id==='pg-cc') setTimeout(checkOsanoStatus,500);
 }
 
-// ── TOAST ──
 let _t;
 function showToast(msg){
   const t=document.getElementById('toast');
@@ -518,215 +359,6 @@ function showToast(msg){
   clearTimeout(_t); _t=setTimeout(()=>t.classList.remove('show'),2600);
 }
 
-// ── OSANO: clear consent & trigger live banner ──
-function clearAndShowOsano(){
-  // Wipe all Osano consent cookies
-  ['osano_consentmanager','osano_consentmanager_uuid','osano_consentmanager_expdate'].forEach(name=>{
-    document.cookie=name+'=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    document.cookie=name+'=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain='+location.hostname+';';
-  });
-  try{ Object.keys(localStorage).filter(k=>k.toLowerCase().includes('osano')).forEach(k=>localStorage.removeItem(k)); }catch(e){}
-  try{ if(window.Osano&&Osano.cm&&Osano.cm.eraseCookie) Osano.cm.eraseCookie(); }catch(e){}
-
-  // Show the real Osano consent dialog
-  if(window.Osano&&Osano.cm){
-    try{
-      Osano.cm.showDrawer('osano-cm-dom-info-dialog-open');
-      showToast('Consent cleared — live Osano banner displayed');
-    }catch(e){
-      showToast('Reloading to show fresh banner…');
-      setTimeout(()=>location.reload(),900);
-    }
-  } else {
-    showToast('Osano script not ready — try again in a moment');
-  }
-}
-
-// ── Open preference center drawer ──
-function openPreferenceCenter(){
-  if(window.Osano&&Osano.cm){
-    try{ Osano.cm.showDrawer('osano-cm-dom-info-dialog-open'); showToast('Opening Osano preference center…'); }
-    catch(e){ showToast('Error: '+e.message); }
-  } else { showToast('Osano script loading — try again shortly'); }
-}
-
-// ── OSANO STATUS CHECK ──
-function checkOsanoStatus(){
-  const el=document.getElementById('osano-status-block');
-  if(!el) return;
-  if(window.Osano&&Osano.cm){
-    el.innerHTML=`<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
-      <span class="status-dot" style="background:#00a896"></span>
-      <span style="font-size:.83rem;font-weight:600;color:#0a6e60">osano.js active</span>
-    </div>
-    <p style="font-size:.78rem;color:var(--text-2);line-height:1.55">Script loaded and running. Changes made in your Osano dashboard — banner text, category names, button labels, colors — are reflected the moment you clear consent and retrigger the banner.</p>`;
-  } else {
-    el.innerHTML=`<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
-      <span class="status-dot" style="background:#e2a000"></span>
-      <span style="font-size:.83rem;font-weight:600;color:#7a4f00">Initializing…</span>
-    </div>
-    <p style="font-size:.78rem;color:var(--text-2)">The Osano script is loading. Refresh if the banner does not appear automatically.</p>`;
-    setTimeout(checkOsanoStatus,1500);
-  }
-}
-
-// ── GEO DATA ──
-// Exact regions per Osano's official documentation:
-// Template 3 (Explicit Opt-In / GDPR): EEA + UK + Monaco
-// Template 3 (Explicit Opt-In / Other laws): Bahrain, Brazil, Israel + active US privacy states
-// Template 1 (Notice / Opt-Out): Canada (excl. Quebec), Japan, Russia + US default (non-privacy-law states)
-// Template 2 (Notice-Only): All other unspecified countries
-
-const GDPR_COUNTRIES=new Set(['Austria','Belgium','Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Finland','France','Germany','Greece','Hungary','Iceland','Ireland','Italy','Latvia','Liechtenstein','Lithuania','Luxembourg','Malta','Monaco','Netherlands','Norway','Poland','Portugal','Romania','Slovakia','Slovenia','Spain','Sweden','Switzerland','United Kingdom']);
-
-// US states with active privacy legislation (Osano's exact list)
-const US_PRIVACY_STATES=new Set(['California','Colorado','Connecticut','Delaware','Indiana','Iowa','Kentucky','Maryland','Minnesota','Montana','Nebraska','New Hampshire','New Jersey','Oregon','Rhode Island','Tennessee','Texas','Utah','Virginia']);
-
-// Template 3 non-GDPR countries
-const OPT_IN_OTHER=new Set(['Brazil','Bahrain','Israel']);
-
-// Template 1 (notice/opt-out) countries
-const NOTICE_COUNTRIES=new Set(['Canada','Japan','Russia']);
-
-const GEO_DATA={
-  'europe':{countries:['Austria','Belgium','Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Finland','France','Germany','Greece','Hungary','Iceland','Ireland','Italy','Latvia','Liechtenstein','Lithuania','Luxembourg','Malta','Monaco','Netherlands','Norway','Poland','Portugal','Romania','Slovakia','Slovenia','Spain','Sweden','Switzerland','United Kingdom','Albania','Armenia','Azerbaijan','Belarus','Bosnia and Herzegovina','Georgia','Kosovo','Moldova','North Macedonia','Serbia','Ukraine']},
-  'north-america':{countries:['United States','Canada','Mexico','Guatemala','Cuba','Haiti','Dominican Republic','Honduras','El Salvador','Nicaragua','Costa Rica','Panama','Jamaica','Trinidad and Tobago','Barbados']},
-  'south-america':{countries:['Brazil','Argentina','Colombia','Chile','Peru','Venezuela','Ecuador','Bolivia','Paraguay','Uruguay','Guyana','Suriname']},
-  'asia':{countries:['China','India','Japan','South Korea','Indonesia','Thailand','Vietnam','Philippines','Malaysia','Singapore','Bangladesh','Pakistan','Sri Lanka','Nepal','Myanmar','Cambodia','Taiwan','Hong Kong','Macau','Kazakhstan','Uzbekistan','Mongolia']},
-  'africa':{countries:['Nigeria','South Africa','Kenya','Ethiopia','Ghana','Tanzania','Uganda','Egypt','Morocco','Tunisia','Algeria','Senegal','Rwanda','Ivory Coast','Angola','Mozambique','Madagascar','Zimbabwe','Cameroon','Zambia']},
-  'oceania':{countries:['Australia','New Zealand','Fiji','Papua New Guinea','Samoa','Tonga','Vanuatu','Solomon Islands']},
-  'middle-east':{countries:['Saudi Arabia','UAE','Israel','Turkey','Iran','Iraq','Jordan','Lebanon','Kuwait','Qatar','Bahrain','Oman','Yemen','Syria']}
-};
-
-const US_STATES=['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
-
-function getBannerInfo(country,state){
-  if(GDPR_COUNTRIES.has(country)){
-    return{
-      badge:'GDPR — Template 3 (Opt-In)',cls:'badge-gdpr',
-      variant:'Template 3 — Explicit Opt-In',
-      frameworkText:`${country} is covered under GDPR / ePrivacy. Osano serves Template 3: an explicit opt-in banner requiring active consent before any non-essential cookies are set. Category toggles appear in the banner when First Layer Categories is enabled.`
-    };
-  }
-  if(country==='United States'){
-    const s=state||'';
-    if(US_PRIVACY_STATES.has(s)){
-      return{
-        badge:'State Privacy Law — Template 3 (Opt-In)',cls:'badge-gdpr',
-        variant:'Template 3 — Explicit Opt-In',
-        frameworkText:`${s} has active state privacy legislation. Osano serves Template 3 by default (explicit opt-in). If "US State Level Legislation Opt-Out Banner Format" is enabled in Advanced Settings, Template 1 (implied consent / opt-out) is shown instead.`
-      };
-    }
-    return{
-      badge:'No State Law — Template 1 (Notice)',cls:'badge-notice',
-      variant:'Template 1 — Notice / Opt-Out',
-      frameworkText:`${s||'This US state'} does not have active state privacy legislation. Osano serves Template 1: a notice-and-opt-out banner where consent is implied unless the visitor opts out.`
-    };
-  }
-  if(OPT_IN_OTHER.has(country)){
-    const laws={Brazil:'LGPD',Bahrain:'PDPL',Israel:'Privacy Protection Law'};
-    return{
-      badge:`${laws[country]||'Local Law'} — Template 3 (Opt-In)`,cls:'badge-gdpr',
-      variant:'Template 3 — Explicit Opt-In',
-      frameworkText:`${country} is covered under ${laws[country]||'local privacy law'}. Osano serves Template 3: explicit opt-in required before non-essential cookies are set.`
-    };
-  }
-  if(NOTICE_COUNTRIES.has(country)){
-    const laws={Canada:'PIPEDA / Law 25',Japan:'APPI',Russia:'Federal Law No. 152-FZ'};
-    return{
-      badge:`${laws[country]||'Local Law'} — Template 1 (Notice)`,cls:'badge-notice',
-      variant:'Template 1 — Notice / Opt-Out',
-      frameworkText:`${country} falls under ${laws[country]||'local privacy regulation'}. Osano serves Template 1: a notice banner informing users of cookie use. Consent is implied unless the visitor opts out.`
-    };
-  }
-  return{
-    badge:'All Other Regions — Template 2 (Notice Only)',cls:'badge-none',
-    variant:'Template 2 — Notice Only',
-    frameworkText:`${country} is not covered by a specific privacy regulation in Osano's region map. Osano serves Template 2: a basic notice-only banner. No specific opt-in or opt-out action is required.`
-  };
-}
-
-function onContinentChange(){
-  const cont=document.getElementById('sel-continent').value;
-  const cw=document.getElementById('country-wrap');
-  const sw=document.getElementById('state-wrap');
-  document.getElementById('geo-result').style.display='none';
-  document.getElementById('geo-framework-info').style.display='none';
-  document.getElementById('variant-tag').textContent='—';
-  sw.style.display='none';
-  if(!cont){cw.style.display='none';return;}
-  cw.style.display='block';
-  const cc=document.getElementById('sel-country');
-  cc.innerHTML='<option value="">— Select Country —</option>';
-  (GEO_DATA[cont]?.countries||[]).forEach(c=>{
-    const o=document.createElement('option');o.value=c;o.textContent=c;cc.appendChild(o);
-  });
-}
-
-function onCountryChange(){
-  const country=document.getElementById('sel-country').value;
-  const sw=document.getElementById('state-wrap');
-  document.getElementById('geo-result').style.display='none';
-  if(!country){sw.style.display='none';return;}
-  if(country==='United States'){
-    sw.style.display='block';
-    const ss=document.getElementById('sel-state');
-    ss.innerHTML='<option value="">— Select State —</option>';
-    US_STATES.forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;ss.appendChild(o);});
-    document.getElementById('geo-framework-info').style.display='none';
-    document.getElementById('variant-tag').textContent='—';
-    return;
-  }
-  sw.style.display='none';
-  showGeoResult(country,null);
-}
-
-function onStateChange(){
-  const state=document.getElementById('sel-state').value;
-  if(!state) return;
-  showGeoResult('United States',state);
-}
-
-function showGeoResult(country,state){
-  const info=getBannerInfo(country,state);
-  const badge=document.getElementById('geo-badge');
-  badge.className='banner-badge '+info.cls;
-  badge.textContent=info.badge;
-  document.getElementById('geo-explain').textContent='';
-  document.getElementById('geo-result').style.display='block';
-  document.getElementById('variant-tag').textContent=info.variant;
-  document.getElementById('framework-text').textContent=info.frameworkText;
-  document.getElementById('geo-framework-info').style.display='block';
-}
-
-// ── CONSENT CAT TOGGLES ──
-const catState={analytics:false,targeting:false,functional:false};
-function toggleCat(cat){
-  catState[cat]=!catState[cat];
-  document.getElementById('tog-'+cat).className='tog-btn '+(catState[cat]?'on':'off');
-  document.getElementById('lbl-'+cat).textContent=catState[cat]?'On':'Off';
-  showToast('Preference updated');
-}
-
-// ── DSAR ──
-function submitDSAR(){
-  const f=document.getElementById('d-first').value.trim();
-  const l=document.getElementById('d-last').value.trim();
-  const e=document.getElementById('d-email').value.trim();
-  const t=document.getElementById('d-type').value;
-  if(!f||!l||!e||!t){showToast('Please fill in all required fields');return;}
-  document.getElementById('dsar-ref').textContent='DSR-'+Math.random().toString(36).slice(2,8).toUpperCase();
-  document.getElementById('dsar-form').style.display='none';
-  document.getElementById('dsar-confirm').style.display='block';
-}
-function resetDSAR(){
-  ['d-first','d-last','d-email','d-details'].forEach(id=>document.getElementById(id).value='');
-  ['d-country','d-type'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('dsar-form').style.display='block';
-  document.getElementById('dsar-confirm').style.display='none';
-}
-
-// ── ADVANCED SETTINGS ──
 const advState={gpc:true,dnt:true,iab:false,iabUS:false,gcm:true,amz:false,ms:false,split:false,curated:true,uuid:false,firstlayer:true,manpref:false,usstate:false,crossdomain:false,delstorage:false};
 const advEffects={
   gpc:{name:'Global Privacy Control (GPC)',effect:'Browsers sending a GPC signal automatically have all non-essential consent denied — no banner interaction required. Visitors with GPC-enabled browsers (e.g. Firefox with Global Privacy Control) are opted out instantly.'},
@@ -777,7 +409,6 @@ function highlightEffect(key){
 }
 
 refreshEffectsList();
-window.addEventListener('load',()=>setTimeout(checkOsanoStatus,1000));
 </script>
 </body>
 </html>
