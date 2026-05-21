@@ -429,8 +429,9 @@ button{font-family:'DM Sans',sans-serif}
       </div>
     </div>
 
-    <div class="adv-section">
-      <div class="adv-section-title">Frameworks</div>
+    <div>
+      <div class="adv-section">
+        <div class="adv-section-title">Frameworks</div>
         <div class="adv-toggle-row">
           <button class="adv-tog on" id="at-gpc" onclick="toggleAdv('gpc')"></button>
           <div class="adv-tog-info"><strong onclick="highlightEffect('gpc')">Support Global Privacy Control (GPC)</strong><p>Visitors using a GPC-compliant browser or extension will have their signal automatically applied to their consent settings. When disabled, GPC signals will not be honored.</p></div>
@@ -461,7 +462,6 @@ button{font-family:'DM Sans',sans-serif}
         </div>
       </div>
 
-    <div>
       <div class="adv-section">
         <div class="adv-section-title">Performance</div>
         <div class="adv-toggle-row">
@@ -469,37 +469,37 @@ button{font-family:'DM Sans',sans-serif}
           <div class="adv-tog-info"><strong onclick="highlightEffect('split')">Split Payload</strong><p>osano.js is segmented into a reduced initial payload; additional requests are made as needed. This may help your site render more efficiently.</p></div>
         </div>
       </div>
+    </div>
 
-      <div class="adv-section">
-        <div class="adv-section-title">Experience</div>
-        <div class="adv-toggle-row">
-          <button class="adv-tog on" id="at-curated" onclick="toggleAdv('curated')"></button>
-          <div class="adv-tog-info"><strong onclick="highlightEffect('curated')">Curated Block List</strong><p>Osano automatically blocks a curated list of scripts and cookies in regions where their specific usage has been declared illegal by regulatory bodies.</p></div>
-        </div>
-        <div class="adv-toggle-row">
-          <button class="adv-tog off" id="at-uuid" onclick="toggleAdv('uuid')"></button>
-          <div class="adv-tog-info"><strong onclick="highlightEffect('uuid')">Add Consent UUID to Preference Drawer</strong><p>The end user's consent UUID will be present in the Preference Drawer with a copy button. When disabled, users must access their Osano cookie in the browser.</p></div>
-        </div>
-        <div class="adv-toggle-row">
-          <button class="adv-tog on" id="at-firstlayer" onclick="toggleAdv('firstlayer')"></button>
-          <div class="adv-tog-info"><strong onclick="highlightEffect('firstlayer')">First Layer Categories</strong><p>Users in EEA member countries and the UK are shown cookie category toggles in the banner. When disabled, category toggles only appear in the preference drawer.</p></div>
-        </div>
-        <div class="adv-toggle-row">
-          <button class="adv-tog off" id="at-manpref" onclick="toggleAdv('manpref')"></button>
-          <div class="adv-tog-info"><strong onclick="highlightEffect('manpref')">Add Manage Preferences Button</strong><p>A Manage Preferences button will be present on banner templates 1 and 3. When disabled, these templates will have no Manage Preferences button.</p></div>
-        </div>
-        <div class="adv-toggle-row">
-          <button class="adv-tog off" id="at-usstate" onclick="toggleAdv('usstate')"></button>
-          <div class="adv-tog-info"><strong onclick="highlightEffect('usstate')">US State Level Legislation Opt-Out Banner Format</strong><p>Visitors in states with active privacy legislation are shown banner format 1 (implied consent). When disabled, banner format 3 is shown (explicit opt-in required).</p></div>
-        </div>
-        <div class="adv-toggle-row">
-          <button class="adv-tog off" id="at-crossdomain" onclick="toggleAdv('crossdomain')"></button>
-          <div class="adv-tog-info"><strong onclick="highlightEffect('crossdomain')">Cross Domain Support</strong><p>User consent from one domain applies to other distinct domains in the same configuration. When disabled, consent only applies to the single domain.</p></div>
-        </div>
-        <div class="adv-toggle-row">
-          <button class="adv-tog off" id="at-delstorage" onclick="toggleAdv('delstorage')"></button>
-          <div class="adv-tog-info"><strong onclick="highlightEffect('delstorage')">Delete Storage on Category Opt-Out</strong><p>Cookies and local storage items belonging to a consent category will be automatically deleted when a user withdraws consent. Warning: may break third-party functionality.</p></div>
-        </div>
+    <div class="adv-section">
+      <div class="adv-section-title">Experience</div>
+      <div class="adv-toggle-row">
+        <button class="adv-tog on" id="at-curated" onclick="toggleAdv('curated')"></button>
+        <div class="adv-tog-info"><strong onclick="highlightEffect('curated')">Curated Block List</strong><p>Osano automatically blocks a curated list of scripts and cookies in regions where their specific usage has been declared illegal by regulatory bodies.</p></div>
+      </div>
+      <div class="adv-toggle-row">
+        <button class="adv-tog off" id="at-uuid" onclick="toggleAdv('uuid')"></button>
+        <div class="adv-tog-info"><strong onclick="highlightEffect('uuid')">Add Consent UUID to Preference Drawer</strong><p>The end user's consent UUID will be present in the Preference Drawer with a copy button. When disabled, users must access their Osano cookie in the browser.</p></div>
+      </div>
+      <div class="adv-toggle-row">
+        <button class="adv-tog on" id="at-firstlayer" onclick="toggleAdv('firstlayer')"></button>
+        <div class="adv-tog-info"><strong onclick="highlightEffect('firstlayer')">First Layer Categories</strong><p>Users in EEA member countries and the UK are shown cookie category toggles in the banner. When disabled, category toggles only appear in the preference drawer.</p></div>
+      </div>
+      <div class="adv-toggle-row">
+        <button class="adv-tog off" id="at-manpref" onclick="toggleAdv('manpref')"></button>
+        <div class="adv-tog-info"><strong onclick="highlightEffect('manpref')">Add Manage Preferences Button</strong><p>A Manage Preferences button will be present on banner templates 1 and 3. When disabled, these templates will have no Manage Preferences button.</p></div>
+      </div>
+      <div class="adv-toggle-row">
+        <button class="adv-tog off" id="at-usstate" onclick="toggleAdv('usstate')"></button>
+        <div class="adv-tog-info"><strong onclick="highlightEffect('usstate')">US State Level Legislation Opt-Out Banner Format</strong><p>Visitors in states with active privacy legislation are shown banner format 1 (implied consent). When disabled, banner format 3 is shown (explicit opt-in required).</p></div>
+      </div>
+      <div class="adv-toggle-row">
+        <button class="adv-tog off" id="at-crossdomain" onclick="toggleAdv('crossdomain')"></button>
+        <div class="adv-tog-info"><strong onclick="highlightEffect('crossdomain')">Cross Domain Support</strong><p>User consent from one domain applies to other distinct domains in the same configuration. When disabled, consent only applies to the single domain.</p></div>
+      </div>
+      <div class="adv-toggle-row">
+        <button class="adv-tog off" id="at-delstorage" onclick="toggleAdv('delstorage')"></button>
+        <div class="adv-tog-info"><strong onclick="highlightEffect('delstorage')">Delete Storage on Category Opt-Out</strong><p>Cookies and local storage items belonging to a consent category will be automatically deleted when a user withdraws consent. Warning: may break third-party functionality.</p></div>
       </div>
     </div>
 
