@@ -1870,13 +1870,13 @@ const AUDIT_SECTIONS=[
     {id:10,text:'Is GPC (Global Privacy Control) enabled?',color:'pink'},
     {id:11,text:'Is DNT (Do Not Track) enabled?',color:'green'},
     {id:12,text:'Is the Manage Preferences button enabled?',color:'green'},
+    {id:16,text:'Is there a "Do Not Sell" link in the footer?',color:'green'},
+    {id:17,text:'Is there a cookie preferences link or widget?',color:'pink'},
   ]},
   {title:'DSAR & Other',questions:[
     {id:13,text:'Is a DSAR form present and accessible?',color:'pink'},
     {id:14,text:'Is the DSAR form linked in the privacy policy?',color:'yellow'},
     {id:15,text:'Does the DSAR form offer full rights (access, deletion, correction, etc.)?',color:'pink'},
-    {id:16,text:'Is there a "Do Not Sell" link in the footer?',color:'green'},
-    {id:17,text:'Is there a cookie preferences link or widget?',color:'pink'},
   ]},
 ];
 
@@ -1902,7 +1902,7 @@ function renderAuditScopeSelect(){
       </div>
       <h3>Cookie Consent Only</h3>
       <p>Review your Osano cookie consent installation, classification, styling, and framework configuration.</p>
-      <span class="audit-scope-count">13 questions</span>
+      <span class="audit-scope-count">15 questions</span>
     </div>
     <div class="audit-scope-card" onclick="selectAuditScope('both')">
       <div class="audit-scope-icon">
