@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: osano-compliance-scanner
+    env: node
+    plan: free
+    rootDir: scanner-api
+    buildCommand: npm install
+    startCommand: node index.js
+    healthCheckPath: /health
