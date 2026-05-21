@@ -346,6 +346,9 @@ button{font-family:'DM Sans',sans-serif}
 .comp-scanned-url{font-size:.75rem;color:var(--text-3);margin-bottom:1rem;display:flex;align-items:center;gap:.4rem}
 .comp-scanned-url strong{color:var(--text-2)}
 .comp-rescan-link{font-size:.75rem;color:var(--amber);font-weight:600;cursor:pointer;border:none;background:none;padding:0;text-decoration:underline;margin-left:.5rem}
+.comp-view-details-wrap{padding:.6rem 1.25rem;border-top:1px solid #f0f6f9;text-align:right}
+.comp-view-details-btn{background:none;border:none;color:var(--amber);font-size:.78rem;font-weight:600;cursor:pointer;padding:0;text-decoration:underline}
+.comp-view-details-btn:hover{color:#b45309}
 </style>
 </head>
 <body>
@@ -1084,6 +1087,186 @@ const COMP_CATS=[
   ]}
 ];
 
+let compScanDomain='',compScanProfile=0,compScanIsHttps=true;
+
+const COMP_BULLETS={
+  banner:{
+    pass:['Consent banner detected before any tracking code activates.','Banner includes accept, reject, and manage-preferences controls.','Satisfies GDPR Article 13 and ePrivacy Directive transparency requirements.'],
+    warn:['Banner present but timing analysis suggests some cookies may fire before it renders.','Delayed banners have been penalized by EU DPAs including the French CNIL.','Audit your tag manager script load order to ensure the CMP initializes first.'],
+    fail:['No cookie consent banner detected on the site.','All non-essential cookies are presumed active without user knowledge or choice.','Fines up to €20M or 4% of global annual turnover apply under GDPR Article 83.']
+  },
+  pregrant:{
+    pass:['No non-essential scripts activate prior to the user confirming consent.','Tag manager is correctly gating third-party code on consent signals.','This is the enforcement model required by GDPR Article 7 and ePrivacy Directive guidance.'],
+    warn:['At least one analytics script loads without waiting for consent confirmation.','Even cookieless analytics can constitute personal data processing under GDPR.','Move all non-strictly-necessary scripts into a consent-gated container in your tag manager.'],
+    fail:['Advertising and analytics scripts fire on page load before consent is granted.','CNIL, ICO, and the Italian DPA have each issued large fines specifically for this violation.','Integrate a CMP with your tag manager to block all non-essential scripts until opt-in is confirmed.']
+  },
+  granular:{
+    pass:['Separate consent toggles for Analytics, Marketing, and Functional cookies are offered.','Users can accept necessary cookies while declining optional tracking categories.','Satisfies GDPR Recital 32 requirement that consent be specific and granular per purpose.'],
+    warn:['Some categories exist but others are bundled, reducing the granularity of user choice.','EU regulators have invalidated bundled consent toggles in multiple enforcement actions.','Separate each distinct purpose (analytics, personalization, advertising) into its own toggle.'],
+    fail:['No per-category consent controls — visitors face an all-or-nothing choice.','Bundled or binary consent is invalid under GDPR and rejected by all major EU DPAs.','Add granular category toggles: Necessary, Analytics, Marketing, and Functional at minimum.']
+  },
+  withdraw:{
+    pass:['A persistent cookie preferences link allows users to change consent at any time.','Withdrawing consent is as easy to perform as the original opt-in.','Meets GDPR Article 7(3) requirement that withdrawal must be as easy as granting consent.'],
+    warn:['Withdrawal is technically possible but the mechanism is not prominently placed.','Hard-to-find opt-out paths increase complaints and regulatory exposure.','Add a visible "Cookie Settings" link to the site footer or a persistent floating widget.'],
+    fail:['No mechanism found to withdraw or modify consent after the initial interaction.','GDPR Article 7(3) explicitly mandates the ability to withdraw consent at any time.','Implement a persistent preference center accessible from every page on the site.']
+  },
+  records:{
+    pass:['Consent decisions are logged with timestamp, policy version, and per-category detail.','Audit records are sufficient to defend consent lawfulness in a regulatory investigation.','Meets GDPR Article 5(2) accountability principle and CCPA record-keeping obligations.'],
+    warn:['Basic consent logging is present but records may lack version or full category granularity.','Incomplete records limit the ability to demonstrate compliant consent if challenged.','Ensure logs capture: timestamp, session ID, policy version, and each individual category decision.'],
+    fail:['No consent record-keeping infrastructure detected.','Without records the organization cannot demonstrate lawful basis for processing if challenged.','Implement a consent database that logs every consent event with full traceability.']
+  },
+  present:{
+    pass:['Privacy policy is linked from the site footer and from the consent interface.','No broken links or access barriers detected on the policy page.','Meets GDPR Articles 13–14 notice requirements and CCPA notice-at-collection obligations.'],
+    warn:['A privacy policy exists but is not linked from the consent banner or data collection forms.','Regulators expect a policy link at every point of personal data collection.','Add a direct policy link inside the consent banner and all signup or contact forms.'],
+    fail:['No accessible privacy policy page found on the site.','A privacy policy is legally mandatory for any website that collects personal data.','Publishing a compliant privacy policy is the most fundamental first step in data compliance.']
+  },
+  datacats:{
+    pass:['Collected data types (name, email, IP, device info, behavioral data) are explicitly listed.','Users understand what is collected before providing personal information.','Satisfies GDPR Article 13 obligation to disclose categories of personal data processed.'],
+    warn:['Some data types are named but inferred or behavioral data is vaguely described.','Regulators have penalized policies that use generic terms like "usage data" without specifics.','Enumerate every data type collected, including derived and inferred data, in the policy.'],
+    fail:['The privacy policy does not describe what personal data is collected.','This violates the transparency principle in GDPR Article 5(1)(a) and CCPA notice requirements.','Conduct a data inventory and reflect every data type explicitly in the policy.']
+  },
+  thirdparty:{
+    pass:['Third-party processors and sharing partners are named or categorized in the policy.','The legal basis and purpose for each sharing relationship is clearly stated.','Meets GDPR Article 13(1)(e) and CCPA Section 1798.115 third-party disclosure requirements.'],
+    warn:['Sharing is acknowledged but specific vendor names or recipient categories are not listed.','Generic references to "business partners" do not satisfy GDPR transparency standards.','List significant processors by name or category and describe what data each receives.'],
+    fail:['No disclosure of third-party data sharing found in the policy.','This is a material omission under both GDPR Article 13 and CCPA Section 1798.115.','Audit all vendor data flows, document the relationships, and update the privacy policy immediately.']
+  },
+  contact:{
+    pass:['A named DPO or privacy contact with a direct email address is listed in the policy.','Users have a clear, direct path to submit privacy inquiries or exercise their rights.','Satisfies GDPR Articles 37–39 DPO appointment and contact publication requirements.'],
+    warn:['A general contact form exists but no dedicated privacy contact or DPO is specified.','Regulators expect a direct route to the person responsible for data protection.','Designate a privacy point-of-contact and list them with a dedicated email in the policy.'],
+    fail:['No privacy contact or DPO information found in the policy or on the site.','GDPR Article 37 requires many organizations to appoint a DPO and publish contact details.','Add a dedicated privacy email address and assess whether a formal DPO appointment is required.']
+  },
+  updated:{
+    pass:['Privacy policy shows a recent revision date within the last 12 months.','An up-to-date policy signals active compliance management to regulators.','Regular review cycles align with GDPR accountability requirements under Article 5(2).'],
+    warn:['Policy has a date but it is over 12 months old and may not reflect current practices.','Stale policies create accountability gaps if data practices have changed since the last update.','Establish a minimum annual review cycle with documented sign-off by the privacy team.'],
+    fail:['No revision date found on the privacy policy.','An undated policy cannot demonstrate current or ongoing compliance.','Add a version date and implement a recurring policy review and approval process.']
+  },
+  access:{
+    pass:['A documented data access request process with a clear submission path is available.','Response timeframe (30 days GDPR / 45 days CCPA) is committed to in the policy.','Meets GDPR Article 15 right of access and CCPA Section 1798.100 right to know.'],
+    warn:['Access rights are described but no self-service portal or dedicated webform exists.','Email-only intake creates delays and does not scale well with request volume.','Implement a dedicated rights request form with automated acknowledgment and case tracking.'],
+    fail:['No data access mechanism, process documentation, or request pathway found.','This is a core right under GDPR, CCPA, LGPD, UK GDPR, and virtually every global privacy law.','Establish an access request intake process with defined response timelines immediately.']
+  },
+  deletion:{
+    pass:['A deletion request process is documented with a committed response timeline.','Exceptions to deletion (legal holds, contractual obligations) are clearly noted in the policy.','Compliant with GDPR Article 17 right to erasure and CCPA Section 1798.105 right to delete.'],
+    warn:['Deletion rights are acknowledged but the request submission pathway is unclear or buried.','Unclear deletion processes make it difficult to demonstrate compliance timelines to regulators.','Clarify the deletion request method and commit to a specific completion timeline in the policy.'],
+    fail:['No deletion mechanism, reference, or intake process found on the site.','GDPR Article 17 and CCPA Section 1798.105 grant users an enforceable right to deletion.','Implement and prominently publicize a deletion request process to avoid regulatory enforcement.']
+  },
+  portability:{
+    pass:['Personal data is exportable in a machine-readable format (JSON or CSV) upon request.','The export format and delivery timeline are documented in the policy.','Satisfies GDPR Article 20 right to data portability for consent- and contract-based processing.'],
+    warn:['Portability is mentioned but available only via manual request with no defined format.','Without a specified machine-readable format, portability may not meet the GDPR standard.','Define the export format and delivery method; consider building a self-service download feature.'],
+    fail:['No data portability offering or documentation found on the site.','GDPR Article 20 requires portability for data processed on the basis of consent or contract.','Add a data export capability and document the process, format, and response timeline in the policy.']
+  },
+  correction:{
+    pass:['Users can correct inaccurate personal data via a self-service interface or documented request.','Correction requests are acknowledged with a defined response timeline.','Meets GDPR Article 16 and equivalent rights under LGPD, UK GDPR, and PIPEDA.'],
+    warn:['Correction rights are mentioned but require contacting general support with no dedicated flow.','Support-only correction paths are slow and create response timeline compliance risks.','Add an account settings correction interface or a dedicated privacy rights request form.'],
+    fail:['No correction mechanism or clear pathway identified on the site.','The right to rectification is enshrined in GDPR Article 16 and nearly every global privacy law.','Implement a correction pathway and document the process and response timeline in the policy.']
+  },
+  objection:{
+    pass:['Opt-out controls exist for profiling, marketing communications, and data sale.','All opt-out mechanisms are clearly labeled, accessible, and functioning.','Satisfies GDPR Article 21, CCPA Section 1798.120, and CPRA opt-out requirements.'],
+    warn:['Marketing email opt-out exists but broader profiling and data sale opt-outs are missing.','Partial opt-out coverage leaves material gaps under CCPA and CPRA.','Extend opt-out mechanisms to cover all processing purposes: profiling, sale, and sharing.'],
+    fail:['No objection or opt-out controls found anywhere on the site.','GDPR Article 21, CCPA, and CPRA all mandate accessible, functional opt-out mechanisms.','Add opt-out flows for marketing, profiling, and data sale as an immediate compliance priority.']
+  },
+  inventory:{
+    pass:['A cookie audit table identifies all cookies by name, category, purpose, and lifespan.','The inventory is current and accessible via the consent interface or privacy policy.','Meets EU Cookie Law transparency requirements and GDPR Records of Processing Activities.'],
+    warn:['A partial cookie list exists but does not cover all identified third-party trackers.','Incomplete inventories create regulatory exposure if challenged by a data protection authority.','Run an automated cookie scanner and publish a full inventory covering all detected cookies.'],
+    fail:['No cookie inventory or cookie audit table found on the site.','Regulators expect organizations to know and disclose every cookie set on their properties.','Conduct a full cookie scan and publish a comprehensive cookie disclosure table immediately.']
+  },
+  preblockt:{
+    pass:['No advertising or analytics trackers activate until after consent is granted.','Tag manager is correctly enforcing consent signals before loading optional scripts.','Best-practice GDPR compliance model recognized as the standard by EU DPA guidance.'],
+    warn:['Most scripts are consent-gated but at least one analytics tool loads unconditionally.','Even cookieless analytics tools can involve personal data processing under GDPR.','Move all non-strictly-necessary scripts into a consent-gated category in your tag manager.'],
+    fail:['Advertising and analytics scripts load on page entry before any consent decision.','EU DPAs have issued large fines specifically for pre-consent tracker activation.','Integrate a CMP with your tag manager to gate all non-essential scripts on consent confirmation.']
+  },
+  crosssite:{
+    pass:['Cross-site behavioral tracking and retargeting practices are clearly disclosed.','The legal basis for cross-site processing is stated alongside opt-out options.','Meets GDPR transparency requirements and CPRA cross-context behavioral advertising rules.'],
+    warn:['Behavioral advertising is acknowledged but the cross-site scope is not explained.','Users cannot make informed choices without understanding how data follows them across sites.','Add a dedicated section explaining cross-site tracking partners, purposes, and opt-out options.'],
+    fail:['No disclosure of cross-site tracking, retargeting, or behavioral advertising found.','Cross-context behavioral advertising is subject to CPRA opt-outs and GDPR Article 13 transparency.','Disclose all cross-site data flows and provide accessible opt-outs for behavioral advertising.']
+  },
+  adnet:{
+    pass:['Advertising partners and DSPs receiving user data are enumerated in the policy or consent UI.','Users can view or opt out of specific ad-tech partners via the preference center.','Meets IAB TCF requirements and GDPR Article 13 processor disclosure obligations.'],
+    warn:['Advertising use is acknowledged but specific ad-tech vendor names are not disclosed.','Generic "advertising partner" references do not satisfy GDPR transparency standards.','Publish a named vendor list or reference the IAB Global Vendor List for your ad-tech stack.'],
+    fail:['No advertising partner disclosure found anywhere on the site.','Every ad-tech vendor receiving personal data must be individually disclosed under GDPR.','Audit your advertising stack, identify all data recipients, and publish a comprehensive vendor list.']
+  },
+  analytics:{
+    pass:['Analytics platforms in use are named and the data they receive is described in the policy.','Users understand what behavioral and performance data is being measured.','Satisfies GDPR transparency obligations for processor disclosure.'],
+    warn:['Analytics tools are generically referenced without naming the specific platforms used.','Regulators and users expect explicit disclosure of analytics vendors and the data they receive.','Name each analytics tool (e.g., Google Analytics 4, Mixpanel) and describe data shared with each.'],
+    fail:['No analytics tool disclosure found in the privacy policy.','Analytics vendors are data processors under GDPR and must be individually disclosed.','List all analytics tools, describe what data they receive including IP and behavioral signals.']
+  },
+  dns:{
+    pass:['"Do Not Sell or Share My Personal Information" link confirmed in the site footer.','Link is visible on all pages accessible to California consumers.','Meets CCPA Section 1798.120 and CPRA opt-out of sale and sharing requirements.'],
+    warn:['An opt-out link exists but lacks the CCPA-required exact wording or footer placement.','CCPA enforcement guidance specifies both the required link text and its prominent placement.','Update to exact CCPA language: "Do Not Sell or Share My Personal Information" in the footer.'],
+    fail:['No "Do Not Sell or Share My Personal Information" link found on the site.','This link is mandatory for any business meeting CCPA applicability thresholds.','Add the required opt-out link to the footer of every page accessible to California residents.']
+  },
+  optout:{
+    pass:['Opt-out workflow successfully suppresses data sale and sharing with third parties.','Consumers receive confirmation that their request has been processed.','Compliant with CCPA Section 1798.120 and CPRA right to opt-out of sale or sharing.'],
+    warn:['An opt-out form exists but downstream enforcement with data partners is unconfirmed.','An opt-out that does not propagate to all data recipients does not satisfy CCPA.','Use IAB GPP signals or direct API calls to notify all data partners of opt-out decisions.'],
+    fail:['The opt-out process is broken, absent, or fails to complete.','A non-functional opt-out is treated as no opt-out mechanism under CCPA enforcement.','Repair the opt-out workflow and verify downstream suppression with all third-party data partners.']
+  },
+  sensitive:{
+    pass:['Sensitive data categories (health, financial, biometric, racial) are subject to enhanced controls.','A "Limit the Use of My Sensitive Personal Information" opt-out is accessible to users.','Meets CPRA Section 1798.121 and GDPR Article 9 special category data requirements.'],
+    warn:['Sensitive data categories are mentioned but specific processing limitations are not described.','CPRA requires a separate, distinct opt-out specifically for sensitive personal information use.','Add a dedicated sensitive data section and implement the required CPRA limit-use opt-out.'],
+    fail:['No sensitive personal information policy or disclosures found.','CPRA Section 1798.121 requires specific disclosures and a distinct opt-out for sensitive data.','Identify all sensitive data categories collected and create dedicated disclosures and controls.']
+  },
+  minors:{
+    pass:['Site does not target minors or includes COPPA-compliant age verification and parental consent.','Minor data protections are explicitly described in the privacy policy.','Meets COPPA, GDPR Article 8 (under-16), and CCPA protections for minors under 16.'],
+    warn:['Age restrictions are stated in the policy but no technical controls enforce them.','Policy-only age gates are insufficient under COPPA and GDPR Article 8.','Implement technical age verification or a parental consent workflow for at-risk user segments.'],
+    fail:['No minor data protections, age gate, or COPPA provisions detected.','COPPA applies to users under 13; GDPR Article 8 and CCPA apply to those under 16.','Conduct an age-group risk assessment and implement required protective measures urgently.']
+  },
+  finincent:{
+    pass:['Financial incentive programs disclose the personal data exchange with an explicit opt-in.','The estimated value of personal data used in incentive calculations is described.','Meets CCPA Section 1798.125 financial incentive program disclosure requirements.'],
+    warn:['Incentive programs exist but the personal data trade-off is not clearly explained to users.','CCPA requires disclosure of the estimated value of data exchanged for incentives.','Update incentive program terms to include the data-for-benefit exchange description and opt-in.'],
+    fail:['Financial incentive programs found with no personal data disclosures.','CCPA Section 1798.125 requires material terms of data-for-incentive programs to be disclosed.','Add required disclosures to all loyalty, discount, and incentive programs.']
+  },
+  gdpr:{
+    pass:['EU data transfers are covered by Standard Contractual Clauses or an adequacy decision.','Supplementary Transfer Impact Assessments are documented for high-risk jurisdictions.','Meets GDPR Chapter V requirements for lawful international personal data transfers.'],
+    warn:['SCCs are referenced but supplementary Transfer Impact Assessments are not documented.','Post-Schrems II, SCCs alone may be insufficient for transfers to certain high-risk countries.','Conduct Transfer Impact Assessments (TIAs) for each international data transfer route.'],
+    fail:['No cross-border transfer mechanism identified for EU personal data flows.','Unauthorized international transfers of EU personal data violate GDPR Chapter V.','Implement SCCs, Binding Corporate Rules, or adequacy decisions for all EU data transfers.']
+  },
+  ukgdpr:{
+    pass:['A UK GDPR addendum addresses UK residents\' rights and ICO regulatory requirements.','International Data Transfer Agreements (IDTA) or equivalent are referenced for UK transfers.','UK representative and ICO registration requirements appear to be addressed.'],
+    warn:['EU GDPR coverage is present but UK-specific post-Brexit provisions are not confirmed.','UK GDPR has distinct transfer mechanisms and ICO registration rules separate from EU GDPR.','Add a UK GDPR section and confirm ICO registration status and UK representative appointment.'],
+    fail:['No UK GDPR-specific provisions found.','UK GDPR, enforced by the ICO, applies independently from EU GDPR since Brexit in 2021.','Add a UK privacy notice section and establish an International Data Transfer Agreement (IDTA).']
+  },
+  lgpd:{
+    pass:['Brazilian users receive explicit LGPD disclosures including legal basis and ANPD contact.','Data subject rights under LGPD (access, correction, deletion, portability) are described.','Meets LGPD Articles 18–22 data subject rights and transparency requirements.'],
+    warn:['LGPD is referenced but the legal basis for each processing activity is not specified.','Like GDPR, LGPD requires a stated legal basis for every individual processing purpose.','Add a legal basis table for each processing purpose to satisfy LGPD Article 7.'],
+    fail:['No LGPD-specific coverage or disclosures detected for Brazilian users.','Brazil\'s ANPD is actively enforcing LGPD and has issued guidance on significant penalties.','Add LGPD-specific disclosures, data subject rights mechanisms, and legal basis documentation.']
+  },
+  pipeda:{
+    pass:['Canadian users\' PIPEDA rights (access, correction, complaint to OPC) are addressed in the policy.','Express consent is obtained for sensitive data collection from Canadian users.','Meets PIPEDA Principles 4.3 (consent) and 4.9 (individual access).'],
+    warn:['Canadian privacy rights are mentioned but CASL compliance for marketing is not confirmed.','Both PIPEDA and CASL apply independently — marketing requires separate CASL express consent.','Confirm CASL-compliant express opt-in records for all marketing emails to Canadian addresses.'],
+    fail:['No PIPEDA provisions found for Canadian users.','PIPEDA applies to all private-sector organizations collecting personal data from Canadians.','Add a PIPEDA section covering consent, access rights, and the OPC complaint process.']
+  },
+  pdpa:{
+    pass:['PDPA-compliant consent notices are served to Thai and Singaporean visitors.','Data subject rights under each country\'s PDPA are documented and accessible.','Meets Thailand PDPA Section 19 and Singapore PDPA Part III consent requirements.'],
+    warn:['Asian privacy laws are generically referenced but jurisdiction-specific mechanisms are absent.','Thailand and Singapore PDPA each have distinct consent and transfer requirements.','Implement jurisdiction-specific consent banners and rights mechanisms for ASEAN users.'],
+    fail:['No PDPA provisions identified for Thai or Singaporean users.','Both Thailand and Singapore actively enforce their data protection laws with significant penalties.','Assess your ASEAN user base and implement PDPA-compliant notices and rights mechanisms.']
+  },
+  https:{
+    pass:['HTTPS is enforced across all pages — personal data in transit is TLS-encrypted.','No mixed-content or HTTP fallback issues detected on the main domain.','Meets GDPR Article 32 requirement for appropriate technical security measures.'],
+    warn:['HTTPS is used on the main domain but subdomains or embedded resources may use HTTP.','Mixed-content issues can expose personal data transmitted through those resources.','Enable HTTPS on all subdomains and audit embedded third-party resources for HTTP references.'],
+    fail:['The site does not enforce HTTPS — personal data is transmitted without encryption.','Unencrypted data transmission is a GDPR Article 32 violation and exposes users to interception.','Install a TLS certificate (free via Let\'s Encrypt) and redirect all HTTP traffic to HTTPS immediately.']
+  },
+  cookieflags:{
+    pass:['Session and authentication cookies include Secure, HttpOnly, and SameSite flags.','Cookie security flags reduce exposure to XSS, CSRF, and network interception attacks.','Meets GDPR Article 32 technical security standard for personal data held in cookies.'],
+    warn:['Some cookies include security flags but third-party or tracking cookies may lack them.','Insecure third-party cookies remain a vector for session hijacking and data exposure.','Audit all cookies set by the domain and enforce Secure, HttpOnly, and SameSite flags universally.'],
+    fail:['Cookies lack standard security flags (Secure, HttpOnly, SameSite).','Without these flags, session tokens and user data in cookies are vulnerable to theft.','Implement cookie security flags in your server configuration and review third-party cookie settings.']
+  },
+  breach:{
+    pass:['Documented breach response process meets the 72-hour GDPR and applicable state-law timelines.','Notification obligations to supervisory authorities and affected individuals are included.','Meets GDPR Articles 33–34 and CCPA breach notification requirements.'],
+    warn:['Breach notification is mentioned but the 72-hour timeline and DPA contact are not specified.','Vague breach policies may not satisfy the documentation requirements of GDPR Article 33.','Define specific timelines (72 hours to DPA, without undue delay to individuals) in the policy.'],
+    fail:['No breach notification policy or documented response process found.','GDPR Article 33 requires notification to the supervisory authority within 72 hours of awareness.','Develop a breach response plan and publish notification timelines in the policy immediately.']
+  },
+  retention:{
+    pass:['Specific retention periods are defined for each data category in the privacy policy.','Automated deletion or anonymization processes enforce the documented retention schedule.','Meets GDPR Article 5(1)(e) storage limitation principle.'],
+    warn:['A retention policy exists but specific timeframes are missing for some data categories.','Vague retention language ("as long as necessary") has been challenged by EU regulators.','Define specific retention periods for every data category collected and enforce them technically.'],
+    fail:['No data retention policy found in the privacy policy.','GDPR Article 5(1)(e) prohibits keeping personal data longer than necessary for its purpose.','Conduct a data inventory, assign retention periods per category, and implement automated deletion.']
+  },
+  dpia:{
+    pass:['Data Protection Impact Assessments are documented for high-risk processing activities.','DPIA outcomes and risk mitigations are recorded and reviewed periodically.','Meets GDPR Article 35 requirements for DPIAs on high-risk processing activities.'],
+    warn:['DPIAs are referenced but triggering criteria and documented outcomes are unclear.','Without defined triggers, high-risk processing may proceed without proper assessment.','Establish a DPIA trigger checklist aligned with GDPR Article 35(3) and document all outcomes.'],
+    fail:['No evidence of DPIA practices for any processing activity on the site.','GDPR Article 35 mandates DPIAs for large-scale profiling, monitoring, or special category data.','Identify all high-risk processing activities and conduct documented DPIAs before proceeding.']
+  }
+};
+
 const REGS=[
   {id:'gdpr',label:'GDPR',cats:['consent','policy','dsr','global']},
   {id:'ccpa',label:'CCPA',cats:['us','consent','dsr']},
@@ -1180,6 +1363,7 @@ function runComplianceScan(){
 }
 
 function renderComplianceReport(domain,fullUrl,profile){
+  compScanDomain=domain; compScanProfile=profile; compScanIsHttps=/^https:/i.test(fullUrl);
   const score=calcScore(domain,profile);
   const arc=document.getElementById('comp-score-arc');
   const circ=276.5;
@@ -1227,7 +1411,10 @@ function renderComplianceReport(domain,fullUrl,profile){
         <div class="comp-cat-title"><span>${cat.label}</span><span class="comp-cat-pill ${pillCls}">${pillTxt}</span></div>
         <svg class="comp-cat-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
-      <div class="comp-cat-body">${checks}</div>
+      <div class="comp-cat-body">
+        ${checks}
+        <div class="comp-view-details-wrap"><button class="comp-view-details-btn" onclick="openCatDetails(${ci})">View Details ↗</button></div>
+      </div>
     </div>`;
   }).join('');
 
@@ -1256,6 +1443,95 @@ function renderComplianceReport(domain,fullUrl,profile){
 
   document.getElementById('comp-results').style.display='block';
   document.getElementById('comp-results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function openCatDetails(catIdx){
+  const cat=COMP_CATS[catIdx];
+  const domain=compScanDomain;
+  const profile=compScanProfile;
+  const isHttps=compScanIsHttps;
+  const date=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+
+  const results=cat.checks.map((chk,ki)=>{
+    let s=getCheckStatus(domain,catIdx,ki,profile);
+    if(chk.id==='https') s=isHttps?'pass':'fail';
+    const bullets=(COMP_BULLETS[chk.id]&&COMP_BULLETS[chk.id][s])||[];
+    return {chk,s,bullets};
+  });
+
+  const passCt=results.filter(r=>r.s==='pass').length;
+  const warnCt=results.filter(r=>r.s==='warn').length;
+  const failCt=results.filter(r=>r.s==='fail').length;
+
+  const statusMeta={
+    pass:{label:'PASSED',bg:'#d1fae5',border:'#6ee7b7',color:'#065f46',icon:'✓',cardBorder:'#a7f3d0'},
+    warn:{label:'WARNING',bg:'#fef3c7',border:'#fcd34d',color:'#92400e',icon:'!',cardBorder:'#fde68a'},
+    fail:{label:'FAILED',bg:'#fee2e2',border:'#fca5a5',color:'#991b1b',icon:'✕',cardBorder:'#fecaca'}
+  };
+
+  const checksHtml=results.map(({chk,s,bullets})=>{
+    const m=statusMeta[s];
+    const bulletHtml=bullets.map(b=>'<li>'+b+'</li>').join('');
+    return '<div style="background:#fff;border:1.5px solid '+m.cardBorder+';border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1rem">'
+      +'<div style="display:flex;align-items:flex-start;gap:.85rem;margin-bottom:.85rem">'
+      +'<div style="width:26px;height:26px;border-radius:50%;background:'+m.bg+';border:1.5px solid '+m.border+';display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:'+m.color+';flex-shrink:0;margin-top:1px">'+m.icon+'</div>'
+      +'<div style="flex:1"><div style="display:flex;align-items:center;gap:.65rem;flex-wrap:wrap;margin-bottom:.3rem">'
+      +'<span style="font-size:.95rem;font-weight:600;color:#0f2235">'+chk.label+'</span>'
+      +'<span style="font-size:.67rem;font-weight:700;letter-spacing:.06em;padding:.2rem .55rem;border-radius:100px;background:'+m.bg+';color:'+m.color+'">'+m.label+'</span>'
+      +'</div>'
+      +'<p style="font-size:.83rem;color:#3d5a72;line-height:1.6;margin-bottom:.75rem">'+chk[s]+'</p>'
+      +(bullets.length?'<ul style="margin:0;padding-left:1.15rem;display:flex;flex-direction:column;gap:.35rem">'
+        +bulletHtml
+        +'</ul>':'')
+      +'</div></div></div>';
+  }).join('');
+
+  const html='<!DOCTYPE html><html lang="en"><head>'
+    +'<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>'
+    +'<title>'+cat.label+' — '+domain+' | Osano Compliance</title>'
+    +'<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>'
+    +'<style>'
+    +'*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}'
+    +'body{font-family:"DM Sans",sans-serif;background:#f0f6f9;color:#0f2235;min-height:100vh}'
+    +'header{background:#112540;padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}'
+    +'.logo{font-family:"DM Serif Display",serif;font-size:1.3rem;color:#fff}.logo span{color:#00a896}'
+    +'.header-right{display:flex;align-items:center;gap:.85rem}'
+    +'.pill{background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);font-size:.67rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:3px 10px;border-radius:100px}'
+    +'.close-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:.8rem;font-weight:600;padding:.38rem .9rem;border-radius:7px;cursor:pointer}'
+    +'.close-btn:hover{background:rgba(255,255,255,.18)}'
+    +'.wrap{max-width:820px;margin:0 auto;padding:2rem 1.5rem 4rem}'
+    +'.summary-card{background:#fff;border:1.5px solid #cde0ec;border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1.5rem}'
+    +'.summary-card h1{font-family:"DM Serif Display",serif;font-size:1.5rem;color:#0f2235;margin-bottom:.3rem}'
+    +'.meta{font-size:.78rem;color:#7a92a4;margin-bottom:1rem}'
+    +'.stats{display:flex;gap:.65rem;flex-wrap:wrap}'
+    +'.stat{font-size:.78rem;font-weight:600;padding:.3rem .75rem;border-radius:100px}'
+    +'.stat.pass{background:#d1fae5;color:#065f46}'
+    +'.stat.warn{background:#fef3c7;color:#92400e}'
+    +'.stat.fail{background:#fee2e2;color:#991b1b}'
+    +'li{font-size:.8rem;color:#3d5a72;line-height:1.55}'
+    +'@media(max-width:580px){.wrap{padding:1.25rem 1rem 3rem}}'
+    +'</style></head><body>'
+    +'<header>'
+    +'<span class="logo">osano<span>.</span></span>'
+    +'<div class="header-right"><span class="pill">Compliance Detail</span><button class="close-btn" onclick="window.close()">Close ✕</button></div>'
+    +'</header>'
+    +'<div class="wrap">'
+    +'<div class="summary-card">'
+    +'<h1>'+cat.label+'</h1>'
+    +'<div class="meta">Site: <strong>'+domain+'</strong> &nbsp;·&nbsp; Generated: '+date+'</div>'
+    +'<div class="stats">'
+    +'<span class="stat pass">'+passCt+' Passed</span>'
+    +(warnCt?'<span class="stat warn">'+warnCt+' Warning'+(warnCt!==1?'s':'')+'</span>':'')
+    +(failCt?'<span class="stat fail">'+failCt+' Failed</span>':'')
+    +'</div>'
+    +'</div>'
+    +checksHtml
+    +'</div>'
+    +'</body></html>';
+
+  const w=window.open('','_blank');
+  if(w){w.document.write(html);w.document.close();}
+  else showToast('Allow pop-ups to view details');
 }
 </script>
 </body>
