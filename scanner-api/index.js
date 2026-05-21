@@ -181,8 +181,12 @@ app.post('/scan', async (req, res) => {
     }
     finalUrl = page.url();
 
-    // ── 6. Wait 3 s for JS/CMP to init ──────────────────────────────────────
-    await new Promise((r) => setTimeout(r, 3000));
+    // ── 6. Wait 5 s for JS/CMP to init (and Cloudflare challenges to resolve) ─
+    await new Promise((r) => setTimeout(r, 5000));
+
+    // Capture page title for diagnostics
+    const pageTitle = await page.title().catch(() => '');
+    console.log(`[scan] Page title: "${pageTitle}" at ${page.url()}`);
 
     // ── 7. Detect CMP ───────────────────────────────────────────────────────
     const cmpResult = await page.evaluate(() => {
@@ -420,6 +424,10 @@ app.post('/scan', async (req, res) => {
       preConsentOut.social.length;
 
     const signals = {
+      // Diagnostics
+      _pageTitle: pageTitle,
+      _finalUrl: finalUrl,
+
       // HTTPS
       hasHttps,
       httpsRedirectEnforced,
