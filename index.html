@@ -349,6 +349,47 @@ button{font-family:'DM Sans',sans-serif}
 .comp-view-details-wrap{padding:.6rem 1.25rem;border-top:1px solid #f0f6f9;text-align:right}
 .comp-view-details-btn{background:none;border:none;color:var(--amber);font-size:.78rem;font-weight:600;cursor:pointer;padding:0;text-decoration:underline}
 .comp-view-details-btn:hover{color:#b45309}
+/* ── Audit card ── */
+.card-desc{font-size:.82rem;color:rgba(255,255,255,.78);margin-top:.6rem;line-height:1.55}
+.audit-top{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.audit-top::after{background:#a78bfa}
+.audit-icon{background:rgba(255,255,255,.18)}
+.audit-btn{background:#7c3aed;color:#fff}
+/* ── Audit page ── */
+#pg-audit{background:#f0eeff}
+.audit-wrap{max-width:760px;margin:0 auto;padding:1.5rem 2rem 4rem}
+.audit-section-title{font-weight:700;color:#7c3aed;font-size:1.05rem;margin:2rem 0 .75rem;padding-bottom:.45rem;border-bottom:2.5px solid #7c3aed}
+.audit-section-title:first-child{margin-top:.5rem}
+.audit-q{border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.07);padding:1.1rem 1.25rem 1.1rem 1.5rem;margin-bottom:.75rem;border-left:4px solid}
+.audit-q.pink{background:#fee2e2;border-left-color:#ef4444}
+.audit-q.yellow{background:#fef9c3;border-left-color:#f59e0b}
+.audit-q.green{background:#dcfce7;border-left-color:#22c55e}
+.audit-q-text{font-weight:700;color:#111827;margin-bottom:.75rem;font-size:.925rem;line-height:1.45}
+.audit-radios{display:flex;gap:1.25rem;margin-bottom:.7rem}
+.audit-radio{display:flex;align-items:center;gap:.4rem;cursor:pointer;font-weight:600;font-size:.875rem;color:#374151}
+.audit-radio input{accent-color:#7c3aed;width:16px;height:16px;cursor:pointer}
+.audit-notes-lbl{font-style:italic;font-weight:700;font-size:.8rem;color:#4b5563;margin-bottom:.3rem;display:block}
+.audit-textarea{width:100%;border:1px solid #d1d5db;border-radius:6px;padding:.45rem .7rem;font-size:.8rem;resize:vertical;min-height:56px;font-family:inherit;background:#fff;color:#374151}
+.audit-textarea:focus{outline:2px solid #a78bfa;border-color:transparent}
+.audit-generate-btn{background:#7c3aed;color:#fff;border:none;padding:.85rem 2.75rem;border-radius:8px;font-size:.975rem;font-weight:600;cursor:pointer;display:block;margin:2.25rem auto 3rem;transition:opacity .15s}
+.audit-generate-btn:hover{opacity:.87}
+/* ── Audit report ── */
+.audit-report{background:#fff;border-radius:14px;padding:2rem;margin-bottom:1.5rem;box-shadow:0 4px 20px rgba(124,58,237,.1);border:1.5px solid #c4b5fd}
+.audit-report-header{text-align:center;margin-bottom:1.75rem;padding-bottom:1.25rem;border-bottom:2px solid #ede9fe}
+.audit-report-score-num{font-size:2.75rem;font-weight:700;color:#7c3aed;line-height:1;font-family:'DM Serif Display',serif}
+.audit-report-score-label{font-size:.875rem;color:#6b7280;margin-top:.35rem}
+.audit-report-sec-title{font-weight:700;color:#7c3aed;font-size:.975rem;margin:1.5rem 0 .5rem;padding-bottom:.35rem;border-bottom:2px solid #7c3aed}
+.audit-report-row{display:flex;gap:.75rem;align-items:flex-start;padding:.55rem 0;border-bottom:1px solid #f3f0ff}
+.audit-report-row:last-child{border-bottom:none}
+.audit-report-q-text{flex:1;font-size:.85rem;color:#374151;line-height:1.4}
+.audit-report-ans{font-weight:700;font-size:.85rem;white-space:nowrap}
+.audit-report-ans.yes{color:#059669}
+.audit-report-ans.no{color:#dc2626}
+.audit-report-ans.skip{color:#d97706}
+.audit-report-note{font-size:.78rem;color:#6b7280;font-style:italic;margin-top:.25rem}
+.audit-report-flag{font-size:.7rem;background:#fee2e2;color:#991b1b;border-radius:4px;padding:.1rem .4rem;margin-left:.35rem;font-weight:600;vertical-align:middle}
+.audit-back-btn{background:#fff;color:#7c3aed;border:2px solid #7c3aed;padding:.65rem 1.75rem;border-radius:8px;font-size:.875rem;font-weight:600;cursor:pointer;transition:all .15s;margin-bottom:2rem;display:block}
+.audit-back-btn:hover{background:#f0eeff}
 </style>
 </head>
 <body>
@@ -394,6 +435,18 @@ button{font-family:'DM Sans',sans-serif}
       </div>
       <div class="card-bottom">
         <button class="card-btn comp-btn">Click Here <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+    <div class="prod-card" onclick="startAudit()">
+      <div class="card-top audit-top">
+        <div class="card-icon audit-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h2>Osano Guarantee Audit</h2>
+        <p class="card-desc">Run a guided checklist of your Osano implementation and generate a scored compliance report.</p>
+      </div>
+      <div class="card-bottom">
+        <button class="card-btn audit-btn">Start Audit <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
       </div>
     </div>
   </div>
@@ -714,6 +767,22 @@ button{font-family:'DM Sans',sans-serif}
   </div>
 </div>
 
+<!-- ═══════════════ AUDIT PAGE ═══════════════ -->
+<div id="pg-audit" class="page">
+  <nav class="main-nav">
+    <span class="nav-logo">osano<span>.</span></span>
+    <span class="nav-pill">Demo Portal</span>
+  </nav>
+  <div class="demo-subnav">
+    <button class="back-btn" onclick="showPage('pg-home')">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back
+    </button>
+    <span style="font-weight:600;color:var(--text)">Osano Guarantee Audit</span>
+  </div>
+  <div id="audit-form-view" class="audit-wrap"></div>
+  <div id="audit-report-view" class="audit-wrap" style="display:none"></div>
+</div>
+
 <div id="adv-popup">
   <div class="popup-arrow" id="adv-popup-arrow"></div>
   <div class="popup-head"><span id="popup-name"></span><button class="popup-close" onclick="closeAdvPopup()">&#x2715;</button></div>
@@ -729,7 +798,8 @@ const PAGE_HASH={
   'pg-dsar':'dsar',
   'pg-adv':'advanced-settings',
   'pg-geo-preview':'geo-preview',
-  'pg-compliance':'compliance-checker'
+  'pg-compliance':'compliance-checker',
+  'pg-audit':'audit'
 };
 const HASH_PAGE=Object.fromEntries(Object.entries(PAGE_HASH).map(([k,v])=>[v,k]));
 
@@ -1766,6 +1836,115 @@ function openCatDetails(catIdx){
   const w=window.open('','_blank');
   if(w){w.document.write(html);w.document.close();}
   else showToast('Allow pop-ups to view details');
+}
+
+// ─── Osano Guarantee Audit ────────────────────────────────────────────────────
+const AUDIT_SECTIONS=[
+  {title:'Cookie Consent Installation',questions:[
+    {id:0,text:'Is osano.js placed in the &lt;head&gt;?',color:'pink'},
+    {id:1,text:'Is osano.js loaded without async/defer?',color:'pink'},
+    {id:2,text:'Was the Osano Script published in the last 3 months?',color:'yellow'},
+    {id:3,text:'Is your Osano configuration in "Strict" mode?',color:'pink'},
+  ]},
+  {title:'Cookie Consent Styling and Classification',questions:[
+    {id:4,text:'Are all scripts and cookies properly classified?',color:'pink'},
+    {id:5,text:'Are classifications grouped into useful rulesets?',color:'yellow'},
+    {id:6,text:'Are the rules free of any glaring misclassifications (e.g., all hidden/essential)?',color:'pink'},
+    {id:7,text:'Is the cookie consent banner free of any styling that could be considered a "dark pattern"?',color:'pink'},
+    {id:8,text:'Are all your cookies disclosed?',color:'yellow'},
+  ]},
+  {title:'Cookie Consent Frameworks',questions:[
+    {id:9,text:'Is US State Opt-Out turned OFF?',color:'pink'},
+    {id:10,text:'Is GPC (Global Privacy Control) enabled?',color:'pink'},
+    {id:11,text:'Is DNT (Do Not Track) enabled?',color:'green'},
+    {id:12,text:'Is the Manage Preferences button enabled?',color:'green'},
+  ]},
+  {title:'DSAR & Other',questions:[
+    {id:13,text:'Is a DSAR form present and accessible?',color:'pink'},
+    {id:14,text:'Is the DSAR form linked in the privacy policy?',color:'yellow'},
+    {id:15,text:'Does the DSAR form offer full rights (access, deletion, correction, etc.)?',color:'pink'},
+    {id:16,text:'Is there a "Do Not Sell" link in the footer?',color:'green'},
+    {id:17,text:'Is there a cookie preferences link or widget?',color:'pink'},
+  ]},
+];
+
+let auditAnswers={},auditNotes={};
+
+function startAudit(){
+  auditAnswers={};auditNotes={};
+  document.getElementById('audit-report-view').style.display='none';
+  document.getElementById('audit-form-view').style.display='block';
+  showPage('pg-audit');
+  renderAuditForm();
+}
+
+function renderAuditForm(){
+  let html='';
+  AUDIT_SECTIONS.forEach(sec=>{
+    html+=`<div class="audit-section-title">${sec.title}</div>`;
+    sec.questions.forEach(q=>{
+      const ans=auditAnswers[q.id]||'';
+      const note=(auditNotes[q.id]||'').replace(/"/g,'&quot;');
+      html+=`<div class="audit-q ${q.color}">
+  <div class="audit-q-text">${q.text}</div>
+  <div class="audit-radios">
+    <label class="audit-radio"><input type="radio" name="aq${q.id}" value="yes" onchange="auditAnswers[${q.id}]='yes'" ${ans==='yes'?'checked':''}> Yes</label>
+    <label class="audit-radio"><input type="radio" name="aq${q.id}" value="no" onchange="auditAnswers[${q.id}]='no'" ${ans==='no'?'checked':''}> No</label>
+  </div>
+  <span class="audit-notes-lbl">Optional Notes:</span>
+  <textarea class="audit-textarea" placeholder="Add specifics like '_ga is classified as essential, should be analytics'." oninput="auditNotes[${q.id}]=this.value">${note}</textarea>
+</div>`;
+    });
+  });
+  html+=`<button class="audit-generate-btn" onclick="generateAuditReport()">Generate Report</button>`;
+  document.getElementById('audit-form-view').innerHTML=html;
+}
+
+function generateAuditReport(){
+  const total=AUDIT_SECTIONS.reduce((s,sec)=>s+sec.questions.length,0);
+  const yesCount=Object.values(auditAnswers).filter(a=>a==='yes').length;
+  const noCount=Object.values(auditAnswers).filter(a=>a==='no').length;
+  const unanswered=total-yesCount-noCount;
+  const pct=Math.round((yesCount/total)*100);
+  const grade=pct>=90?'Excellent':pct>=75?'Good':pct>=55?'Needs Work':'At Risk';
+  const gradeColor=pct>=90?'#059669':pct>=75?'#7c3aed':pct>=55?'#d97706':'#dc2626';
+  let html=`<button class="audit-back-btn" onclick="showAuditForm()">← Back to Audit</button>
+<div class="audit-report">
+  <div class="audit-report-header">
+    <div class="audit-report-score-num">${yesCount}<span style="font-size:1.5rem;color:#9ca3af"> / ${total}</span></div>
+    <div class="audit-report-score-label">answered Yes &nbsp;·&nbsp; <span style="font-weight:700;color:${gradeColor}">${pct}% — ${grade}</span></div>
+    ${unanswered>0?`<div style="margin-top:.6rem;font-size:.8rem;color:#d97706;font-weight:600">${unanswered} question${unanswered>1?'s':''} left unanswered</div>`:''}
+  </div>`;
+  AUDIT_SECTIONS.forEach(sec=>{
+    html+=`<div class="audit-report-sec-title">${sec.title}</div>`;
+    sec.questions.forEach(q=>{
+      const ans=auditAnswers[q.id];
+      const note=auditNotes[q.id]||'';
+      const label=ans==='yes'?'Yes':ans==='no'?'No':'Unanswered';
+      const cls=ans==='yes'?'yes':ans==='no'?'no':'skip';
+      html+=`<div class="audit-report-row">
+  <div class="audit-report-q-text">${q.text}${note?`<div class="audit-report-note">${note}</div>`:''}
+  </div>
+  <div style="display:flex;align-items:center;flex-shrink:0">
+    <span class="audit-report-ans ${cls}">${label}</span>
+    ${ans!=='yes'?'<span class="audit-report-flag">Needs attention</span>':''}
+  </div>
+</div>`;
+    });
+  });
+  html+=`</div>`;
+  const rv=document.getElementById('audit-report-view');
+  rv.innerHTML=html;
+  document.getElementById('audit-form-view').style.display='none';
+  rv.style.display='block';
+  window.scrollTo(0,0);
+}
+
+function showAuditForm(){
+  document.getElementById('audit-report-view').style.display='none';
+  document.getElementById('audit-form-view').style.display='block';
+  renderAuditForm();
+  window.scrollTo(0,0);
 }
 </script>
 </body>
