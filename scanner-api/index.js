@@ -3,10 +3,7 @@
 const express = require('express');
 const cors = require('cors');
 const chromium = require('@sparticuz/chromium');
-const puppeteerExtra = require('puppeteer-extra');
-const StealthPlugin = require('puppeteer-extra-plugin-stealth');
-puppeteerExtra.use(StealthPlugin());
-puppeteerExtra.connect = require('puppeteer-core').connect;
+const puppeteer = require('puppeteer-core');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -126,7 +123,7 @@ app.post('/scan', async (req, res) => {
 
   try {
     // ── 1. Launch browser ───────────────────────────────────────────────────
-    browser = await puppeteerExtra.launch({
+    browser = await puppeteer.launch({
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath(),
