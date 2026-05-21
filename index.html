@@ -371,6 +371,8 @@ button{font-family:'DM Sans',sans-serif}
 .audit-notes-lbl{font-style:italic;font-weight:700;font-size:.8rem;color:#4b5563;margin-bottom:.3rem;display:block}
 .audit-textarea{width:100%;border:1px solid #d1d5db;border-radius:6px;padding:.45rem .7rem;font-size:.8rem;resize:vertical;min-height:56px;font-family:inherit;background:#fff;color:#374151}
 .audit-textarea:focus{outline:2px solid #a78bfa;border-color:transparent}
+@keyframes auditShake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+.audit-q-error{outline:2.5px solid #ef4444!important;outline-offset:3px;animation:auditShake .35s ease}
 .audit-generate-btn{background:#7c3aed;color:#fff;border:none;padding:.85rem 2.75rem;border-radius:8px;font-size:.975rem;font-weight:600;cursor:pointer;display:block;margin:2.25rem auto 3rem;transition:opacity .15s}
 .audit-generate-btn:hover{opacity:.87}
 /* ── Audit report ── */
@@ -1941,11 +1943,11 @@ function renderAuditForm(){
     sec.questions.forEach(q=>{
       const ans=auditAnswers[q.id]||'';
       const note=(auditNotes[q.id]||'').replace(/"/g,'&quot;');
-      html+=`<div class="audit-q ${q.color}">
+      html+=`<div class="audit-q ${q.color}" id="audit-q-${q.id}">
   <div class="audit-q-text">${q.text}</div>
   <div class="audit-radios">
-    <label class="audit-radio"><input type="radio" name="aq${q.id}" value="yes" onchange="auditAnswers[${q.id}]='yes'" ${ans==='yes'?'checked':''}> Yes</label>
-    <label class="audit-radio"><input type="radio" name="aq${q.id}" value="no" onchange="auditAnswers[${q.id}]='no'" ${ans==='no'?'checked':''}> No</label>
+    <label class="audit-radio"><input type="radio" name="aq${q.id}" value="yes" onchange="auditAnswers[${q.id}]='yes';document.getElementById('audit-q-${q.id}').classList.remove('audit-q-error')" ${ans==='yes'?'checked':''}> Yes</label>
+    <label class="audit-radio"><input type="radio" name="aq${q.id}" value="no" onchange="auditAnswers[${q.id}]='no';document.getElementById('audit-q-${q.id}').classList.remove('audit-q-error')" ${ans==='no'?'checked':''}> No</label>
   </div>
   <span class="audit-notes-lbl">Optional Notes:</span>
   <textarea class="audit-textarea" placeholder="Add specifics like '_ga is classified as essential, should be analytics'." oninput="auditNotes[${q.id}]=this.value">${note}</textarea>
@@ -1981,6 +1983,15 @@ const RISK_LABEL={high:'High Risk',medium:'Medium Risk',low:'Low Risk'};
 
 function generateAuditReport(){
   const sections=auditScope==='cc'?AUDIT_SECTIONS.filter(s=>s.title!=='DSAR & Other'):AUDIT_SECTIONS;
+  const allQs=sections.flatMap(s=>s.questions);
+  const unansweredQs=allQs.filter(q=>!auditAnswers[q.id]);
+  if(unansweredQs.length){
+    document.querySelectorAll('.audit-q-error').forEach(el=>el.classList.remove('audit-q-error'));
+    const first=document.getElementById('audit-q-'+unansweredQs[0].id);
+    if(first){first.classList.add('audit-q-error');first.scrollIntoView({behavior:'smooth',block:'center'});}
+    showToast(`${unansweredQs.length} question${unansweredQs.length>1?'s':''} still need${unansweredQs.length===1?'s':''} an answer`);
+    return;
+  }
   const total=sections.reduce((s,sec)=>s+sec.questions.length,0);
   const yesCount=Object.values(auditAnswers).filter(a=>a==='yes').length;
   const noCount=Object.values(auditAnswers).filter(a=>a==='no').length;
