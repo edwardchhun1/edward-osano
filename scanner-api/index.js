@@ -2,22 +2,11 @@
 
 const express = require('express');
 const cors = require('cors');
-const puppeteer = require('puppeteer');
+const chromium = require('@sparticuz/chromium');
+const puppeteer = require('puppeteer-core');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-// ─── Chromium launch args tuned for Render (no sandbox, no GPU) ───────────────
-const BROWSER_ARGS = [
-  '--no-sandbox',
-  '--disable-setuid-sandbox',
-  '--disable-dev-shm-usage',
-  '--disable-accelerated-2d-canvas',
-  '--no-first-run',
-  '--no-zygote',
-  '--disable-gpu',
-  '--disable-extensions',
-];
 
 // ─── Tracker domain lists ─────────────────────────────────────────────────────
 const TRACKER_DOMAINS = {
@@ -131,8 +120,10 @@ app.post('/scan', async (req, res) => {
   try {
     // ── 1. Launch browser ───────────────────────────────────────────────────
     browser = await puppeteer.launch({
-      headless: 'new',
-      args: BROWSER_ARGS,
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
     });
 
     // ── 2. Open page, set UA + viewport ────────────────────────────────────
