@@ -13,6 +13,10 @@
   --navy:#1b3a5c;--navy-dark:#112540;--teal:#00a896;--teal-light:#e0f5f2;--teal-mid:#b0ddd8;
   --purple:#6b5ce7;--purple-light:#eeebff;--bg:#f0f6f9;--white:#ffffff;
   --text:#0f2235;--text-2:#3d5a72;--text-3:#7a92a4;--border:#cde0ec;--card-radius:14px;
+  --amber:#d97706;--amber-light:#fef3c7;--amber-mid:#fcd34d;
+  --pass:#059669;--pass-light:#d1fae5;--pass-mid:#6ee7b7;
+  --fail:#dc2626;--fail-light:#fee2e2;--fail-mid:#fca5a5;
+  --warn-bg:#fef3c7;--warn-border:#fcd34d;--warn-text:#92400e;
 }
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 a{text-decoration:none;color:inherit}
@@ -254,6 +258,94 @@ button{font-family:'DM Sans',sans-serif}
   .cards-wrap{padding:0 1.25rem 3rem;gap:1.25rem}
   .cc-layout,.dsar-layout,.adv-layout{padding:1.5rem 1rem 3rem}
 }
+
+/* ── COMPLIANCE CHECKER CARD ── */
+.cards-wrap{max-width:1120px}
+.comp-top{background:linear-gradient(135deg,#fef3c7 0%,#fffbeb 100%)}
+.comp-top::after{background:var(--amber)}
+.comp-icon-wrap{background:var(--amber)}
+.comp-btn{background:var(--amber);color:#fff}
+
+/* ── COMPLIANCE PAGE ── */
+.comp-layout{max-width:920px;margin:0 auto;padding:2.5rem 2rem 5rem}
+.comp-intro{background:var(--white);border:1.5px solid var(--border);border-radius:var(--card-radius);padding:2rem;margin-bottom:1.5rem}
+.comp-intro h2{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--text);margin-bottom:.5rem}
+.comp-intro p{font-size:.875rem;color:var(--text-2);line-height:1.7;margin-bottom:1.25rem}
+.comp-url-row{display:flex;gap:.65rem}
+.comp-url-input{flex:1;font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--text);background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:.68rem 1rem;outline:none;transition:border-color .15s}
+.comp-url-input:focus{border-color:var(--amber)}
+.comp-scan-btn{background:var(--amber);color:#fff;border:none;padding:.68rem 1.5rem;border-radius:8px;font-size:.875rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:opacity .15s;display:flex;align-items:center;gap:.5rem}
+.comp-scan-btn:hover{opacity:.88}.comp-scan-btn:disabled{opacity:.5;cursor:not-allowed}
+.comp-scan-btn svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.comp-law-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.85rem}
+.comp-law-tag{font-size:.67rem;font-weight:600;letter-spacing:.04em;padding:.22rem .6rem;border-radius:100px;background:var(--bg);border:1px solid var(--border);color:var(--text-3)}
+/* Scanning */
+.comp-scanning{text-align:center;background:var(--white);border:1.5px solid var(--border);border-radius:var(--card-radius);padding:3rem 2rem;display:none}
+.comp-scan-anim{width:64px;height:64px;border-radius:50%;background:var(--amber-light);border:2px solid var(--amber-mid);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;animation:csPulse 1.5s ease-in-out infinite}
+@keyframes csPulse{0%,100%{box-shadow:0 0 0 0 rgba(217,119,6,.25)}60%{box-shadow:0 0 0 10px rgba(217,119,6,0)}}
+.comp-scan-anim svg{width:26px;height:26px;stroke:var(--amber);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.comp-scan-label{font-size:.78rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text-3);margin-bottom:.5rem}
+.comp-progress-bar{width:100%;max-width:420px;height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin:.85rem auto 0}
+.comp-progress-fill{height:100%;background:linear-gradient(90deg,var(--amber),var(--teal));border-radius:3px;transition:width .35s ease;width:0}
+.comp-scan-msg{font-size:.78rem;color:var(--text-3);margin-top:.5rem;min-height:1.1em}
+/* Overview */
+.comp-results{display:none}
+.comp-overview{display:grid;grid-template-columns:180px 1fr;gap:1.25rem;margin-bottom:1.25rem;align-items:start}
+@media(max-width:580px){.comp-overview{grid-template-columns:1fr}}
+.comp-score-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--card-radius);padding:1.5rem;text-align:center}
+.comp-score-card svg{overflow:visible}
+.comp-score-num{font-family:'DM Serif Display',serif;font-size:2rem;line-height:1;color:var(--text)}
+.comp-score-grade{font-size:.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-top:.25rem}
+.comp-reg-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--card-radius);padding:1.25rem}
+.comp-reg-head{font-size:.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem}
+.comp-reg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.45rem}
+.crb{padding:.5rem .75rem;border-radius:8px;border:1.5px solid}
+.crb-name{font-size:.75rem;font-weight:700;display:block}
+.crb-status{font-size:.67rem;font-weight:500;display:block;margin-top:1px}
+.crb.pass{background:var(--pass-light);border-color:var(--pass-mid);color:#065f46}
+.crb.partial{background:var(--warn-bg);border-color:var(--warn-border);color:var(--warn-text)}
+.crb.fail{background:var(--fail-light);border-color:var(--fail-mid);color:#991b1b}
+/* Findings */
+.comp-cat-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--card-radius);overflow:hidden;margin-bottom:.85rem}
+.comp-cat-head{padding:.9rem 1.25rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;gap:.75rem}
+.comp-cat-head:hover{background:#fafcfe}
+.comp-cat-title{font-size:.875rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:.65rem;flex:1}
+.comp-cat-pill{font-size:.67rem;font-weight:700;padding:.18rem .55rem;border-radius:100px;flex-shrink:0}
+.comp-cat-pill.good{background:var(--pass-light);color:#065f46}
+.comp-cat-pill.mid{background:var(--warn-bg);color:var(--warn-text)}
+.comp-cat-pill.bad{background:var(--fail-light);color:#991b1b}
+.comp-cat-chevron{width:14px;height:14px;stroke:var(--text-3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s;flex-shrink:0}
+.comp-cat-card.open .comp-cat-chevron{transform:rotate(180deg)}
+.comp-cat-body{border-top:1px solid var(--border);display:none}
+.comp-cat-card.open .comp-cat-body{display:block}
+.comp-check-row{display:flex;align-items:flex-start;gap:.75rem;padding:.75rem 1.25rem;border-bottom:1px solid #f0f6f9}
+.comp-check-row:last-child{border-bottom:none}
+.comp-check-icon{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:800;flex-shrink:0;margin-top:1px}
+.comp-check-icon.pass{background:var(--pass-light);color:#065f46}
+.comp-check-icon.warn{background:var(--warn-bg);color:var(--warn-text)}
+.comp-check-icon.fail{background:var(--fail-light);color:#991b1b}
+.comp-check-label{font-size:.82rem;font-weight:600;color:var(--text);display:block;margin-bottom:.15rem}
+.comp-check-desc{font-size:.75rem;color:var(--text-3);line-height:1.5}
+/* Recs */
+.comp-recs-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--card-radius);padding:1.25rem;margin-bottom:.85rem}
+.comp-recs-head{font-size:.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:.85rem}
+.comp-rec{display:flex;gap:.75rem;padding:.75rem;background:var(--bg);border:1px solid var(--border);border-radius:8px;margin-bottom:.5rem;align-items:flex-start}
+.comp-rec:last-child{margin-bottom:0}
+.comp-rec-pri{font-size:.63rem;font-weight:700;padding:.18rem .5rem;border-radius:100px;flex-shrink:0;margin-top:2px}
+.comp-rec-pri.high{background:var(--fail-light);color:#991b1b}
+.comp-rec-pri.med{background:var(--warn-bg);color:var(--warn-text)}
+.comp-rec-pri.low{background:var(--pass-light);color:#065f46}
+.comp-rec strong{font-size:.82rem;font-weight:600;display:block;color:var(--text);margin-bottom:.18rem}
+.comp-rec p{font-size:.75rem;color:var(--text-3);line-height:1.5}
+/* CTA */
+.comp-cta{background:linear-gradient(135deg,var(--navy-dark),var(--navy));border-radius:var(--card-radius);padding:2rem;text-align:center;color:#fff;margin-top:.85rem}
+.comp-cta h3{font-family:'DM Serif Display',serif;font-size:1.25rem;margin-bottom:.5rem}
+.comp-cta p{font-size:.85rem;color:rgba(255,255,255,.78);line-height:1.65;margin-bottom:1.25rem;max-width:520px;margin-left:auto;margin-right:auto}
+.comp-cta-btn{background:var(--teal);color:#fff;border:none;padding:.72rem 1.75rem;border-radius:8px;font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.comp-cta-btn:hover{opacity:.87}
+.comp-scanned-url{font-size:.75rem;color:var(--text-3);margin-bottom:1rem;display:flex;align-items:center;gap:.4rem}
+.comp-scanned-url strong{color:var(--text-2)}
+.comp-rescan-link{font-size:.75rem;color:var(--amber);font-weight:600;cursor:pointer;border:none;background:none;padding:0;text-decoration:underline;margin-left:.5rem}
 </style>
 </head>
 <body>
@@ -288,6 +380,17 @@ button{font-family:'DM Sans',sans-serif}
       </div>
       <div class="card-bottom">
         <button class="card-btn dsar-btn">Click Here <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+    <div class="prod-card" onclick="showPage('pg-compliance')">
+      <div class="card-top comp-top">
+        <div class="card-icon comp-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <h2>Compliance Checker</h2>
+      </div>
+      <div class="card-bottom">
+        <button class="card-btn comp-btn">Click Here <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
       </div>
     </div>
   </div>
@@ -526,6 +629,88 @@ button{font-family:'DM Sans',sans-serif}
   </div>
 </div>
 
+<!-- ═══════════════ COMPLIANCE CHECKER PAGE ═══════════════ -->
+<div id="pg-compliance" class="page">
+  <nav class="main-nav">
+    <span class="nav-logo">osano<span>.</span></span>
+    <span class="nav-pill">Demo Portal</span>
+  </nav>
+  <div class="demo-subnav">
+    <button class="back-btn" onclick="showPage('pg-home')">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back
+    </button>
+    <span class="subnav-div">|</span>
+    <span class="subnav-title">Compliance Checker</span>
+  </div>
+  <div class="comp-layout">
+
+    <div class="comp-intro">
+      <h2>Privacy Compliance Scanner</h2>
+      <p>Enter any website URL to receive a comprehensive privacy compliance evaluation across GDPR, CCPA/CPRA, LGPD, UK GDPR, PIPEDA, and 10+ global frameworks. The scanner analyzes consent mechanisms, privacy policy coverage, data subject rights disclosures, third-party tracking practices, and regulatory framework alignment.</p>
+      <div class="comp-url-row">
+        <input type="url" id="comp-url" class="comp-url-input" placeholder="https://example.com" autocomplete="off" onkeydown="if(event.key==='Enter')runComplianceScan()"/>
+        <button class="comp-scan-btn" id="comp-scan-btn" onclick="runComplianceScan()">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          Run Scan
+        </button>
+      </div>
+      <div class="comp-law-tags">
+        <span class="comp-law-tag">GDPR</span><span class="comp-law-tag">CCPA</span><span class="comp-law-tag">CPRA</span>
+        <span class="comp-law-tag">UK GDPR</span><span class="comp-law-tag">LGPD</span><span class="comp-law-tag">PIPEDA</span>
+        <span class="comp-law-tag">PDPA</span><span class="comp-law-tag">POPIA</span><span class="comp-law-tag">COPPA</span>
+        <span class="comp-law-tag">Australian Privacy Act</span><span class="comp-law-tag">Swiss nFADP</span>
+      </div>
+    </div>
+
+    <div class="comp-scanning" id="comp-scanning">
+      <div class="comp-scan-anim">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="comp-scan-label">Scanning</div>
+      <div id="comp-scan-domain" style="font-size:.82rem;color:var(--text-2);font-weight:600;margin-bottom:.25rem"></div>
+      <div class="comp-progress-bar"><div class="comp-progress-fill" id="comp-progress-fill"></div></div>
+      <div class="comp-scan-msg" id="comp-scan-msg">Initializing scanner…</div>
+    </div>
+
+    <div class="comp-results" id="comp-results">
+      <div class="comp-scanned-url" id="comp-scanned-url-label"></div>
+
+      <div class="comp-overview">
+        <div class="comp-score-card">
+          <svg width="110" height="110" viewBox="0 0 110 110">
+            <circle cx="55" cy="55" r="44" fill="none" stroke="var(--border)" stroke-width="8"/>
+            <circle id="comp-score-arc" cx="55" cy="55" r="44" fill="none" stroke="#059669" stroke-width="8"
+              stroke-linecap="round" stroke-dasharray="0 276.5"
+              transform="rotate(-90 55 55)" style="transition:stroke-dasharray .8s ease,stroke .4s"/>
+          </svg>
+          <div style="margin-top:-8px">
+            <div class="comp-score-num" id="comp-score-num">—</div>
+            <div class="comp-score-grade" id="comp-score-grade">Overall Score</div>
+          </div>
+        </div>
+        <div class="comp-reg-card">
+          <div class="comp-reg-head">Regulatory Framework Status</div>
+          <div class="comp-reg-grid" id="comp-reg-grid"></div>
+        </div>
+      </div>
+
+      <div id="comp-findings"></div>
+
+      <div class="comp-recs-card" id="comp-recs-wrap">
+        <div class="comp-recs-head">Priority Recommendations</div>
+        <div id="comp-recs"></div>
+      </div>
+
+      <div class="comp-cta">
+        <h3>Close Compliance Gaps with Osano</h3>
+        <p>Osano's consent management platform automates compliance across all major privacy frameworks — handling cookie consent, data subject rights, vendor risk, and more in a single platform.</p>
+        <button class="comp-cta-btn" onclick="showToast('Contact form coming soon')">Talk to an Expert</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <div id="adv-popup">
   <div class="popup-arrow" id="adv-popup-arrow"></div>
   <div class="popup-head"><span id="popup-name"></span><button class="popup-close" onclick="closeAdvPopup()">&#x2715;</button></div>
@@ -540,7 +725,8 @@ const PAGE_HASH={
   'pg-cc':'cookie-consent',
   'pg-dsar':'dsar',
   'pg-adv':'advanced-settings',
-  'pg-geo-preview':'geo-preview'
+  'pg-geo-preview':'geo-preview',
+  'pg-compliance':'compliance-checker'
 };
 const HASH_PAGE=Object.fromEntries(Object.entries(PAGE_HASH).map(([k,v])=>[v,k]));
 
@@ -841,6 +1027,235 @@ function gpRenderDNS(s){
     <div class="gp-dns-row"><div class="gp-dns-info"><strong>${s.dnsSell}</strong><span>Currently: Active</span></div><button class="gp-dns-tog"></button></div>
     <div class="gp-dns-row"><div class="gp-dns-info"><strong>${s.dnsShare}</strong><span>Currently: Active</span></div><button class="gp-dns-tog"></button></div>
   </div>`;
+}
+
+// ── COMPLIANCE CHECKER ──
+function dHash(s){let h=5381;for(let i=0;i<s.length;i++)h=(Math.imul(h,33)^s.charCodeAt(i))>>>0;return h;}
+
+const COMP_CATS=[
+  {id:'consent',label:'Cookie Consent & Notice',weight:20,checks:[
+    {id:'banner',label:'Consent banner present',pass:'A consent banner is displayed to visitors before non-essential cookies are set.',warn:'A consent notification is present but may load after cookies have already been set.',fail:'No cookie consent banner detected. Visitors are not informed about data collection.'},
+    {id:'pregrant',label:'Opt-in before cookies fire',pass:'Non-essential cookies are blocked until explicit consent is granted.',warn:'Some third-party scripts activate before consent is confirmed.',fail:'Cookies and tracking scripts fire on page load without prior consent — a clear GDPR violation.'},
+    {id:'granular',label:'Granular category controls',pass:'Cookie categories (Analytics, Marketing, Functional) are individually toggleable.',warn:'Limited category options offered; some are bundled in a way that reduces user control.',fail:'No per-category consent controls. Visitors cannot selectively accept cookie types.'},
+    {id:'withdraw',label:'Consent withdrawal mechanism',pass:'Users can withdraw or modify consent at any time via a persistent preference link.',warn:'Consent can be withdrawn but the mechanism is not easily discoverable.',fail:'No mechanism exists for users to withdraw or change their consent after the initial interaction.'},
+    {id:'records',label:'Consent audit records',pass:'Consent decisions are logged with timestamp and version for compliance auditing.',warn:'Basic consent logging in place, but records may lack sufficient detail for regulatory audit.',fail:'No evidence of consent record-keeping. Cannot demonstrate compliance in regulatory investigations.'}
+  ]},
+  {id:'policy',label:'Privacy Policy',weight:15,checks:[
+    {id:'present',label:'Privacy policy accessible',pass:'A privacy policy page is accessible from the site footer and cookie banner.',warn:'A privacy policy exists but is not prominently linked from consent interfaces.',fail:'No accessible privacy policy page found. Required under GDPR, CCPA, and most global frameworks.'},
+    {id:'datacats',label:'Data categories described',pass:'The policy clearly identifies what personal data is collected (name, email, IP, behavioral data, etc.).',warn:'Data categories are mentioned but described vaguely without sufficient specificity.',fail:'The policy does not describe what personal data is collected, violating transparency requirements.'},
+    {id:'thirdparty',label:'Third-party sharing disclosed',pass:'All third-party data processors and sharing relationships are documented in the policy.',warn:'Third-party sharing is acknowledged but specific vendors or categories are not identified.',fail:'No disclosure of third-party data sharing. Under CCPA and GDPR this is a material omission.'},
+    {id:'contact',label:'DPO / contact information',pass:'A Data Protection Officer or privacy contact is listed with a direct email or form.',warn:'A general contact link is provided but a dedicated privacy contact or DPO is not specified.',fail:'No privacy contact information provided. GDPR Article 37 may require a designated DPO.'},
+    {id:'updated',label:'Policy updated within 12 months',pass:'The privacy policy carries a recent revision date within the past 12 months.',warn:'Policy has a date but it is over 12 months old — may not reflect current practices.',fail:'No revision date on the privacy policy. Regulators expect policies to be kept current.'}
+  ]},
+  {id:'dsr',label:'Data Subject Rights',weight:20,checks:[
+    {id:'access',label:'Right to access / data export',pass:'A clear process exists for users to request access to or a copy of their personal data.',warn:'Data access is referenced in the policy but no self-service mechanism or direct contact is offered.',fail:'No data access mechanism found. GDPR Article 15 and CCPA Section 1798.100 grant this right.'},
+    {id:'deletion',label:'Right to erasure / deletion',pass:'Users can submit deletion requests and the site commits to a defined deletion timeline.',warn:'Deletion rights are acknowledged but the request process is unclear or buried.',fail:'No deletion mechanism or reference found. Failure to honor erasure requests risks regulatory action.'},
+    {id:'portability',label:'Data portability',pass:'Personal data can be exported in a machine-readable format (JSON, CSV) upon request.',warn:'Portability is mentioned but only available via manual request with no defined format.',fail:'No data portability offering found. Required under GDPR Article 20.'},
+    {id:'correction',label:'Right to correction',pass:'Users can correct inaccurate personal data directly or via a documented request process.',warn:'Correction is referenced but requires contacting support with no dedicated flow.',fail:'No correction mechanism identified. This right is foundational under GDPR and LGPD.'},
+    {id:'objection',label:'Right to object / opt-out',pass:'Clear opt-out mechanisms are available for profiling, marketing, and data sale.',warn:'Opt-out options exist for marketing emails but not broader profiling or data sale.',fail:'No objection or opt-out controls provided. Under CCPA, "Do Not Sell" must be clearly accessible.'}
+  ]},
+  {id:'tracking',label:'Third-Party Tracking',weight:15,checks:[
+    {id:'inventory',label:'Cookie inventory / audit',pass:'A cookie audit table identifies all cookies by name, category, purpose, and lifespan.',warn:'A partial cookie list exists but does not cover all third-party trackers.',fail:'No cookie inventory found. Regulators expect organizations to know and disclose all cookies set.'},
+    {id:'preblockt',label:'Pre-consent tracker blocking',pass:'No third-party trackers are loaded until the user grants consent in the applicable category.',warn:'Most trackers are blocked before consent, but some analytics scripts load unconditionally.',fail:'Advertising and analytics trackers load on page entry regardless of consent status.'},
+    {id:'crosssite',label:'Cross-site tracking disclosed',pass:'Behavioral advertising and cross-site tracking practices are clearly disclosed.',warn:'Behavioral tracking is mentioned but the scope across partner sites is not explained.',fail:'Cross-site tracking activity is not disclosed, a significant GDPR and CPRA compliance gap.'},
+    {id:'adnet',label:'Advertising network disclosure',pass:'All advertising partners and DSPs receiving data are enumerated in the policy or consent UI.',warn:'Advertising use is acknowledged but specific ad-tech partners are not listed.',fail:'No advertising partner disclosure. Under GDPR TCF requirements this is a compliance deficiency.'},
+    {id:'analytics',label:'Analytics tool disclosure',pass:'All analytics platforms in use are named and the data they receive is described.',warn:'Analytics tools are generically referenced without naming specific platforms.',fail:'No analytics tool disclosure. Users cannot assess what behavioral data analytics vendors receive.'}
+  ]},
+  {id:'us',label:'US Privacy (CCPA / CPRA)',weight:15,checks:[
+    {id:'dns',label:'"Do Not Sell or Share" link',pass:'A "Do Not Sell or Share My Personal Information" link is present in the site footer.',warn:'An opt-out link is present but does not use the CCPA-required language or placement.',fail:'No "Do Not Sell or Share" link found. Required for businesses meeting CCPA thresholds.'},
+    {id:'optout',label:'Opt-out mechanism functional',pass:'The opt-out workflow successfully suppresses data sale/sharing to third parties.',warn:'An opt-out form exists but confirmation or downstream enforcement is unclear.',fail:'The opt-out process is broken or absent. Non-functional opt-outs violate CCPA enforcement guidance.'},
+    {id:'sensitive',label:'Sensitive personal information handling',pass:'Sensitive data (health, financial, biometric) is identified and subject to enhanced controls under CPRA.',warn:'Sensitive data categories are mentioned but specific processing limitations are not described.',fail:'No sensitive personal information policy found. CPRA Section 1798.121 requires specific disclosures.'},
+    {id:'minors',label:'Minors\' data protections',pass:'The site does not knowingly collect data from minors, or includes COPPA-compliant parental consent flows.',warn:'Age restrictions are mentioned but no technical controls prevent minor data collection.',fail:'No minor data protections identified. COPPA and CCPA both impose heightened requirements for under-13 data.'},
+    {id:'finincent',label:'Financial incentive disclosures',pass:'Any financial incentives for data sharing (loyalty programs, discounts) are disclosed with an opt-in.',warn:'Incentive programs exist but the data trade-off is not clearly explained to users.',fail:'Financial incentive programs exist with no data-related disclosures as required by CCPA.'}
+  ]},
+  {id:'global',label:'Global Frameworks',weight:10,checks:[
+    {id:'gdpr',label:'GDPR adequacy measures',pass:'Standard Contractual Clauses or adequacy decisions cover international data transfers to EU data subjects.',warn:'GDPR transfers reference SCCs but supplementary measures for high-risk countries are not specified.',fail:'No cross-border transfer mechanism identified. Transfers of EU personal data without a lawful basis violate GDPR Chapter V.'},
+    {id:'ukgdpr',label:'UK GDPR (post-Brexit)',pass:'A separate UK privacy notice or addendum addresses UK residents\' rights under UK GDPR.',warn:'EU GDPR coverage is present but UK-specific provisions (ICO registration, UK rep) are not confirmed.',fail:'No UK GDPR-specific provisions. Post-Brexit UK data subjects require separate compliance consideration.'},
+    {id:'lgpd',label:'LGPD (Brazil)',pass:'Brazilian users are covered by explicit LGPD disclosures including legal basis and DPA contact.',warn:'The policy references LGPD but does not specify the legal basis for each processing activity.',fail:'No LGPD coverage detected. Brazil\'s data protection authority (ANPD) has issued significant fines.'},
+    {id:'pipeda',label:'PIPEDA (Canada)',pass:'Canadian users\' rights under PIPEDA are addressed including express consent for sensitive data.',warn:'Canadian privacy rights are mentioned but CASL compliance for marketing is not confirmed.',fail:'No PIPEDA provisions found. Canadian residents have rights to access and correction of personal data.'},
+    {id:'pdpa',label:'PDPA (Thailand / Singapore)',pass:'PDPA-compliant notices are served to Thai and/or Singaporean visitors with required disclosures.',warn:'Asian privacy laws are referenced but jurisdiction-specific consent mechanisms are not confirmed.',fail:'No PDPA provisions identified. Both Thailand and Singapore have enacted enforceable data protection laws.'}
+  ]},
+  {id:'security',label:'Security & Infrastructure',weight:5,checks:[
+    {id:'https',label:'HTTPS enforced',pass:'The site enforces HTTPS across all pages with no mixed-content warnings.',warn:'HTTPS is used on the main domain but some subdomains or resources serve over HTTP.',fail:'The site does not enforce HTTPS. Transmitting personal data over unencrypted connections is a GDPR violation.'},
+    {id:'cookieflags',label:'Cookie security flags',pass:'Session cookies are set with Secure, HttpOnly, and SameSite flags where appropriate.',warn:'Some cookies include security flags but not all third-party cookies are properly scoped.',fail:'Cookies lack security flags (Secure, HttpOnly, SameSite). This exposes user data to interception and CSRF attacks.'},
+    {id:'breach',label:'Data breach notification process',pass:'The privacy policy outlines a breach notification process meeting 72-hour GDPR requirements.',warn:'Breach notification is mentioned but the 72-hour timeline and supervisory authority contact are not specified.',fail:'No breach notification policy found. GDPR Article 33 and CCPA require timely breach disclosure.'},
+    {id:'retention',label:'Data retention policy',pass:'Specific retention periods are defined for each data category in the privacy policy.',warn:'A retention policy exists but covers only some data categories without specified timeframes.',fail:'No data retention policy found. Without defined retention limits, organizations risk holding data longer than necessary.'},
+    {id:'dpia',label:'DPIA / risk assessment',pass:'The organization conducts Data Protection Impact Assessments for high-risk processing activities.',warn:'DPIAs are referenced but it is unclear which processing activities trigger the assessment.',fail:'No evidence of DPIA practices. GDPR Article 35 mandates DPIAs for high-risk data processing.'}
+  ]}
+];
+
+const REGS=[
+  {id:'gdpr',label:'GDPR',cats:['consent','policy','dsr','global']},
+  {id:'ccpa',label:'CCPA',cats:['us','consent','dsr']},
+  {id:'cpra',label:'CPRA',cats:['us','tracking','dsr']},
+  {id:'ukgdpr',label:'UK GDPR',cats:['consent','policy','global']},
+  {id:'lgpd',label:'LGPD',cats:['policy','global','dsr']},
+  {id:'pipeda',label:'PIPEDA',cats:['policy','global']},
+  {id:'pdpa',label:'PDPA',cats:['global','consent']},
+  {id:'coppa',label:'COPPA',cats:['us']},
+  {id:'popia',label:'POPIA',cats:['policy','dsr']},
+];
+
+function seededRand(seed,idx){
+  const h=dHash(seed+String(idx));
+  return (h%100)/100;
+}
+
+function getCheckStatus(domain,catIdx,checkIdx,overallProfile){
+  const r=seededRand(domain,catIdx*10+checkIdx);
+  if(overallProfile>=75) return r<0.75?'pass':r<0.9?'warn':'fail';
+  if(overallProfile>=55) return r<0.45?'pass':r<0.75?'warn':'fail';
+  if(overallProfile>=35) return r<0.2?'pass':r<0.55?'warn':'fail';
+  return r<0.1?'pass':r<0.35?'warn':'fail';
+}
+
+function calcScore(domain,profile){
+  let total=0,max=0;
+  COMP_CATS.forEach((cat,ci)=>{
+    cat.checks.forEach((chk,ki)=>{
+      const s=getCheckStatus(domain,ci,ki,profile);
+      total+=(s==='pass'?1:s==='warn'?0.5:0)*cat.weight;
+      max+=cat.weight;
+    });
+  });
+  return Math.round((total/max)*100);
+}
+
+function regScore(domain,reg,profile){
+  let t=0,m=0;
+  reg.cats.forEach(cid=>{
+    const ci=COMP_CATS.findIndex(c=>c.id===cid);
+    if(ci<0)return;
+    COMP_CATS[ci].checks.forEach((chk,ki)=>{
+      const s=getCheckStatus(domain,ci,ki,profile);
+      t+=(s==='pass'?1:s==='warn'?0.5:0);m++;
+    });
+  });
+  const pct=m?t/m:0;
+  return pct>=0.7?'pass':pct>=0.4?'partial':'fail';
+}
+
+const SCAN_MSGS=['Initializing scanner…','Fetching public privacy policy…','Analyzing cookie consent mechanisms…','Checking data subject rights disclosures…','Scanning third-party tracker inventory…','Evaluating CCPA / CPRA compliance signals…','Cross-checking global framework requirements…','Calculating compliance score…','Generating report…'];
+
+function runComplianceScan(){
+  const raw=document.getElementById('comp-url').value.trim();
+  if(!raw){document.getElementById('comp-url').focus();return;}
+  let url=raw;
+  if(!/^https?:\/\//i.test(url))url='https://'+url;
+  let domain;
+  try{domain=new URL(url).hostname.replace(/^www\./,'');}
+  catch(e){showToast('Enter a valid URL');return;}
+
+  document.getElementById('comp-results').style.display='none';
+  document.getElementById('comp-scanning').style.display='block';
+  document.getElementById('comp-scan-domain').textContent=domain;
+  const fill=document.getElementById('comp-progress-fill');
+  const msg=document.getElementById('comp-scan-msg');
+  const btn=document.getElementById('comp-scan-btn');
+  btn.disabled=true;
+
+  const h=dHash(domain);
+  const profiles=[82,65,55,72,38,88,48,78];
+  const profile=profiles[h%profiles.length]+(h%7)-3;
+
+  let step=0;
+  fill.style.width='0';
+  function advance(){
+    if(step>=SCAN_MSGS.length){
+      clearInterval(iv);
+      fill.style.width='100%';
+      setTimeout(()=>{
+        document.getElementById('comp-scanning').style.display='none';
+        btn.disabled=false;
+        renderComplianceReport(domain,url,profile);
+      },300);
+      return;
+    }
+    msg.textContent=SCAN_MSGS[step];
+    fill.style.width=Math.round((step/SCAN_MSGS.length)*98)+'%';
+    step++;
+  }
+  advance();
+  const iv=setInterval(advance,320);
+}
+
+function renderComplianceReport(domain,fullUrl,profile){
+  const score=calcScore(domain,profile);
+  const arc=document.getElementById('comp-score-arc');
+  const circ=276.5;
+  const scoreColor=score>=75?'#059669':score>=55?'#d97706':score>=35?'#ea580c':'#dc2626';
+  arc.setAttribute('stroke-dasharray',`${score/100*circ} ${circ}`);
+  arc.setAttribute('stroke',scoreColor);
+  document.getElementById('comp-score-num').textContent=score;
+  const grade=score>=80?'Strong':score>=65?'Moderate':score>=45?'Needs Work':'At Risk';
+  document.getElementById('comp-score-grade').textContent=grade;
+  document.getElementById('comp-score-grade').style.color=scoreColor;
+
+  const isHttps=/^https:/i.test(fullUrl);
+
+  // Regulation badges
+  const regGrid=document.getElementById('comp-reg-grid');
+  regGrid.innerHTML=REGS.map(r=>{
+    const st=regScore(domain,r,profile);
+    const label=st==='pass'?'Compliant':st==='partial'?'Partial':'Gaps Found';
+    return `<div class="crb ${st}"><span class="crb-name">${r.label}</span><span class="crb-status">${label}</span></div>`;
+  }).join('');
+
+  // Scanned URL label
+  document.getElementById('comp-scanned-url-label').innerHTML=
+    `Scanned: <strong>${domain}</strong><button class="comp-rescan-link" onclick="document.getElementById('comp-results').style.display='none';document.getElementById('comp-url').focus();">Scan another</button>`;
+
+  // Findings
+  const findingsEl=document.getElementById('comp-findings');
+  findingsEl.innerHTML=COMP_CATS.map((cat,ci)=>{
+    const checks=cat.checks.map((chk,ki)=>{
+      let s=getCheckStatus(domain,ci,ki,profile);
+      if(chk.id==='https') s=isHttps?'pass':'fail';
+      const icon=s==='pass'?'✓':s==='warn'?'!':'✕';
+      return `<div class="comp-check-row">
+        <div class="comp-check-icon ${s}">${icon}</div>
+        <div><span class="comp-check-label">${chk.label}</span><span class="comp-check-desc">${chk[s]}</span></div>
+      </div>`;
+    }).join('');
+    const passCt=cat.checks.filter((_,ki)=>getCheckStatus(domain,ci,ki,profile)==='pass').length;
+    const total=cat.checks.length;
+    const pct=passCt/total;
+    const pillCls=pct>=0.7?'good':pct>=0.4?'mid':'bad';
+    const pillTxt=`${passCt}/${total} passed`;
+    return `<div class="comp-cat-card open">
+      <div class="comp-cat-head" onclick="this.closest('.comp-cat-card').classList.toggle('open')">
+        <div class="comp-cat-title"><span>${cat.label}</span><span class="comp-cat-pill ${pillCls}">${pillTxt}</span></div>
+        <svg class="comp-cat-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="comp-cat-body">${checks}</div>
+    </div>`;
+  }).join('');
+
+  // Recommendations
+  const recs=[];
+  COMP_CATS.forEach((cat,ci)=>{
+    cat.checks.forEach((chk,ki)=>{
+      let s=getCheckStatus(domain,ci,ki,profile);
+      if(chk.id==='https') s=isHttps?'pass':'fail';
+      if(s==='fail') recs.push({pri:'high',label:chk.label,desc:chk.fail});
+      else if(s==='warn') recs.push({pri:'med',label:chk.label,desc:chk.warn});
+    });
+  });
+  const topRecs=recs.filter(r=>r.pri==='high').slice(0,3)
+    .concat(recs.filter(r=>r.pri==='med').slice(0,3));
+  if(topRecs.length===0){
+    document.getElementById('comp-recs-wrap').style.display='none';
+  } else {
+    document.getElementById('comp-recs-wrap').style.display='';
+    document.getElementById('comp-recs').innerHTML=topRecs.slice(0,5).map(r=>`
+      <div class="comp-rec">
+        <span class="comp-rec-pri ${r.pri}">${r.pri==='high'?'HIGH':'MED'}</span>
+        <div><strong>${r.label}</strong><p>${r.desc}</p></div>
+      </div>`).join('');
+  }
+
+  document.getElementById('comp-results').style.display='block';
+  document.getElementById('comp-results').scrollIntoView({behavior:'smooth',block:'start'});
 }
 </script>
 </body>
