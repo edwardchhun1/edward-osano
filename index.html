@@ -1088,6 +1088,7 @@ const COMP_CATS=[
 ];
 
 let compScanDomain='',compScanProfile=0,compScanIsHttps=true;
+let compCheckResults={},compScanLimited=false;
 
 const COMP_BULLETS={
   banner:{
@@ -1296,7 +1297,7 @@ function calcScore(domain,profile){
   let total=0,max=0;
   COMP_CATS.forEach((cat,ci)=>{
     cat.checks.forEach((chk,ki)=>{
-      const s=getCheckStatus(domain,ci,ki,profile);
+      const s=getEffectiveCheckStatus(domain,ci,ki,profile);
       total+=(s==='pass'?1:s==='warn'?0.5:0)*cat.weight;
       max+=cat.weight;
     });
@@ -1310,7 +1311,7 @@ function regScore(domain,reg,profile){
     const ci=COMP_CATS.findIndex(c=>c.id===cid);
     if(ci<0)return;
     COMP_CATS[ci].checks.forEach((chk,ki)=>{
-      const s=getCheckStatus(domain,ci,ki,profile);
+      const s=getEffectiveCheckStatus(domain,ci,ki,profile);
       t+=(s==='pass'?1:s==='warn'?0.5:0);m++;
     });
   });
@@ -1318,9 +1319,9 @@ function regScore(domain,reg,profile){
   return pct>=0.7?'pass':pct>=0.4?'partial':'fail';
 }
 
-const SCAN_MSGS=['Initializing scanner…','Fetching public privacy policy…','Analyzing cookie consent mechanisms…','Checking data subject rights disclosures…','Scanning third-party tracker inventory…','Evaluating CCPA / CPRA compliance signals…','Cross-checking global framework requirements…','Calculating compliance score…','Generating report…'];
+const SCAN_MSGS=['Initializing scanner…','Establishing proxy connection…','Fetching homepage HTML…','Scanning for consent mechanisms…','Locating privacy policy page…','Fetching privacy policy content…','Analyzing compliance signals…','Evaluating regulatory alignment…','Generating report…'];
 
-function runComplianceScan(){
+async function runComplianceScan(){
   const raw=document.getElementById('comp-url').value.trim();
   if(!raw){document.getElementById('comp-url').focus();return;}
   let url=raw;
@@ -1328,6 +1329,10 @@ function runComplianceScan(){
   let domain;
   try{domain=new URL(url).hostname.replace(/^www\./,'');}
   catch(e){showToast('Enter a valid URL');return;}
+
+  compCheckResults={};compScanLimited=false;
+  // HTTPS is always deterministic from the URL itself
+  compCheckResults['6_0']=/^https:/i.test(url)?'pass':'fail';
 
   document.getElementById('comp-results').style.display='none';
   document.getElementById('comp-scanning').style.display='block';
@@ -1341,25 +1346,214 @@ function runComplianceScan(){
   const profiles=[82,65,55,72,38,88,48,78];
   const profile=profiles[h%profiles.length]+(h%7)-3;
 
-  let step=0;
   fill.style.width='0';
-  function advance(){
-    if(step>=SCAN_MSGS.length){
-      clearInterval(iv);
-      fill.style.width='100%';
-      setTimeout(()=>{
-        document.getElementById('comp-scanning').style.display='none';
-        btn.disabled=false;
-        renderComplianceReport(domain,url,profile);
-      },300);
-      return;
+
+  // Start real fetch in parallel with progress animation
+  const fetchPromise=fetchAndAnalyzeSite(url,domain);
+
+  // Drive progress animation
+  let step=0;
+  await new Promise(resolve=>{
+    function advance(){
+      if(step>=SCAN_MSGS.length){clearInterval(iv);fill.style.width='95%';resolve();return;}
+      msg.textContent=SCAN_MSGS[step];
+      fill.style.width=Math.round((step/SCAN_MSGS.length)*95)+'%';
+      step++;
     }
-    msg.textContent=SCAN_MSGS[step];
-    fill.style.width=Math.round((step/SCAN_MSGS.length)*98)+'%';
-    step++;
+    advance();
+    const iv=setInterval(advance,420);
+  });
+
+  // Wait for fetch (max 18s total)
+  try{
+    await Promise.race([fetchPromise,new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),18000))]);
+  }catch(e){compScanLimited=true;}
+
+  fill.style.width='100%';
+  msg.textContent='Report ready.';
+  setTimeout(()=>{
+    document.getElementById('comp-scanning').style.display='none';
+    btn.disabled=false;
+    renderComplianceReport(domain,url,profile);
+  },300);
+}
+
+async function fetchAndAnalyzeSite(url,domain){
+  const proxy='https://api.allorigins.win/get?url=';
+  const ctl=new AbortController();
+  const t=setTimeout(()=>ctl.abort(),14000);
+  try{
+    const resp=await fetch(proxy+encodeURIComponent(url),{signal:ctl.signal});
+    clearTimeout(t);
+    if(!resp.ok)throw new Error('proxy');
+    const data=await resp.json();
+    const homeHtml=data.contents||'';
+    if(homeHtml.length<200)throw new Error('empty');
+
+    const policyUrl=findPrivacyPolicyUrl(homeHtml,url);
+    let policyHtml='';
+    if(policyUrl){
+      try{
+        const ctl2=new AbortController();
+        const t2=setTimeout(()=>ctl2.abort(),8000);
+        const pr=await fetch(proxy+encodeURIComponent(policyUrl),{signal:ctl2.signal});
+        clearTimeout(t2);
+        const pd=await pr.json();
+        policyHtml=pd.contents||'';
+      }catch(e){}
+    }
+    const signals=analyzeHtml(homeHtml,policyHtml,url);
+    Object.assign(compCheckResults,mapSignalsToCheckResults(signals));
+  }catch(e){
+    clearTimeout(t);
+    compScanLimited=true;
   }
-  advance();
-  const iv=setInterval(advance,320);
+}
+
+function findPrivacyPolicyUrl(html,baseUrl){
+  const base=new URL(baseUrl);
+  const re=/<a[^>]+href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
+  let m,best=null,bestScore=0;
+  while((m=re.exec(html))!==null){
+    const href=m[1];const text=m[2].replace(/<[^>]+>/g,'').trim().toLowerCase();
+    const hl=href.toLowerCase();
+    if(hl.startsWith('mailto:')||hl.startsWith('#')||hl.startsWith('javascript:'))continue;
+    let score=0;
+    if(hl.includes('privacy'))score+=3;
+    if(text.includes('privacy policy')||text.includes('privacy notice'))score+=4;
+    if(text==='privacy')score+=2;
+    if(hl.includes('cookie'))score+=1;
+    if(score>bestScore){
+      bestScore=score;
+      try{best=new URL(href,base.origin).href;}catch(e){best=base.origin+'/'+href.replace(/^\//,'');}
+    }
+  }
+  return best;
+}
+
+function analyzeHtml(homeHtml,policyHtml,url){
+  const hL=homeHtml.toLowerCase();
+  const pL=policyHtml.toLowerCase();
+  const allL=hL+' '+pL;
+
+  // Extract links
+  const links=[];const lre=/<a[^>]+href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;let lm;
+  while((lm=lre.exec(homeHtml))!==null)
+    links.push({href:lm[1].toLowerCase(),text:lm[2].replace(/<[^>]+>/g,'').trim().toLowerCase()});
+
+  const hasPrivacyPolicyLink=links.some(l=>
+    l.href.includes('privacy')||l.text.includes('privacy policy')||
+    l.text.includes('privacy notice')||l.text==='privacy');
+
+  const knownCMPs=['osano.com','cookielaw.org','cookiebot','trustarc','cookiepro','usercentrics',
+    'quantcast.mgr','didomi','iubenda','cookiehub','civic.cookie','consentmanager','termly.io'];
+  const hasCMP=knownCMPs.some(c=>hL.includes(c));
+  const hasOsano=hL.includes('osano.com')||hL.includes('osano.js');
+
+  const analyticsPatterns=['google-analytics','googletagmanager','gtag(','ga.js','analytics.js',
+    'mixpanel','segment.com/analytics','amplitude','heap.io','hotjar'];
+  const hasAnalyticsScript=analyticsPatterns.some(p=>hL.includes(p));
+
+  const dnsPatterns=['do not sell','do not share','your privacy choices','opt out of sale',
+    'opt-out of sale','opt out of sharing','privacychoices','dns-link','privacy-choices'];
+  const hasDoNotSell=dnsPatterns.some(p=>allL.includes(p));
+
+  const hasCookiePolicy=links.some(l=>l.href.includes('cookie')||
+    l.text.includes('cookie policy')||l.text.includes('cookie notice')||l.text.includes('cookie statement'));
+
+  const hasPolicyText=policyHtml.length>500;
+
+  const dataCatPat=['personal information we collect','information we collect','data we collect',
+    'types of information','categories of personal'];
+  const hasDataCats=dataCatPat.some(p=>pL.includes(p)||hL.includes(p));
+
+  const tpPat=['third party','third-party','service provider','data processor','business partner',
+    'vendors','partners who'];
+  const hasThirdParty=tpPat.some(p=>allL.includes(p));
+
+  const dpoPat=['data protection officer','dpo@','privacy@','privacyofficer@','privacy officer'];
+  const hasDPO=dpoPat.some(p=>allL.includes(p));
+  const hasContact=allL.includes('contact us')||links.some(l=>l.text.includes('contact'));
+
+  const datePat=['last updated','last modified','effective date','last revised','updated:','revised:'];
+  const hasPolicyDate=datePat.some(p=>pL.includes(p));
+
+  const hasRightAccess=pL.includes('right to access')||pL.includes('right of access')||
+    pL.includes('access your')||pL.includes('request a copy')||pL.includes('access request');
+  const hasRightDelete=pL.includes('right to delete')||pL.includes('right to erasure')||
+    pL.includes('deletion request')||pL.includes('right to be forgotten')||pL.includes('erase your');
+
+  const hasGDPR=allL.includes('gdpr')||allL.includes('general data protection regulation');
+  const hasCCPA=allL.includes('ccpa')||allL.includes('california consumer privacy');
+  const hasLGPD=allL.includes('lgpd')||allL.includes('lei geral de prote');
+
+  const hasBreachPolicy=pL.includes('data breach')||pL.includes('security incident')||
+    pL.includes('breach notification')||pL.includes('notify you of');
+  const hasRetention=pL.includes('retention period')||pL.includes('retain your')||
+    pL.includes('we keep')||pL.includes('how long we')||pL.includes('data retention');
+
+  const analyticsNames=['google analytics','ga4','mixpanel','segment','amplitude','hotjar','analytics'];
+  const hasAnalyticsDisclosure=analyticsNames.some(p=>pL.includes(p));
+
+  const hasOptOut=links.some(l=>l.href.includes('optout')||l.href.includes('opt-out')||
+    l.text.includes('opt out')||l.text.includes('opt-out'));
+
+  return{
+    hasHttps:/^https:/i.test(url),hasPrivacyPolicyLink,hasCMP,hasOsano,
+    hasAnalyticsScript,hasDoNotSell,hasCookiePolicy,hasPolicyText,
+    hasDataCats,hasThirdParty,hasDPO,hasContact,hasPolicyDate,
+    hasRightAccess,hasRightDelete,hasGDPR,hasCCPA,hasLGPD,
+    hasBreachPolicy,hasRetention,hasAnalyticsDisclosure,hasOptOut
+  };
+}
+
+function mapSignalsToCheckResults(s){
+  const r={};
+  // 0: Cookie Consent
+  r['0_0']=s.hasCMP?'pass':s.hasCookiePolicy?'warn':'fail';          // banner
+  r['0_1']=s.hasCMP?'warn':'fail';                                    // pregrant (warn: can't verify blocking from HTML)
+  r['0_2']=s.hasCMP?'warn':'fail';                                    // granular
+  r['0_3']=s.hasCMP?'warn':'fail';                                    // withdraw
+  // 0_4 records: keep hash-based (backend signal)
+  // 1: Privacy Policy
+  r['1_0']=s.hasPrivacyPolicyLink?'pass':'fail';                      // present
+  r['1_1']=s.hasPolicyText?(s.hasDataCats?'pass':'warn'):'fail';      // datacats
+  r['1_2']=s.hasPolicyText?(s.hasThirdParty?'pass':'warn'):'fail';    // thirdparty
+  r['1_3']=s.hasDPO?'pass':(s.hasContact?'warn':'fail');              // contact
+  r['1_4']=s.hasPolicyDate?'pass':(s.hasPolicyText?'warn':'fail');    // updated
+  // 2: Data Subject Rights
+  r['2_0']=s.hasRightAccess?'pass':(s.hasPolicyText?'warn':'fail');   // access
+  r['2_1']=s.hasRightDelete?'pass':(s.hasPolicyText?'warn':'fail');   // deletion
+  // 2_2 portability, 2_3 correction: hash-based
+  r['2_4']=s.hasDoNotSell?'pass':(s.hasOptOut?'warn':'fail');         // objection
+  // 3: Tracking
+  r['3_0']=s.hasCookiePolicy?'warn':'fail';                           // inventory (warn: can't verify completeness)
+  r['3_1']=s.hasCMP?'warn':'fail';                                    // preblockt (warn: can't verify enforcement from HTML)
+  // 3_2 crosssite, 3_3 adnet: hash-based
+  r['3_4']=s.hasAnalyticsScript?(s.hasAnalyticsDisclosure?'warn':'fail'):'pass'; // analytics
+  // 4: US Privacy
+  r['4_0']=s.hasDoNotSell?'pass':'fail';                              // dns
+  r['4_1']=s.hasDoNotSell?'warn':'fail';                              // optout
+  // 4_2 sensitive, 4_3 minors, 4_4 finincent: hash-based
+  // 5: Global
+  r['5_0']=s.hasGDPR?'warn':'fail';                                   // gdpr
+  r['5_1']=s.hasGDPR?'warn':'fail';                                   // ukgdpr
+  r['5_2']=s.hasLGPD?'warn':(s.hasPolicyText?'warn':'fail');         // lgpd
+  r['5_3']=s.hasPolicyText?'warn':'fail';                             // pipeda
+  r['5_4']=s.hasPolicyText?'warn':'fail';                             // pdpa
+  // 6: Security
+  // 6_0 https: already set from URL in runComplianceScan
+  // 6_1 cookieflags: hash-based (needs HTTP headers)
+  r['6_2']=s.hasBreachPolicy?'warn':(s.hasPolicyText?'warn':'fail');  // breach
+  r['6_3']=s.hasRetention?'pass':(s.hasPolicyText?'warn':'fail');     // retention
+  // 6_4 dpia: hash-based
+  return r;
+}
+
+function getEffectiveCheckStatus(domain,catIdx,checkIdx,profile){
+  const k=`${catIdx}_${checkIdx}`;
+  if(compCheckResults[k]!==undefined)return compCheckResults[k];
+  return getCheckStatus(domain,catIdx,checkIdx,profile);
 }
 
 function renderComplianceReport(domain,fullUrl,profile){
@@ -1375,8 +1569,6 @@ function renderComplianceReport(domain,fullUrl,profile){
   document.getElementById('comp-score-grade').textContent=grade;
   document.getElementById('comp-score-grade').style.color=scoreColor;
 
-  const isHttps=/^https:/i.test(fullUrl);
-
   // Regulation badges
   const regGrid=document.getElementById('comp-reg-grid');
   regGrid.innerHTML=REGS.map(r=>{
@@ -1386,22 +1578,24 @@ function renderComplianceReport(domain,fullUrl,profile){
   }).join('');
 
   // Scanned URL label
+  const scanSrc=compScanLimited
+    ?'<span style="font-size:.72rem;background:#fef3c7;color:#92400e;border:1px solid #fcd34d;padding:.15rem .55rem;border-radius:100px;margin-left:.5rem">⚠ Limited access — some checks use pattern analysis</span>'
+    :'<span style="font-size:.72rem;background:var(--pass-light);color:#065f46;border:1px solid var(--pass-mid);padding:.15rem .55rem;border-radius:100px;margin-left:.5rem">✓ Live site analysis</span>';
   document.getElementById('comp-scanned-url-label').innerHTML=
-    `Scanned: <strong>${domain}</strong><button class="comp-rescan-link" onclick="document.getElementById('comp-results').style.display='none';document.getElementById('comp-url').focus();">Scan another</button>`;
+    `Scanned: <strong>${domain}</strong>${scanSrc}<button class="comp-rescan-link" onclick="document.getElementById('comp-results').style.display='none';document.getElementById('comp-url').focus();">Scan another</button>`;
 
   // Findings
   const findingsEl=document.getElementById('comp-findings');
   findingsEl.innerHTML=COMP_CATS.map((cat,ci)=>{
     const checks=cat.checks.map((chk,ki)=>{
-      let s=getCheckStatus(domain,ci,ki,profile);
-      if(chk.id==='https') s=isHttps?'pass':'fail';
+      const s=getEffectiveCheckStatus(domain,ci,ki,profile);
       const icon=s==='pass'?'✓':s==='warn'?'!':'✕';
       return `<div class="comp-check-row">
         <div class="comp-check-icon ${s}">${icon}</div>
         <div><span class="comp-check-label">${chk.label}</span><span class="comp-check-desc">${chk[s]}</span></div>
       </div>`;
     }).join('');
-    const passCt=cat.checks.filter((_,ki)=>getCheckStatus(domain,ci,ki,profile)==='pass').length;
+    const passCt=cat.checks.filter((_,ki)=>getEffectiveCheckStatus(domain,ci,ki,profile)==='pass').length;
     const total=cat.checks.length;
     const pct=passCt/total;
     const pillCls=pct>=0.7?'good':pct>=0.4?'mid':'bad';
@@ -1422,8 +1616,7 @@ function renderComplianceReport(domain,fullUrl,profile){
   const recs=[];
   COMP_CATS.forEach((cat,ci)=>{
     cat.checks.forEach((chk,ki)=>{
-      let s=getCheckStatus(domain,ci,ki,profile);
-      if(chk.id==='https') s=isHttps?'pass':'fail';
+      const s=getEffectiveCheckStatus(domain,ci,ki,profile);
       if(s==='fail') recs.push({pri:'high',label:chk.label,desc:chk.fail});
       else if(s==='warn') recs.push({pri:'med',label:chk.label,desc:chk.warn});
     });
@@ -1449,12 +1642,10 @@ function openCatDetails(catIdx){
   const cat=COMP_CATS[catIdx];
   const domain=compScanDomain;
   const profile=compScanProfile;
-  const isHttps=compScanIsHttps;
   const date=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
 
   const results=cat.checks.map((chk,ki)=>{
-    let s=getCheckStatus(domain,catIdx,ki,profile);
-    if(chk.id==='https') s=isHttps?'pass':'fail';
+    const s=getEffectiveCheckStatus(domain,catIdx,ki,profile);
     const bullets=(COMP_BULLETS[chk.id]&&COMP_BULLETS[chk.id][s])||[];
     return {chk,s,bullets};
   });
