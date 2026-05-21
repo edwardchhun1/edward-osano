@@ -390,6 +390,18 @@ button{font-family:'DM Sans',sans-serif}
 .audit-report-flag{font-size:.7rem;background:#fee2e2;color:#991b1b;border-radius:4px;padding:.1rem .4rem;margin-left:.35rem;font-weight:600;vertical-align:middle}
 .audit-back-btn{background:#fff;color:#7c3aed;border:2px solid #7c3aed;padding:.65rem 1.75rem;border-radius:8px;font-size:.875rem;font-weight:600;cursor:pointer;transition:all .15s;margin-bottom:2rem;display:block}
 .audit-back-btn:hover{background:#f0eeff}
+/* ── Audit scope selection ── */
+.audit-scope-select{display:flex;flex-direction:column;align-items:center;padding:2.5rem 1rem 1rem}
+.audit-scope-heading{font-family:'DM Serif Display',serif;font-size:1.55rem;color:#4c1d95;margin-bottom:.4rem;text-align:center}
+.audit-scope-sub{color:#6b7280;font-size:.88rem;margin-bottom:2.25rem;text-align:center}
+.audit-scope-cards{display:flex;gap:1.25rem;flex-wrap:wrap;justify-content:center;width:100%;max-width:640px}
+.audit-scope-card{background:#fff;border:2px solid #c4b5fd;border-radius:14px;padding:1.75rem 1.75rem 1.5rem;cursor:pointer;transition:all .18s;flex:1;min-width:220px;max-width:280px;text-align:center}
+.audit-scope-card:hover{border-color:#7c3aed;box-shadow:0 6px 24px rgba(124,58,237,.15);transform:translateY(-3px)}
+.audit-scope-icon{width:46px;height:46px;background:#ede9fe;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto .9rem}
+.audit-scope-icon svg{width:22px;height:22px;stroke:#7c3aed;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.audit-scope-card h3{font-weight:700;color:#4c1d95;font-size:1rem;margin-bottom:.45rem}
+.audit-scope-card p{font-size:.8rem;color:#6b7280;line-height:1.55}
+.audit-scope-count{display:inline-block;margin-top:.75rem;font-size:.75rem;font-weight:600;background:#ede9fe;color:#7c3aed;border-radius:100px;padding:.15rem .65rem}
 </style>
 </head>
 <body>
@@ -1868,19 +1880,53 @@ const AUDIT_SECTIONS=[
   ]},
 ];
 
-let auditAnswers={},auditNotes={};
+let auditAnswers={},auditNotes={},auditScope='both';
 
 function startAudit(){
-  auditAnswers={};auditNotes={};
+  auditAnswers={};auditNotes={};auditScope='both';
   document.getElementById('audit-report-view').style.display='none';
   document.getElementById('audit-form-view').style.display='block';
   showPage('pg-audit');
+  renderAuditScopeSelect();
+}
+
+function renderAuditScopeSelect(){
+  document.getElementById('audit-form-view').innerHTML=`
+<div class="audit-scope-select">
+  <div class="audit-scope-heading">What would you like to audit?</div>
+  <div class="audit-scope-sub">Select the scope of your Osano implementation review.</div>
+  <div class="audit-scope-cards">
+    <div class="audit-scope-card" onclick="selectAuditScope('cc')">
+      <div class="audit-scope-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+      </div>
+      <h3>Cookie Consent Only</h3>
+      <p>Review your Osano cookie consent installation, classification, styling, and framework configuration.</p>
+      <span class="audit-scope-count">13 questions</span>
+    </div>
+    <div class="audit-scope-card" onclick="selectAuditScope('both')">
+      <div class="audit-scope-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <h3>Cookie Consent &amp; DSAR</h3>
+      <p>Full audit including cookie consent plus data subject access rights form review.</p>
+      <span class="audit-scope-count">18 questions</span>
+    </div>
+  </div>
+</div>`;
+}
+
+function selectAuditScope(scope){
+  auditScope=scope;
   renderAuditForm();
 }
 
 function renderAuditForm(){
+  const sections=auditScope==='cc'
+    ?AUDIT_SECTIONS.filter(s=>s.title!=='DSAR & Other')
+    :AUDIT_SECTIONS;
   let html='';
-  AUDIT_SECTIONS.forEach(sec=>{
+  sections.forEach(sec=>{
     html+=`<div class="audit-section-title">${sec.title}</div>`;
     sec.questions.forEach(q=>{
       const ans=auditAnswers[q.id]||'';
@@ -1901,7 +1947,8 @@ function renderAuditForm(){
 }
 
 function generateAuditReport(){
-  const total=AUDIT_SECTIONS.reduce((s,sec)=>s+sec.questions.length,0);
+  const sections=auditScope==='cc'?AUDIT_SECTIONS.filter(s=>s.title!=='DSAR & Other'):AUDIT_SECTIONS;
+  const total=sections.reduce((s,sec)=>s+sec.questions.length,0);
   const yesCount=Object.values(auditAnswers).filter(a=>a==='yes').length;
   const noCount=Object.values(auditAnswers).filter(a=>a==='no').length;
   const unanswered=total-yesCount-noCount;
@@ -1915,7 +1962,7 @@ function generateAuditReport(){
     <div class="audit-report-score-label">answered Yes &nbsp;·&nbsp; <span style="font-weight:700;color:${gradeColor}">${pct}% — ${grade}</span></div>
     ${unanswered>0?`<div style="margin-top:.6rem;font-size:.8rem;color:#d97706;font-weight:600">${unanswered} question${unanswered>1?'s':''} left unanswered</div>`:''}
   </div>`;
-  AUDIT_SECTIONS.forEach(sec=>{
+  sections.forEach(sec=>{
     html+=`<div class="audit-report-sec-title">${sec.title}</div>`;
     sec.questions.forEach(q=>{
       const ans=auditAnswers[q.id];
@@ -1943,7 +1990,7 @@ function generateAuditReport(){
 function showAuditForm(){
   document.getElementById('audit-report-view').style.display='none';
   document.getElementById('audit-form-view').style.display='block';
-  renderAuditForm();
+  renderAuditForm(); // re-renders with saved answers intact
   window.scrollTo(0,0);
 }
 </script>
