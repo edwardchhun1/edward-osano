@@ -1367,7 +1367,7 @@ async function runComplianceScan(){
 
   // Wait for fetch (max 18s total)
   try{
-    await Promise.race([fetchPromise,new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),18000))]);
+    await Promise.race([fetchPromise,new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),85000))]);
   }catch(e){compScanLimited=true;}
 
   fill.style.width='100%';
@@ -1384,7 +1384,7 @@ async function fetchAndAnalyzeSite(url,domain){
   if(SCANNER_API){
     try{
       const ctl=new AbortController();
-      const t=setTimeout(()=>ctl.abort(),55000);
+      const t=setTimeout(()=>ctl.abort(),85000);
       const resp=await fetch(SCANNER_API+'/scan',{
         method:'POST',
         headers:{'Content-Type':'application/json'},

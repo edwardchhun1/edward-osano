@@ -60,8 +60,8 @@ app.use(express.json());
 
 // 60-second request timeout
 app.use((req, res, next) => {
-  res.setTimeout(60000, () => {
-    res.status(503).json({ error: 'Request timed out after 60 seconds' });
+  res.setTimeout(90000, () => {
+    res.status(503).json({ error: 'Request timed out' });
   });
   next();
 });
@@ -162,27 +162,23 @@ app.post('/scan', async (req, res) => {
       }
     });
 
-    // ── 5. Navigate with networkidle2, fall back to domcontentloaded ─────────
+    // ── 5. Navigate — domcontentloaded first, then wait for network quiet ───────
     let finalUrl = targetUrl;
     try {
-      await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 30000 });
+      await page.goto(targetUrl, { waitUntil: 'domcontentloaded', timeout: 20000 });
     } catch (navErr) {
-      if (navErr.name === 'TimeoutError' || (navErr.message && navErr.message.includes('timeout'))) {
-        console.log(`[scan] networkidle2 timeout, retrying with domcontentloaded`);
-        try {
-          await page.goto(targetUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
-        } catch (fallbackErr) {
-          console.log(`[scan] domcontentloaded also failed: ${fallbackErr.message}`);
-          // Continue anyway — partial data is still useful
-        }
-      } else {
-        throw navErr;
-      }
+      console.log(`[scan] Navigation failed: ${navErr.message}`);
+      // Continue anyway — partial data is still useful
     }
+    // Let network settle and JS execute (CMPs init after DOM ready)
+    await Promise.race([
+      page.waitForNetworkIdle({ idleTime: 500, timeout: 8000 }).catch(() => {}),
+      new Promise((r) => setTimeout(r, 8000)),
+    ]);
     finalUrl = page.url();
 
-    // ── 6. Wait 5 s for JS/CMP to init (and Cloudflare challenges to resolve) ─
-    await new Promise((r) => setTimeout(r, 5000));
+    // ── 6. Wait 3 s for CMP to fully render ─────────────────────────────────
+    await new Promise((r) => setTimeout(r, 3000));
 
     // Capture page title for diagnostics
     const pageTitle = await page.title().catch(() => '');
