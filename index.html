@@ -527,11 +527,27 @@ button{font-family:'DM Sans',sans-serif}
 <div id="toast" class="toast"></div>
 
 <script>
+const PAGE_HASH={
+  'pg-home':'',
+  'pg-cc':'cookie-consent',
+  'pg-dsar':'dsar',
+  'pg-adv':'advanced-settings',
+  'pg-geo-preview':'geo-preview'
+};
+const HASH_PAGE=Object.fromEntries(Object.entries(PAGE_HASH).map(([k,v])=>[v,k]));
+
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
+  const hash=PAGE_HASH[id];
+  history.replaceState(null,'',hash?'#'+hash:window.location.pathname+window.location.search);
 }
+
+window.addEventListener('DOMContentLoaded',()=>{
+  const hash=window.location.hash.slice(1);
+  if(hash&&HASH_PAGE[hash]) showPage(HASH_PAGE[hash]);
+});
 
 let _t;
 function showToast(msg){
