@@ -1088,7 +1088,8 @@ const COMP_CATS=[
 ];
 
 let compScanDomain='',compScanProfile=0,compScanIsHttps=true;
-let compCheckResults={},compScanLimited=false;
+let compCheckResults={},compScanLimited=false,compScanIsPuppeteer=false;
+const SCANNER_API=''; // e.g. 'https://osano-compliance-scanner.onrender.com'
 
 const COMP_BULLETS={
   banner:{
@@ -1330,7 +1331,7 @@ async function runComplianceScan(){
   try{domain=new URL(url).hostname.replace(/^www\./,'');}
   catch(e){showToast('Enter a valid URL');return;}
 
-  compCheckResults={};compScanLimited=false;
+  compCheckResults={};compScanLimited=false;compScanIsPuppeteer=false;
   // HTTPS is always deterministic from the URL itself
   compCheckResults['6_0']=/^https:/i.test(url)?'pass':'fail';
 
@@ -1379,6 +1380,31 @@ async function runComplianceScan(){
 }
 
 async function fetchAndAnalyzeSite(url,domain){
+  // Try full Puppeteer scanner API first
+  if(SCANNER_API){
+    try{
+      const ctl=new AbortController();
+      const t=setTimeout(()=>ctl.abort(),55000);
+      const resp=await fetch(SCANNER_API+'/scan',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({url}),
+        signal:ctl.signal
+      });
+      clearTimeout(t);
+      if(!resp.ok)throw new Error('api-'+resp.status);
+      const signals=await resp.json();
+      if(signals.error)throw new Error(signals.error);
+      // Override HTTPS check with Puppeteer's verified result
+      if(signals.httpsRedirectEnforced||signals.hasHttps)compCheckResults['6_0']='pass';
+      Object.assign(compCheckResults,mapSignalsToCheckResults(signals,true));
+      compScanIsPuppeteer=true;
+      return;
+    }catch(e){
+      console.log('[scanner] API unavailable, falling back to proxy:',e.message);
+    }
+  }
+  // Fallback: allorigins.win CORS proxy (static HTML only)
   const proxy='https://api.allorigins.win/get?url=';
   const ctl=new AbortController();
   const t=setTimeout(()=>ctl.abort(),14000);
@@ -1403,7 +1429,7 @@ async function fetchAndAnalyzeSite(url,domain){
       }catch(e){}
     }
     const signals=analyzeHtml(homeHtml,policyHtml,url);
-    Object.assign(compCheckResults,mapSignalsToCheckResults(signals));
+    Object.assign(compCheckResults,mapSignalsToCheckResults(signals,false));
   }catch(e){
     clearTimeout(t);
     compScanLimited=true;
@@ -1507,45 +1533,60 @@ function analyzeHtml(homeHtml,policyHtml,url){
   };
 }
 
-function mapSignalsToCheckResults(s){
+function mapSignalsToCheckResults(s,isPuppeteer){
   const r={};
   // 0: Cookie Consent
-  r['0_0']=s.hasCMP?'pass':s.hasCookiePolicy?'warn':'fail';          // banner
-  r['0_1']=s.hasCMP?'warn':'fail';                                    // pregrant (warn: can't verify blocking from HTML)
-  r['0_2']=s.hasCMP?'warn':'fail';                                    // granular
-  r['0_3']=s.hasCMP?'warn':'fail';                                    // withdraw
-  // 0_4 records: keep hash-based (backend signal)
+  r['0_0']=s.hasCMP?'pass':s.hasCookiePolicy?'warn':'fail';
+  if(isPuppeteer){
+    // Puppeteer can definitively measure pre-consent tracker firing
+    r['0_1']=s.preConsentTotal===0?'pass':s.preConsentTotal<=3?'warn':'fail';
+    r['0_2']=s.hasGranularCMP?'pass':s.hasCMP?'warn':'fail';
+    r['0_3']=s.hasConsentWithdrawLink?'pass':s.hasCMP?'warn':'fail';
+  }else{
+    r['0_1']=s.hasCMP?'warn':'fail';
+    r['0_2']=s.hasCMP?'warn':'fail';
+    r['0_3']=s.hasCMP?'warn':'fail';
+  }
+  // 0_4 records: hash-based
   // 1: Privacy Policy
-  r['1_0']=s.hasPrivacyPolicyLink?'pass':'fail';                      // present
-  r['1_1']=s.hasPolicyText?(s.hasDataCats?'pass':'warn'):'fail';      // datacats
-  r['1_2']=s.hasPolicyText?(s.hasThirdParty?'pass':'warn'):'fail';    // thirdparty
-  r['1_3']=s.hasDPO?'pass':(s.hasContact?'warn':'fail');              // contact
-  r['1_4']=s.hasPolicyDate?'pass':(s.hasPolicyText?'warn':'fail');    // updated
+  r['1_0']=s.hasPrivacyPolicyLink?'pass':'fail';
+  r['1_1']=s.hasPolicyText?(s.hasDataCats?'pass':'warn'):'fail';
+  r['1_2']=s.hasPolicyText?(s.hasThirdParty?'pass':'warn'):'fail';
+  r['1_3']=s.hasDPO?'pass':(s.hasContact?'warn':'fail');
+  r['1_4']=s.hasPolicyDate?'pass':(s.hasPolicyText?'warn':'fail');
   // 2: Data Subject Rights
-  r['2_0']=s.hasRightAccess?'pass':(s.hasPolicyText?'warn':'fail');   // access
-  r['2_1']=s.hasRightDelete?'pass':(s.hasPolicyText?'warn':'fail');   // deletion
+  r['2_0']=s.hasRightAccess?'pass':(s.hasPolicyText?'warn':'fail');
+  r['2_1']=s.hasRightDelete?'pass':(s.hasPolicyText?'warn':'fail');
   // 2_2 portability, 2_3 correction: hash-based
-  r['2_4']=s.hasDoNotSell?'pass':(s.hasOptOut?'warn':'fail');         // objection
+  r['2_4']=s.hasDoNotSell?'pass':(s.hasOptOut?'warn':'fail');
   // 3: Tracking
-  r['3_0']=s.hasCookiePolicy?'warn':'fail';                           // inventory (warn: can't verify completeness)
-  r['3_1']=s.hasCMP?'warn':'fail';                                    // preblockt (warn: can't verify enforcement from HTML)
+  r['3_0']=s.hasCookiePolicy?'warn':'fail';
+  if(isPuppeteer){
+    const pt=s.preConsentTrackers;
+    r['3_1']=(pt&&pt.advertising.length===0&&pt.analytics.length===0)?'pass':'fail';
+  }else{
+    r['3_1']=s.hasCMP?'warn':'fail';
+  }
   // 3_2 crosssite, 3_3 adnet: hash-based
-  r['3_4']=s.hasAnalyticsScript?(s.hasAnalyticsDisclosure?'warn':'fail'):'pass'; // analytics
+  r['3_4']=s.hasAnalyticsScript?(s.hasAnalyticsDisclosure?'warn':'fail'):'pass';
   // 4: US Privacy
-  r['4_0']=s.hasDoNotSell?'pass':'fail';                              // dns
-  r['4_1']=s.hasDoNotSell?'warn':'fail';                              // optout
+  r['4_0']=s.hasDoNotSell?'pass':'fail';
+  r['4_1']=s.hasDoNotSell?'warn':'fail';
   // 4_2 sensitive, 4_3 minors, 4_4 finincent: hash-based
   // 5: Global
-  r['5_0']=s.hasGDPR?'warn':'fail';                                   // gdpr
-  r['5_1']=s.hasGDPR?'warn':'fail';                                   // ukgdpr
-  r['5_2']=s.hasLGPD?'warn':(s.hasPolicyText?'warn':'fail');         // lgpd
-  r['5_3']=s.hasPolicyText?'warn':'fail';                             // pipeda
-  r['5_4']=s.hasPolicyText?'warn':'fail';                             // pdpa
+  r['5_0']=s.hasGDPR?'warn':'fail';
+  r['5_1']=s.hasGDPR?'warn':'fail';
+  r['5_2']=s.hasLGPD?'warn':(s.hasPolicyText?'warn':'fail');
+  r['5_3']=s.hasPolicyText?'warn':'fail';
+  r['5_4']=s.hasPolicyText?'warn':'fail';
   // 6: Security
-  // 6_0 https: already set from URL in runComplianceScan
-  // 6_1 cookieflags: hash-based (needs HTTP headers)
-  r['6_2']=s.hasBreachPolicy?'warn':(s.hasPolicyText?'warn':'fail');  // breach
-  r['6_3']=s.hasRetention?'pass':(s.hasPolicyText?'warn':'fail');     // retention
+  // 6_0 https: set from URL in runComplianceScan; overridden by Puppeteer in fetchAndAnalyzeSite
+  if(isPuppeteer&&s.cookieFlags){
+    r['6_1']=s.cookieFlags.allSecure?'pass':'warn';
+  }
+  // 6_1 cookieflags: hash-based when no Puppeteer
+  r['6_2']=s.hasBreachPolicy?'warn':(s.hasPolicyText?'warn':'fail');
+  r['6_3']=s.hasRetention?'pass':(s.hasPolicyText?'warn':'fail');
   // 6_4 dpia: hash-based
   return r;
 }
@@ -1580,7 +1621,9 @@ function renderComplianceReport(domain,fullUrl,profile){
   // Scanned URL label
   const scanSrc=compScanLimited
     ?'<span style="font-size:.72rem;background:#fef3c7;color:#92400e;border:1px solid #fcd34d;padding:.15rem .55rem;border-radius:100px;margin-left:.5rem">⚠ Limited access — some checks use pattern analysis</span>'
-    :'<span style="font-size:.72rem;background:var(--pass-light);color:#065f46;border:1px solid var(--pass-mid);padding:.15rem .55rem;border-radius:100px;margin-left:.5rem">✓ Live site analysis</span>';
+    :compScanIsPuppeteer
+      ?'<span style="font-size:.72rem;background:var(--pass-light);color:#065f46;border:1px solid var(--pass-mid);padding:.15rem .55rem;border-radius:100px;margin-left:.5rem">✓ Full headless scan — live JavaScript execution</span>'
+      :'<span style="font-size:.72rem;background:var(--pass-light);color:#065f46;border:1px solid var(--pass-mid);padding:.15rem .55rem;border-radius:100px;margin-left:.5rem">✓ Live site analysis</span>';
   document.getElementById('comp-scanned-url-label').innerHTML=
     `Scanned: <strong>${domain}</strong>${scanSrc}<button class="comp-rescan-link" onclick="document.getElementById('comp-results').style.display='none';document.getElementById('comp-url').focus();">Scan another</button>`;
 
