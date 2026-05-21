@@ -188,6 +188,13 @@ app.post('/scan', async (req, res) => {
     const pageTitle = await page.title().catch(() => '');
     console.log(`[scan] Page title: "${pageTitle}" at ${page.url()}`);
 
+    // Detect bot-challenge pages — return 403 so the frontend falls back to proxy
+    const blockedTitles = ['attention required', 'just a moment', 'ddos-guard', 'access denied', 'robot check'];
+    if (blockedTitles.some((t) => pageTitle.toLowerCase().includes(t))) {
+      console.log(`[scan] Bot challenge detected, reporting as blocked`);
+      return res.status(403).json({ error: 'blocked', pageTitle });
+    }
+
     // ── 7. Detect CMP ───────────────────────────────────────────────────────
     const cmpResult = await page.evaluate(() => {
       const checks = [
@@ -424,10 +431,6 @@ app.post('/scan', async (req, res) => {
       preConsentOut.social.length;
 
     const signals = {
-      // Diagnostics
-      _pageTitle: pageTitle,
-      _finalUrl: finalUrl,
-
       // HTTPS
       hasHttps,
       httpsRedirectEnforced,
