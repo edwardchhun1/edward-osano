@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
 <script src="https://cmp.osano.com/AzZcpvRm9bbsqngN/7fdaff7c-c6fe-4d31-8e57-0d08ee29dbaf/osano.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -390,16 +391,10 @@ button{font-family:'DM Sans',sans-serif}
 .audit-report-btns{display:flex;gap:.75rem;margin-bottom:1.5rem;flex-wrap:wrap}
 .audit-download-btn{background:#7c3aed;color:#fff;border:2px solid #7c3aed;padding:.65rem 1.75rem;border-radius:8px;font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .15s}
 .audit-download-btn:hover{opacity:.87}
-@media print{
-  .main-nav,.demo-subnav,.audit-report-btns{display:none!important}
-  #pg-audit{background:#fff!important}
-  .audit-report{box-shadow:none;border:1px solid #ddd}
-  .audit-risk-group-head{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .audit-guidance{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .audit-report-row{break-inside:avoid}
-  .audit-risk-group{break-inside:avoid}
-  .audit-doc-link{color:#7c3aed!important;text-decoration:underline!important}
-}
+/* pdf page-break hints for html2pdf */
+.audit-risk-group{page-break-inside:avoid}
+.audit-report-row{page-break-inside:avoid}
+.audit-guidance{page-break-inside:avoid}
 .audit-report-row{display:flex;flex-direction:column;gap:0;padding:.6rem 0;border-bottom:1px solid #f3f0ff}
 .audit-report-row:last-child{border-bottom:none}
 .audit-report-row-top{display:flex;gap:.75rem;align-items:flex-start;width:100%}
@@ -1981,21 +1976,21 @@ const AUDIT_GUIDANCE={
   0:{risk:'high',url:'https://docs.osano.com/installing-osano',text:'Ensure osano.js is placed inside the &lt;head&gt; tag to properly block non-essential scripts before consent is given. Refer to the installation guide for detailed steps.'},
   1:{risk:'high',url:'https://docs.osano.com/installing-osano',text:'The osano.js script should not have async or defer attributes to ensure it executes immediately, enforcing consent before other scripts run. Learn more about script loading best practices.'},
   2:{risk:'medium',url:'https://docs.osano.com/cmp-setup-guide',text:'The osano.js script should be published at regular intervals to ensure you have the most up to date codebase with the most compliant functionality.'},
-  3:{risk:'high',url:'https://docs.osano.com/hc/en-us/articles/42230427490196-Moving-to-Strict-Mode-in-Osano-s-Cookie-Consent-Manager',text:'Strict mode blocks all non-essential cookies by default, which is critical for opt-in regimes like GDPR. Change this mode in your settings and republish your configuration to ensure that you are operating in strict mode.'},
+  3:{risk:'high',url:'https://docs.osano.com/strict-mode',text:'Strict mode blocks all non-essential cookies by default, which is critical for opt-in regimes like GDPR. Change this mode in your settings and republish your configuration to ensure that you are operating in strict mode.'},
   4:{risk:'high',url:'https://docs.osano.com/classification-of-scripts-and-cookies',text:'Ensure every script and cookie is categorized appropriately (e.g., Essential, Marketing, Analytics) to maintain valid consent enforcement.'},
-  5:{risk:'medium',url:'https://docs.osano.com/hc/en-us/articles/22472145627540-Classification-Rules',text:'Organize scripts/cookies into meaningful rulesets to improve both usability and audit accuracy as well as to increase performance.'},
+  5:{risk:'medium',url:'https://docs.osano.com/classification-of-scripts-and-cookies',text:'Organize scripts/cookies into meaningful rulesets to improve both usability and audit accuracy as well as to increase performance.'},
   6:{risk:'high',url:'https://docs.osano.com/classification-categories',text:'Avoid mislabeling items to ensure compliance especially when it comes to non-essential trackers. Misclassification can lead to non-compliance as only trackers essential to site functionality should be set prior to consent.'},
-  7:{risk:'medium',url:'https://docs.osano.com/hc/en-us/articles/22469433625620-Styling-Consent-Manager',text:'Check associated notes: There are many styling customizations that may institute a dark pattern. Check your styling and customizations to ensure you are not falling under one of these patterns. These include but are not limited to: (1) hiding buttons, (2) coloration that encourages accept vs deny actions (e.g., red deny, green accept), (3) shrinking reject option text.'},
-  8:{risk:'medium',url:'https://docs.osano.com/hc/en-us/articles/22469433819284-Cookie-Disclosures-Cookie-Notices',text:'Full cookie disclosure is recommended for transparency. Disclosing some is acceptable, while disclosing none is risky. Go to your Managed cookies in the Osano Admin Portal and check the disclose checkbox. Republish your configuration to see disclosures.'},
+  7:{risk:'medium',url:'https://docs.osano.com/consent-banner-gallery',text:'Check associated notes: There are many styling customizations that may institute a dark pattern. Check your styling and customizations to ensure you are not falling under one of these patterns. These include but are not limited to: (1) hiding buttons, (2) coloration that encourages accept vs deny actions (e.g., red deny, green accept), (3) shrinking reject option text.'},
+  8:{risk:'medium',url:'https://docs.osano.com/article/139-cookie-disclosures',text:'Full cookie disclosure is recommended for transparency. Disclosing some is acceptable, while disclosing none is risky. Go to your Managed cookies in the Osano Admin Portal and check the disclose checkbox. Republish your configuration to see disclosures.'},
   9:{risk:'medium',url:'https://docs.osano.com/ccpa-opt-out-mode',text:'CPRA is an opt-out regime and does not by itself require opt-in consent. However, turning the US State Opt-Out banner OFF (and instead presenting an opt-in style banner) is a risk-averse option for organizations concerned about wiretapping and recording statutes such as CIPA, VPPA, and ECPA, which have been the basis for class action claims tied to tracking technologies. If those exposures are a concern, turn this off in your consent settings.'},
   10:{risk:'medium',url:'https://docs.osano.com/global-privacy-controls-gpc',text:'Enable GPC to detect Do Not Sell signals sent by browsers in compliance with CPRA. Enable this in your cookie consent settings, then republish your configuration to enable.'},
   11:{risk:'low',url:'https://docs.osano.com/global-privacy-controls-gpc',text:'While not legally required, enabling DNT shows a privacy-forward approach and honors legacy preferences. Enable this in your cookie consent settings, then republish your configuration to enable.'},
-  12:{risk:'low',url:'https://docs.osano.com/hc/en-us/articles/22469396580884-First-Layer-Categories-Manage-Preferences',text:'Enable this button to improve transparency and give users access to detailed consent options. This is not a requirement, but a best practice. Enable this in your cookie consent settings, then republish your configuration to enable.'},
-  13:{risk:'medium',url:'https://docs.osano.com/hc/en-us/articles/22471428469524-Subject-rights-DSAR-overview',text:'Provide a DSAR form in a discoverable location (footer or privacy policy) to fulfill subject rights obligations. If one does not exist at all, be sure to put a process in place ASAP.'},
-  14:{risk:'medium',url:'https://docs.osano.com/hc/en-us/articles/22471428469524-Subject-rights-DSAR-overview',text:'Include a hyperlink or an embed of your DSAR form or process in your privacy policy to ensure users can locate it easily. It MAY exist in a different location, but should be referenced in your privacy policy to avoid risk.'},
-  15:{risk:'medium',url:'https://docs.osano.com/hc/en-us/articles/22471400611604-Forms',text:'Support all required rights under applicable laws (GDPR, CPRA) including correction, access, deletion, objection, and portability. These should be called out specifically and serviced based on requirement for best practice.'},
-  16:{risk:'low',url:'https://docs.osano.com/hc/en-us/articles/22471437259028-How-to-set-up-the-Do-Not-Sell-DNS-modal',text:'Osano automatically supports Do Not Sell in the Cookie Consent preferences drawer, however this can appear as hidden. For greater visibility, add a footer link labeled "Do Not Sell" to comply with CPRA/CCPA Do Not Sell/Share requirements. Add the standalone Do Not Sell modal to support this requirement.'},
-  17:{risk:'medium',url:'https://docs.osano.com/hc/en-us/articles/22469396579220-Hiding-the-Cookie-Widget-Cookie-Icon',text:'If you are hiding the cookie icon that exists out of the box for Osano cookie consent, ensure you provide users with another way to adjust preferences at any time by displaying a persistent link in the footer.'},
+  12:{risk:'low',url:'https://docs.osano.com/consent-management-getting-started',text:'Enable this button to improve transparency and give users access to detailed consent options. This is not a requirement, but a best practice. Enable this in your cookie consent settings, then republish your configuration to enable.'},
+  13:{risk:'medium',url:'https://docs.osano.com/dsar-getting-started',text:'Provide a DSAR form in a discoverable location (footer or privacy policy) to fulfill subject rights obligations. If one does not exist at all, be sure to put a process in place ASAP.'},
+  14:{risk:'medium',url:'https://docs.osano.com/dsar-getting-started',text:'Include a hyperlink or an embed of your DSAR form or process in your privacy policy to ensure users can locate it easily. It MAY exist in a different location, but should be referenced in your privacy policy to avoid risk.'},
+  15:{risk:'medium',url:'https://docs.osano.com/creating-a-request-submission-form',text:'Support all required rights under applicable laws (GDPR, CPRA) including correction, access, deletion, objection, and portability. These should be called out specifically and serviced based on requirement for best practice.'},
+  16:{risk:'low',url:'https://docs.osano.com/do-not-sell',text:'Osano automatically supports Do Not Sell in the Cookie Consent preferences drawer, however this can appear as hidden. For greater visibility, add a footer link labeled "Do Not Sell" to comply with CPRA/CCPA Do Not Sell/Share requirements. Add the standalone Do Not Sell modal to support this requirement.'},
+  17:{risk:'medium',url:'https://docs.osano.com/replacing-the-cookie-widget',text:'If you are hiding the cookie icon that exists out of the box for Osano cookie consent, ensure you provide users with another way to adjust preferences at any time by displaying a persistent link in the footer.'},
 };
 
 const RISK_LABEL={high:'High Risk',medium:'Medium Risk',low:'Low Risk'};
@@ -2055,9 +2050,9 @@ function generateAuditReport(){
 
   let html=`<div class="audit-report-btns">
   <button class="audit-back-btn" style="margin-bottom:0" onclick="showAuditForm()">← Back to Audit</button>
-  <button class="audit-download-btn" onclick="window.print()">Download PDF ↓</button>
+  <button class="audit-download-btn" id="audit-dl-btn" onclick="downloadAuditPDF()">Download PDF ↓</button>
 </div>
-<div class="audit-report">
+<div id="audit-pdf-content"><div class="audit-report">
   <div class="audit-report-header">
     <div class="audit-report-score-num">${yesCount}<span style="font-size:1.5rem;color:#9ca3af"> / ${total}</span></div>
     <div class="audit-report-score-label">answered Yes &nbsp;·&nbsp; <span style="font-weight:700;color:${gradeColor}">${pct}% — ${grade}</span></div>
@@ -2072,12 +2067,30 @@ function generateAuditReport(){
 </div>`;
   });
 
-  html+=`</div>`;
+  html+=`</div></div>`;
   const rv=document.getElementById('audit-report-view');
   rv.innerHTML=html;
   document.getElementById('audit-form-view').style.display='none';
   rv.style.display='block';
   window.scrollTo(0,0);
+}
+
+function downloadAuditPDF(){
+  const el=document.getElementById('audit-pdf-content');
+  const btn=document.getElementById('audit-dl-btn');
+  btn.textContent='Generating…';btn.disabled=true;
+  html2pdf()
+    .set({
+      margin:[10,10,10,10],
+      filename:'osano-guarantee-audit.pdf',
+      image:{type:'jpeg',quality:0.98},
+      html2canvas:{scale:2,useCORS:true,logging:false,backgroundColor:'#ffffff'},
+      jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
+      pagebreak:{mode:['avoid-all','css','legacy']}
+    })
+    .from(el)
+    .save()
+    .then(()=>{btn.textContent='Download PDF ↓';btn.disabled=false;});
 }
 
 function showAuditForm(){
