@@ -64,6 +64,10 @@ app.use((req, res, next) => {
 });
 
 // ─── Health check ─────────────────────────────────────────────────────────────
+app.get('/', (req, res) => {
+  res.json({ service: 'osano-compliance-scanner', status: 'ok', endpoints: ['POST /scan', 'GET /health'] });
+});
+
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
