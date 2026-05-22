@@ -500,6 +500,103 @@ button{font-family:'DM Sans',sans-serif}
 .mock-id-info strong{display:block;font-size:.75rem;color:var(--text);font-weight:600}
 .mock-id-info span{font-size:.7rem;color:var(--text-3)}
 .resp-204{display:flex;align-items:center;gap:.5rem;padding:.6rem .85rem;background:#d1fae5;border-radius:7px;font-size:.8rem;font-weight:700;color:#065f46}
+/* ── COMPANY DASHBOARD ── */
+.dash-layout{display:flex;min-height:calc(100vh - 56px);background:#f0f2f7}
+.dash-sidebar{width:220px;background:#1e2330;color:#c8ccda;flex-shrink:0;padding:0;display:flex;flex-direction:column}
+.dash-logo{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.dash-logo-name{font-size:15px;font-weight:700;color:#fff;letter-spacing:.02em}
+.dash-logo-sub{font-size:11px;color:#6b7280;margin-top:2px}
+.dash-osano-badge{margin:12px 16px;background:rgba(108,71,255,.18);border:1px solid rgba(108,71,255,.35);border-radius:8px;padding:8px 10px;font-size:11px;color:#a78bfa;display:flex;align-items:center;gap:6px}
+.dash-osano-badge svg{width:13px;height:13px;flex-shrink:0;stroke:#a78bfa;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.dash-nav{padding:8px 0;flex:1}
+.dash-nav-item{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:13px;cursor:pointer;color:#9ca3af;border-left:3px solid transparent;transition:all .15s}
+.dash-nav-item:hover{color:#e5e7eb;background:rgba(255,255,255,.04)}
+.dash-nav-item.active{color:#fff;background:rgba(108,71,255,.15);border-left-color:#6c47ff}
+.dash-nav-item svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.dash-main{flex:1;display:flex;flex-direction:column;min-width:0}
+.dash-topbar{background:#fff;border-bottom:1px solid #e4e7ef;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.dash-topbar-title{font-size:15px;font-weight:600;color:#1a1d23}
+.dash-topbar-actions{display:flex;gap:8px;align-items:center}
+.dash-content{padding:20px 24px;flex:1;display:flex;gap:16px;min-height:0}
+/* Request list panel */
+.dash-list-panel{width:420px;flex-shrink:0;display:flex;flex-direction:column;gap:12px}
+.dash-filters{display:flex;gap:6px;flex-wrap:wrap}
+.dash-filter-btn{padding:4px 12px;border:1px solid #d1d5db;border-radius:16px;background:#fff;font-size:12px;cursor:pointer;color:#374151;transition:all .15s}
+.dash-filter-btn:hover,.dash-filter-btn.active{background:#6c47ff;border-color:#6c47ff;color:#fff}
+.dash-req-list{display:flex;flex-direction:column;gap:6px;overflow-y:auto;max-height:calc(100vh - 200px)}
+.dash-req-card{background:#fff;border:1.5px solid #e4e7ef;border-radius:10px;padding:12px 14px;cursor:pointer;transition:all .15s}
+.dash-req-card:hover{border-color:#6c47ff;box-shadow:0 0 0 3px rgba(108,71,255,.08)}
+.dash-req-card.selected{border-color:#6c47ff;box-shadow:0 0 0 3px rgba(108,71,255,.12)}
+.dash-req-card-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.dash-req-type{font-size:11px;font-weight:700;padding:2px 7px;border-radius:10px;text-transform:uppercase;letter-spacing:.04em}
+.rt-delete{background:#fee2e2;color:#991b1b}
+.rt-access{background:#dbeafe;color:#1e40af}
+.rt-correct{background:#fef9c3;color:#854d0e}
+.rt-opt_out{background:#f3e8ff;color:#6b21a8}
+.rt-portability{background:#d1fae5;color:#065f46}
+.dash-req-id{font-size:11px;font-family:monospace;color:#9ca3af}
+.dash-req-name{font-size:13px;font-weight:600;color:#1a1d23}
+.dash-req-email{font-size:12px;color:#6b7280}
+.dash-req-meta{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
+.dash-req-source{font-size:11px;color:#9ca3af;display:flex;align-items:center;gap:4px}
+.dash-req-source.osano{color:#6c47ff;font-weight:600}
+.dash-status-pill{font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px}
+.st-new{background:#f3f4f6;color:#6b7280}
+.st-in_progress{background:#dbeafe;color:#1e40af}
+.st-pending_verification{background:#fef9c3;color:#854d0e}
+.st-completed{background:#dcfce7;color:#166534}
+/* Detail panel */
+.dash-detail-panel{flex:1;min-width:0}
+.dash-detail-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:300px;color:#9ca3af;gap:12px;background:#fff;border-radius:12px;border:1.5px dashed #e4e7ef}
+.dash-detail-empty svg{width:40px;height:40px;stroke:#d1d5db;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.dash-detail-card{background:#fff;border:1.5px solid #e4e7ef;border-radius:12px;overflow:hidden}
+.dash-detail-header{padding:16px 20px;border-bottom:1px solid #f0f2f7;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.dash-detail-title{font-size:15px;font-weight:700;color:#1a1d23}
+.dash-detail-subtitle{font-size:12px;color:#6b7280;margin-top:2px}
+.dash-detail-body{padding:20px}
+.dash-section{margin-bottom:20px}
+.dash-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#6b7280;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #f0f2f7}
+.dash-kv-grid{display:grid;grid-template-columns:140px 1fr;gap:6px 12px;font-size:13px}
+.dash-kv-label{color:#6b7280}
+.dash-kv-value{color:#1a1d23;font-weight:500}
+/* Data store scan */
+.ds-grid{display:flex;flex-direction:column;gap:6px}
+.ds-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;border:1px solid #e4e7ef;background:#fafafa;transition:all .2s}
+.ds-row.found{background:#f0fdf4;border-color:#bbf7d0}
+.ds-row.not-found{background:#f9fafb;border-color:#e4e7ef;opacity:.7}
+.ds-row.processing{background:#eff6ff;border-color:#bfdbfe;animation:dsFlash .8s ease-in-out infinite alternate}
+.ds-row.done-success{background:#f0fdf4;border-color:#6ee7b7}
+.ds-row.done-manual{background:#fffbeb;border-color:#fcd34d}
+@keyframes dsFlash{from{opacity:.7}to{opacity:1}}
+.ds-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0;letter-spacing:.01em}
+.ds-info{flex:1;min-width:0}
+.ds-name{font-size:13px;font-weight:600;color:#1a1d23}
+.ds-type{font-size:11px;color:#6b7280}
+.ds-status{font-size:12px;font-weight:600;display:flex;align-items:center;gap:4px;white-space:nowrap}
+.ds-found{color:#166534}
+.ds-notfound{color:#9ca3af}
+.ds-processing{color:#1e40af}
+.ds-done-ok{color:#166534}
+.ds-done-manual{color:#854d0e}
+.ds-records{font-size:11px;color:#6b7280;margin-top:1px}
+/* Fulfill button */
+.fulfill-btn{width:100%;padding:12px;background:#6c47ff;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .15s;margin-top:16px}
+.fulfill-btn:hover{background:#5538dd}
+.fulfill-btn:disabled{background:#c4b5fd;cursor:not-allowed}
+.fulfill-btn svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+/* Webhook toast */
+.webhook-toast{margin-top:12px;background:#1e2330;border-radius:10px;padding:12px 14px;display:none}
+.webhook-toast.show{display:block}
+.webhook-toast-head{font-size:11px;font-weight:700;color:#a78bfa;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.webhook-toast-body{font-size:11px;font-family:monospace;color:#6ee7b7;white-space:pre-wrap;line-height:1.6}
+/* Activity log */
+.activity-log{display:flex;flex-direction:column;gap:4px;max-height:140px;overflow-y:auto}
+.act-item{font-size:12px;color:#374151;display:flex;gap:8px}
+.act-time{color:#9ca3af;flex-shrink:0;width:52px}
+.act-msg{flex:1}
+/* Loading state */
+.dash-loading{display:flex;align-items:center;justify-content:center;padding:40px;color:#9ca3af;gap:10px}
+@media(max-width:900px){.dash-sidebar{display:none}.dash-list-panel{width:100%}.dash-content{flex-direction:column}}
 </style>
 </head>
 <body>
@@ -608,6 +705,10 @@ button{font-family:'DM Sans',sans-serif}
     <button class="adv-btn" onclick="showPage('pg-dsar-dev')">
       <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
       Advanced Settings &amp; API Reference
+    </button>
+    <button class="adv-btn" style="background:#1e2330;border-color:#1e2330;color:#fff" onclick="showPage('pg-company-dash');dashInit()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Demo Company Dashboard
     </button>
   </div>
 
@@ -1166,6 +1267,122 @@ CRM and analytics data warehouse."</span>,
 </div><!-- /pg-dsar-dev -->
 
 
+<!-- ═══════════════ COMPANY DASHBOARD ═══════════════ -->
+<div id="pg-company-dash" class="page">
+  <nav class="main-nav">
+    <span class="nav-logo">osano<span>.</span></span>
+    <span class="nav-pill">Demo Portal</span>
+  </nav>
+  <div class="demo-subnav">
+    <button class="back-btn" onclick="showPage('pg-dsar')">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back to DSAR
+    </button>
+    <span class="subnav-div">|</span>
+    <span class="subnav-title">Acme Corp — Subject Rights Center</span>
+  </div>
+
+  <div class="dash-layout">
+    <!-- Sidebar -->
+    <aside class="dash-sidebar">
+      <div class="dash-logo">
+        <div class="dash-logo-name">Acme Corp</div>
+        <div class="dash-logo-sub">Privacy Operations</div>
+      </div>
+      <div class="dash-osano-badge">
+        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+        Connected via Osano
+      </div>
+      <nav class="dash-nav">
+        <div class="dash-nav-item active" onclick="dashNav(this,'requests')">
+          <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+          Requests
+        </div>
+        <div class="dash-nav-item" onclick="dashNav(this,'datastores')">
+          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          Data Stores
+        </div>
+        <div class="dash-nav-item" onclick="dashNav(this,'settings')">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          Settings
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="dash-main">
+      <div class="dash-topbar">
+        <span class="dash-topbar-title" id="dash-section-title">Subject Rights Requests</span>
+        <div class="dash-topbar-actions">
+          <span style="font-size:12px;color:#6b7280">Powered by</span>
+          <span style="font-size:13px;font-weight:700;color:#6c47ff;letter-spacing:-.01em">osano</span>
+        </div>
+      </div>
+
+      <!-- REQUESTS VIEW -->
+      <div id="dash-view-requests" class="dash-content">
+        <!-- Left: request list -->
+        <div class="dash-list-panel">
+          <div class="dash-filters">
+            <button class="dash-filter-btn active" onclick="dashFilter(this,'all')">All</button>
+            <button class="dash-filter-btn" onclick="dashFilter(this,'NEW')">New</button>
+            <button class="dash-filter-btn" onclick="dashFilter(this,'IN_PROGRESS')">In Progress</button>
+            <button class="dash-filter-btn" onclick="dashFilter(this,'PENDING_VERIFICATION')">Pending ID</button>
+            <button class="dash-filter-btn" onclick="dashFilter(this,'COMPLETED')">Completed</button>
+          </div>
+          <div class="dash-req-list" id="dash-req-list">
+            <div class="dash-loading">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-dasharray="28" stroke-dashoffset="0"><animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur=".9s" repeatCount="indefinite"/></path></svg>
+              Loading requests…
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: detail panel -->
+        <div class="dash-detail-panel" id="dash-detail-panel">
+          <div class="dash-detail-empty">
+            <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            <p style="font-size:14px">Select a request to view details</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- DATASTORES VIEW -->
+      <div id="dash-view-datastores" class="dash-content" style="display:none">
+        <div style="flex:1">
+          <div id="dash-ds-list" class="ds-grid" style="max-width:700px">
+            <div class="dash-loading">Loading data stores…</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS VIEW -->
+      <div id="dash-view-settings" class="dash-content" style="display:none">
+        <div style="max-width:540px;flex:1">
+          <div class="dash-detail-card">
+            <div class="dash-detail-header">
+              <div>
+                <div class="dash-detail-title">Osano Integration</div>
+                <div class="dash-detail-subtitle">Subject rights requests flow in via Osano DSAR form</div>
+              </div>
+              <span class="dash-status-pill st-completed">Active</span>
+            </div>
+            <div class="dash-detail-body">
+              <div class="dash-kv-grid">
+                <span class="dash-kv-label">Form ID</span><span class="dash-kv-value" style="font-family:monospace">68525</span>
+                <span class="dash-kv-label">Webhook endpoint</span><span class="dash-kv-value" style="font-family:monospace;font-size:12px">https://hooks.acmecorp.io/osano-dsar</span>
+                <span class="dash-kv-label">Events subscribed</span><span class="dash-kv-value">dsar.created · dsar.completed · dsar.overdue</span>
+                <span class="dash-kv-label">Connected data stores</span><span class="dash-kv-value">6 of 8</span>
+                <span class="dash-kv-label">Auto-fulfillment</span><span class="dash-kv-value">Enabled (DELETE, OPT_OUT)</span>
+                <span class="dash-kv-label">API key</span><span class="dash-kv-value" style="font-family:monospace;letter-spacing:.08em">••••••••K8vL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /dash-main -->
+  </div><!-- /dash-layout -->
+</div>
 
 <!-- ═══════════════ GEO PREVIEW PAGE ═══════════════ -->
 <div id="pg-geo-preview" class="page">
@@ -1468,6 +1685,7 @@ const PAGE_HASH={
   'pg-cc':'cookie-consent',
   'pg-dsar':'dsar',
   'pg-dsar-dev':'dsar-dev',
+  'pg-company-dash':'company-dash',
   'pg-adv':'advanced-settings',
   'pg-geo-preview':'geo-preview',
   'pg-compliance':'compliance-checker',
@@ -2757,6 +2975,251 @@ function apiTab(btn, paneId){
   card.querySelectorAll('.api-pane').forEach(p => p.classList.remove('act'));
   const pane = document.getElementById(paneId);
   if(pane) pane.classList.add('act');
+}
+
+/* ── Company Dashboard ── */
+const DASH_API = 'https://product-demos.onrender.com/dsar';
+let _dashRequests = [];
+let _dashAllRequests = [];
+let _dashFilter = 'all';
+let _selectedReqId = null;
+
+const DS_COLORS = {
+  sf:   '#00A1E0', hs: '#FF7A59', snow: '#29B5E8',
+  seg:  '#52BD94', sg: '#1A82E2', ic:   '#6c47ff',
+  pg:   '#336791', ga: '#E37400'
+};
+
+function dashInit(){
+  dashNav(document.querySelector('.dash-nav-item'), 'requests');
+  loadDashRequests();
+}
+
+async function loadDashRequests(){
+  const el = document.getElementById('dash-req-list');
+  el.innerHTML = '<div class="dash-loading"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>Loading…</div>';
+  try {
+    const r = await fetch(DASH_API + '/requests');
+    _dashAllRequests = await r.json();
+    _dashRequests = _dashAllRequests;
+    renderDashList();
+  } catch(e) {
+    el.innerHTML = '<div class="dash-loading" style="color:#dc2626">Failed to load. Is the API running?</div>';
+  }
+}
+
+function renderDashList(){
+  const el = document.getElementById('dash-req-list');
+  const items = _dashFilter === 'all' ? _dashAllRequests : _dashAllRequests.filter(r=>r.status===_dashFilter);
+  if(!items.length){ el.innerHTML='<div class="dash-loading">No requests match this filter.</div>'; return; }
+  el.innerHTML = items.map(req => {
+    const typeClass = 'rt-'+req.type.toLowerCase();
+    const stClass = 'st-'+req.status.toLowerCase();
+    const isOsano = req.source && req.source.startsWith('OSANO');
+    const sel = _selectedReqId === req.id ? ' selected' : '';
+    return `<div class="dash-req-card${sel}" onclick="selectRequest('${req.id}')">
+      <div class="dash-req-card-head">
+        <span class="dash-req-type ${typeClass}">${req.type.replace('_',' ')}</span>
+        <span class="dash-req-id">${req.id}</span>
+      </div>
+      <div class="dash-req-name">${req.subject.name}</div>
+      <div class="dash-req-email">${req.subject.email} · ${req.subject.country}</div>
+      <div class="dash-req-meta">
+        <span class="dash-req-source${isOsano?' osano':''}">${isOsano?'⬡ via Osano':req.source}</span>
+        <span class="dash-status-pill ${stClass}">${req.status.replace(/_/g,' ')}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function dashFilter(btn, filter){
+  document.querySelectorAll('.dash-filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  _dashFilter = filter;
+  renderDashList();
+}
+
+async function selectRequest(id){
+  _selectedReqId = id;
+  renderDashList();
+  const panel = document.getElementById('dash-detail-panel');
+  panel.innerHTML = '<div class="dash-loading">Loading request details…</div>';
+  try {
+    const [reqRes, dsRes] = await Promise.all([
+      fetch(DASH_API + '/requests/' + id),
+      fetch(DASH_API + '/requests/' + id + '/datastores')
+    ]);
+    const req = await reqRes.json();
+    const stores = await dsRes.json();
+    renderDetail(req, stores);
+  } catch(e) {
+    panel.innerHTML = '<div class="dash-loading" style="color:#dc2626">Failed to load details.</div>';
+  }
+}
+
+function renderDetail(req, stores){
+  const panel = document.getElementById('dash-detail-panel');
+  const typeClass = 'rt-'+req.type.toLowerCase();
+  const stClass = 'st-'+req.status.toLowerCase();
+  const due = new Date(req.due).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  const created = new Date(req.created).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  const foundStores = stores.filter(s=>s.found);
+  const canFulfill = req.status !== 'COMPLETED';
+
+  panel.innerHTML = `
+  <div class="dash-detail-card">
+    <div class="dash-detail-header">
+      <div>
+        <div class="dash-detail-title">${req.subject.name}</div>
+        <div class="dash-detail-subtitle">${req.subject.email} · ${req.subject.country}</div>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <span class="dash-req-type ${typeClass}">${req.type.replace('_',' ')}</span>
+        <span class="dash-status-pill ${stClass}">${req.status.replace(/_/g,' ')}</span>
+      </div>
+    </div>
+    <div class="dash-detail-body">
+      <div class="dash-section">
+        <div class="dash-section-title">Request Info</div>
+        <div class="dash-kv-grid">
+          <span class="dash-kv-label">Request ID</span><span class="dash-kv-value" style="font-family:monospace;font-size:12px">${req.id}</span>
+          <span class="dash-kv-label">Submitted</span><span class="dash-kv-value">${created}</span>
+          <span class="dash-kv-label">Due</span><span class="dash-kv-value">${due}</span>
+          <span class="dash-kv-label">Source</span><span class="dash-kv-value">${req.source === 'OSANO_FORM' ? '⬡ Osano Form #'+req.formId : req.source}</span>
+        </div>
+      </div>
+      <div class="dash-section">
+        <div class="dash-section-title">Data Store Scan — ${foundStores.length} of ${stores.length} stores contain records</div>
+        <div class="ds-grid" id="ds-scan-grid">
+          ${stores.map(s => {
+            const col = DS_COLORS[s.icon] || '#6b7280';
+            const foundClass = s.found ? 'found' : 'not-found';
+            const statusHtml = s.found
+              ? `<div class="ds-status ds-found">● ${s.recordCount} records</div>${s.tables && s.tables.length ? '<div class="ds-records">'+s.tables.join(' · ')+'</div>' : ''}`
+              : '<div class="ds-status ds-notfound">○ No records found</div>';
+            return `<div class="ds-row ${foundClass}" id="ds-${s.id}">
+              <div class="ds-icon" style="background:${col}">${s.icon.toUpperCase()}</div>
+              <div class="ds-info"><div class="ds-name">${s.name}</div><div class="ds-type">${s.type}</div></div>
+              <div style="text-align:right">${statusHtml}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+      ${canFulfill ? `
+      <div class="dash-section">
+        <div class="dash-section-title">Auto-Fulfillment</div>
+        <p style="font-size:13px;color:#6b7280;margin-bottom:10px">Osano will automatically perform the <strong>${req.type.replace('_',' ').toLowerCase()}</strong> request across all ${foundStores.length} connected data stores that contain this subject's records.</p>
+        <button class="fulfill-btn" id="fulfill-btn" onclick="runFulfill('${req.id}','${req.type}')">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Auto-Fulfill Across ${foundStores.length} Data Stores
+        </button>
+        <div class="webhook-toast" id="webhook-toast">
+          <div class="webhook-toast-head">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            Webhook fired → hooks.acmecorp.io/osano-dsar
+          </div>
+          <div class="webhook-toast-body" id="webhook-body"></div>
+        </div>
+      </div>` : `
+      <div class="dash-section">
+        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 14px;font-size:13px;color:#166534;display:flex;gap:8px;align-items:center">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Request fulfilled — all data stores processed.
+        </div>
+      </div>`}
+    </div>
+  </div>`;
+}
+
+async function runFulfill(id, type){
+  const btn = document.getElementById('fulfill-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg> Processing…';
+
+  // Animate each found store
+  const rows = document.querySelectorAll('.ds-row.found');
+  for(const row of rows){
+    row.className = 'ds-row processing';
+    const statusDiv = row.querySelector('.ds-status, [class^="ds-status"]') || row.querySelector('div[style]');
+    if(statusDiv) statusDiv.innerHTML = '<span class="ds-status ds-processing">⟳ Processing…</span>';
+    await new Promise(r=>setTimeout(r,600));
+  }
+
+  try {
+    const res = await fetch(DASH_API + '/requests/' + id + '/fulfill', { method: 'POST' });
+    const data = await res.json();
+
+    // Update each store row with result
+    if(data.results){
+      data.results.forEach(result => {
+        const row = document.getElementById('ds-' + result.datastoreId);
+        if(!row) return;
+        if(result.status === 'success'){
+          row.className = 'ds-row done-success';
+          const info = row.querySelector('.ds-info');
+          if(info) info.insertAdjacentHTML('afterend','<div style="text-align:right"><div class="ds-status ds-done-ok">✓ '+result.action+' '+result.recordsAffected+' records</div></div>');
+        } else {
+          row.className = 'ds-row done-manual';
+          const info = row.querySelector('.ds-info');
+          if(info) info.insertAdjacentHTML('afterend','<div style="text-align:right"><div class="ds-status ds-done-manual">⚠ Manual required</div></div>');
+        }
+      });
+    }
+
+    // Show webhook
+    if(data.webhook){
+      const toast = document.getElementById('webhook-toast');
+      const body = document.getElementById('webhook-body');
+      if(toast && body){
+        body.textContent = JSON.stringify(data.webhook.payload, null, 2);
+        toast.classList.add('show');
+      }
+    }
+
+    btn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Fulfilled';
+    btn.style.background = '#16a34a';
+
+    // Refresh the list
+    await loadDashRequests();
+
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = 'Retry';
+  }
+}
+
+function dashNav(el, view){
+  document.querySelectorAll('.dash-nav-item').forEach(i=>i.classList.remove('active'));
+  if(el) el.classList.add('active');
+  document.getElementById('dash-view-requests').style.display = view==='requests' ? '' : 'none';
+  document.getElementById('dash-view-datastores').style.display = view==='datastores' ? '' : 'none';
+  document.getElementById('dash-view-settings').style.display = view==='settings' ? '' : 'none';
+  const titles = { requests:'Subject Rights Requests', datastores:'Connected Data Stores', settings:'Integration Settings' };
+  document.getElementById('dash-section-title').textContent = titles[view] || '';
+  if(view==='datastores') loadDashDatastores();
+}
+
+async function loadDashDatastores(){
+  const el = document.getElementById('dash-ds-list');
+  el.innerHTML = '<div class="dash-loading">Loading…</div>';
+  try {
+    const r = await fetch(DASH_API + '/datastores');
+    const stores = await r.json();
+    el.innerHTML = stores.map(s=>{
+      const col = DS_COLORS[s.icon] || '#6b7280';
+      return `<div class="ds-row ${s.foundIn !== false ? 'found' : 'not-found'}" style="cursor:default">
+        <div class="ds-icon" style="background:${col}">${s.icon.toUpperCase()}</div>
+        <div class="ds-info"><div class="ds-name">${s.name}</div><div class="ds-type">${s.type}</div></div>
+        <div style="text-align:right">
+          ${s.foundIn !== false
+            ? '<div class="ds-status ds-found">● Connected</div><div class="ds-records">'+s.tables.join(' · ')+'</div>'
+            : '<div class="ds-status ds-notfound">○ Read-only / not mapped</div>'}
+        </div>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    el.innerHTML = '<div class="dash-loading" style="color:#dc2626">Failed to load.</div>';
+  }
 }
 
 /* ── DSAR API Dev Page: copy code to clipboard ── */
