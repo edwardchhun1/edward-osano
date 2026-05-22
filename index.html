@@ -500,6 +500,34 @@ button{font-family:'DM Sans',sans-serif}
 .mock-id-info strong{display:block;font-size:.75rem;color:var(--text);font-weight:600}
 .mock-id-info span{font-size:.7rem;color:var(--text-3)}
 .resp-204{display:flex;align-items:center;gap:.5rem;padding:.6rem .85rem;background:#d1fae5;border-radius:7px;font-size:.8rem;font-weight:700;color:#065f46}
+/* ── COMPLIANCE ACTION PLAN ── */
+.comp-action-header{margin-bottom:12px}
+.comp-action-header h3{font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:.2rem}
+.comp-action-header p{font-size:.78rem;color:var(--text-2)}
+.comp-action-step{display:flex;gap:12px;padding:12px 14px;border-radius:10px;margin-bottom:8px;align-items:flex-start;border:1.5px solid}
+.comp-action-step.fail{background:#fff7f7;border-color:#fecaca}
+.comp-action-step.warn{background:#fffbeb;border-color:#fde68a}
+.comp-action-num{width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px}
+.comp-action-body{flex:1;min-width:0}
+.comp-action-title{font-size:12.5px;font-weight:700;color:#1a1d23;margin-bottom:3px}
+.comp-action-what{font-size:12px;color:#6b7280;margin-bottom:4px;line-height:1.45}
+.comp-action-do{font-size:12px;color:#374151;font-weight:500;margin-bottom:4px;line-height:1.45}
+.comp-action-do::before{content:'→ ';color:var(--teal);font-weight:700}
+.comp-action-regs{font-size:10.5px;color:#6c47ff;font-weight:600;margin-bottom:2px}
+.comp-action-effort{font-size:10.5px;color:#9ca3af;font-style:italic}
+.comp-action-badge{flex-shrink:0;font-size:10px;font-weight:700;padding:2px 7px;border-radius:8px;align-self:flex-start;white-space:nowrap}
+.comp-action-badge.fail{background:#fee2e2;color:#991b1b}
+.comp-action-badge.warn{background:#fef9c3;color:#854d0e}
+.comp-pre-consent-detail{margin-top:8px;background:#fff;border:1px solid #e4e7ef;border-radius:8px;padding:10px 12px;font-size:12px}
+.comp-pre-consent-detail summary{font-weight:600;color:var(--navy);cursor:pointer;font-size:12px}
+.comp-tracker-tag{display:inline-block;background:#f3f4f6;color:#374151;border-radius:6px;padding:1px 7px;font-size:11px;margin:2px 2px 0 0;font-family:monospace}
+.comp-tracker-tag.analytics{background:#dbeafe;color:#1e40af}
+.comp-tracker-tag.advertising{background:#fee2e2;color:#991b1b}
+.comp-tracker-tag.social{background:#f3e8ff;color:#6b21a8}
+.comp-tracker-tag.fingerprinting{background:#fef9c3;color:#854d0e}
+.comp-tracker-tag.cookie{background:#dcfce7;color:#166534}
+.comp-tracker-tag.storage{background:#fde8d8;color:#9a3412}
+.comp-disclosure-status{margin-top:6px;font-size:12px;color:#374151}
 /* ── COMPANY DASHBOARD ── */
 .dash-layout{display:flex;min-height:calc(100vh - 56px);background:#f0f2f7}
 .dash-sidebar{width:220px;background:#1e2330;color:#c8ccda;flex-shrink:0;padding:0;display:flex;flex-direction:column}
@@ -2049,6 +2077,29 @@ const COMP_CATS=[
 
 let compScanDomain='',compScanProfile=0,compScanIsHttps=true;
 let compCheckResults={},compScanLimited=false,compScanIsPuppeteer=false;
+// Corrective action plan — maps check IDs to specific actionable guidance
+const ACTION_PLAN={
+  '0_0':{title:'Deploy a Consent Management Platform',what:'No consent management platform (CMP) detected. Cookies and trackers may fire without user consent.',action:"Implement Osano CMP. Place the osano.js script in your <head> tag and configure it to block all non-essential scripts until consent is granted.",regs:['GDPR Art. 6 & 7','ePrivacy Directive Art. 5(3)','CCPA § 1798.100'],effort:'1–3 days'},
+  '0_1':{title:'Block all trackers until consent is granted',what:'Analytics, advertising, or fingerprinting scripts are firing before users have made a consent decision.',action:"Switch Osano to Strict mode. Wrap all non-essential tags in Osano's script classification system so they only execute after the user accepts the relevant category.",regs:['GDPR Art. 7','ePrivacy Directive Art. 5(3)','CPRA § 1798.120'],effort:'2–4 hours'},
+  '0_2':{title:'Enable granular per-category consent controls',what:'The consent UI presents a single accept/reject choice with no category-level granularity.',action:'Configure Osano to show separate toggles for Analytics, Marketing, and Functional cookie categories. This is required under GDPR for valid consent.',regs:['GDPR Recital 32','ICO Cookie Guidance 2023'],effort:'1–2 hours'},
+  '0_3':{title:'Add a visible consent withdrawal mechanism',what:"Users cannot easily withdraw or change their consent after the initial decision.",action:"Add an 'Manage Cookie Preferences' link in the site footer or add the Osano floating widget so users can revisit their consent at any time.",regs:['GDPR Art. 7(3)','CPRA § 1798.135'],effort:'1 hour'},
+  '1_0':{title:'Add privacy policy link to footer AND CMP banner',what:'Privacy policy link is missing from one or both required locations: the consent banner and the site footer.',action:'Ensure a "Privacy Policy" link appears in both the Osano consent banner (via the Osano Console > Appearance > Policy URL) and the site footer navigation.',regs:['GDPR Art. 13','CCPA § 1798.100','CalOPPA'],effort:'30 minutes'},
+  '1_1':{title:'Publish a comprehensive privacy policy',what:'No privacy policy page found, or the policy lacks required disclosures about data categories collected.',action:'Publish a privacy policy that describes: what data you collect, how it is used, who receives it, retention periods, and how users can exercise their rights.',regs:['GDPR Art. 13 & 14','CCPA § 1798.100','CalOPPA'],effort:'1–2 weeks'},
+  '1_2':{title:'Disclose all third-party data recipients',what:'The privacy policy does not name the third-party tools, partners, or processors that receive personal data.',action:'List all data processors and sub-processors in your privacy policy. Include the tool name, purpose, and a link to their privacy policy.',regs:['GDPR Art. 28','CCPA § 1798.115'],effort:'1–3 days'},
+  '1_4':{title:'Add a revision date to your privacy policy',what:'The privacy policy does not include a "Last Updated" date, making it impossible to verify currency.',action:'Add a "Last Updated: [date]" line at the top of your privacy policy. Implement a review cadence (at least annually) and update the date when substantive changes are made.',regs:['GDPR Art. 5(2)','FTC guidance'],effort:'30 minutes'},
+  '2_0':{title:'Document the right of access in your privacy policy',what:'No mention of users\' right to access their personal data found in the privacy policy.',action:'Add a "Your Rights" section to your privacy policy that explains how users can request a copy of their data. Link to your Osano DSAR form from this section.',regs:['GDPR Art. 15','CCPA § 1798.110'],effort:'2–4 hours'},
+  '2_1':{title:'Document the right to deletion',what:'The right to erasure/deletion is not disclosed in your privacy policy.',action:'Add "right to deletion" (or "right to erasure") to your privacy policy and route deletion requests through your Osano DSAR form for automated handling.',regs:['GDPR Art. 17','CCPA § 1798.105'],effort:'2–4 hours'},
+  '2_4':{title:'Add a Do Not Sell/Share opt-out mechanism',what:'No "Do Not Sell or Share My Personal Information" link or mechanism found.',action:'Add a "Do Not Sell or Share My Personal Information" link to your site footer. Osano can surface this automatically for California visitors when the US State Legislation setting is enabled.',regs:['CPRA § 1798.120','CCPA § 1798.135'],effort:'1–2 hours'},
+  '3_0':{title:'Publish a complete cookie disclosure table in your CMP',what:'The consent manager is missing a cookie disclosure table, or not all cookies are listed by name, purpose, and duration.',action:"In the Osano Console, navigate to Disclosures and add every cookie your site sets. Include cookie name, category, provider, purpose, and expiry. This data populates the disclosure table users see in the Osano drawer.",regs:['GDPR Recital 30','ePrivacy Directive','ICO Cookie Guidance'],effort:'2–4 hours'},
+  '3_1':{title:'Prevent pre-consent tracker firing',what:'Third-party tracking requests are made before consent is collected, which constitutes a GDPR violation.',action:'Enable Osano Strict mode and classify all third-party scripts under the appropriate consent category (Analytics, Marketing, etc.) in the Osano Console.',regs:['GDPR Art. 7','ePrivacy Art. 5(3)','CPRA § 1798.120'],effort:'2–4 hours'},
+  '3_4':{title:'Disclose all analytics tools in your privacy policy',what:'Analytics scripts are detected on the page but are not named in the privacy policy.',action:'Add a subsection to your privacy policy listing each analytics tool (e.g. Google Analytics, Mixpanel) with its purpose and a link to the vendor\'s own privacy policy.',regs:['GDPR Art. 13(1)(e)','CCPA § 1798.110'],effort:'1–2 hours'},
+  '4_0':{title:'Add California Do Not Sell opt-out',what:'No CCPA/CPRA-compliant "Do Not Sell or Share" opt-out found for California residents.',action:'Enable the "US State Level Legislation Opt-Out Banner Format" in Osano Console Settings. This automatically serves a compliant opt-out banner to California visitors.',regs:['CPRA § 1798.120','CCPA § 1798.135'],effort:'30 minutes'},
+  '5_0':{title:'Implement GDPR-compliant consent for EU visitors',what:'GDPR is mentioned but no EU-specific consent mechanism (such as an IAB TCF-compliant CMP) is confirmed.',action:'Enable Osano\'s EU TCF 2.x mode in Console Settings if you serve EU users. Ensure the consent banner meets "freely given, specific, informed, and unambiguous" standards.',regs:['GDPR Art. 6 & 7','ePrivacy Directive'],effort:'1–2 days'},
+  '6_0':{title:'Enforce HTTPS across the entire site',what:'The site does not use HTTPS or does not redirect HTTP to HTTPS, exposing user data in transit.',action:'Install an SSL/TLS certificate and configure your server to redirect all HTTP traffic to HTTPS (301 redirect). Most hosting providers offer free certificates via Let\'s Encrypt.',regs:['GDPR Art. 32','PCI-DSS'],effort:'1–4 hours'},
+  '6_1':{title:'Set Secure flag on all cookies',what:'One or more cookies are transmitted over non-HTTPS connections, risking interception.',action:'Set the Secure attribute on all cookies. In most frameworks this is a server-side configuration. Review each cookie\'s set-cookie header.',regs:['GDPR Art. 32','OWASP'],effort:'2–4 hours'},
+  '6_3':{title:'Add data retention periods to your privacy policy',what:'The privacy policy does not specify how long personal data is retained.',action:'Add a "Data Retention" section to your privacy policy. Specify retention periods for each data category (e.g. cookies: 2 years, account data: duration of relationship + 3 years).',regs:['GDPR Art. 5(1)(e)','CCPA'],effort:'2–4 hours'},
+};
+
 const SCANNER_API='https://product-demos.onrender.com';
 
 const COMP_BULLETS={
@@ -2280,7 +2331,7 @@ function regScore(domain,reg,profile){
   return pct>=0.7?'pass':pct>=0.4?'partial':'fail';
 }
 
-const SCAN_MSGS=['Initializing scanner…','Establishing proxy connection…','Fetching homepage HTML…','Scanning for consent mechanisms…','Locating privacy policy page…','Fetching privacy policy content…','Analyzing compliance signals…','Evaluating regulatory alignment…','Generating report…'];
+const SCAN_MSGS=['Initializing headless scanner…','Loading target page in sandboxed browser…','Intercepting pre-consent network requests…','Scanning for consent management platform…','Extracting CMP cookie disclosure table…','Auditing cookies & storage before consent interaction…','Locating privacy policy in banner, footer & header…','Fetching and analyzing privacy policy content…','Evaluating regulatory framework alignment…','Building corrective action plan…'];
 
 async function runComplianceScan(){
   const raw=document.getElementById('comp-url').value.trim();
@@ -2358,6 +2409,7 @@ async function fetchAndAnalyzeSite(url,domain){
       // Override HTTPS check with Puppeteer's verified result
       if(signals.httpsRedirectEnforced||signals.hasHttps)compCheckResults['6_0']='pass';
       Object.assign(compCheckResults,mapSignalsToCheckResults(signals,true));
+      window._lastScanSignals=signals;
       compScanIsPuppeteer=true;
       return;
     }catch(e){
@@ -2498,8 +2550,12 @@ function mapSignalsToCheckResults(s,isPuppeteer){
   // 0: Cookie Consent
   r['0_0']=s.hasCMP?'pass':s.hasCookiePolicy?'warn':'fail';
   if(isPuppeteer){
-    // Puppeteer can definitively measure pre-consent tracker firing
-    r['0_1']=s.preConsentTotal===0?'pass':s.preConsentTotal<=3?'warn':'fail';
+    // Pre-consent: count network trackers + tracking cookies set before consent
+    const netViolations=s.preConsentTotal||0;
+    const cookieViolations=(s.preConsentCookies&&s.preConsentCookies.trackingCount)||0;
+    const storageViolations=(s.preConsentStorage&&s.preConsentStorage.hasTrackingStorage)?1:0;
+    const totalViolations=netViolations+cookieViolations+storageViolations;
+    r['0_1']=totalViolations===0?'pass':totalViolations<=3?'warn':'fail';
     r['0_2']=s.hasGranularCMP?'pass':s.hasCMP?'warn':'fail';
     r['0_3']=s.hasConsentWithdrawLink?'pass':s.hasCMP?'warn':'fail';
   }else{
@@ -2507,9 +2563,15 @@ function mapSignalsToCheckResults(s,isPuppeteer){
     r['0_2']=s.hasCMP?'warn':'fail';
     r['0_3']=s.hasCMP?'warn':'fail';
   }
-  // 0_4 records: hash-based
   // 1: Privacy Policy
-  r['1_0']=s.hasPrivacyPolicyLink?'pass':'fail';
+  if(isPuppeteer&&s.privacyPolicyLocations){
+    const loc=s.privacyPolicyLocations;
+    if(loc.inFooter&&loc.inBanner) r['1_0']='pass';
+    else if(loc.inFooter||loc.inBanner||s.hasPrivacyPolicyLink) r['1_0']='warn';
+    else r['1_0']='fail';
+  }else{
+    r['1_0']=s.hasPrivacyPolicyLink?'pass':'fail';
+  }
   r['1_1']=s.hasPolicyText?(s.hasDataCats?'pass':'warn'):'fail';
   r['1_2']=s.hasPolicyText?(s.hasThirdParty?'pass':'warn'):'fail';
   r['1_3']=s.hasDPO?'pass':(s.hasContact?'warn':'fail');
@@ -2517,22 +2579,29 @@ function mapSignalsToCheckResults(s,isPuppeteer){
   // 2: Data Subject Rights
   r['2_0']=s.hasRightAccess?'pass':(s.hasPolicyText?'warn':'fail');
   r['2_1']=s.hasRightDelete?'pass':(s.hasPolicyText?'warn':'fail');
-  // 2_2 portability, 2_3 correction: hash-based
   r['2_4']=s.hasDoNotSell?'pass':(s.hasOptOut?'warn':'fail');
-  // 3: Tracking
-  r['3_0']=s.hasCookiePolicy?'warn':'fail';
+  // 3: Tracking & Cookie Disclosure
+  if(isPuppeteer&&s.cmpDisclosure){
+    const cd=s.cmpDisclosure;
+    if(!cd.hasDisclosureTable) r['3_0']='fail';
+    else if(cd.missingDisclosures&&cd.missingDisclosures.length>0) r['3_0']='warn';
+    else r['3_0']='pass';
+  }else{
+    r['3_0']=s.hasCookiePolicy?'warn':'fail';
+  }
   if(isPuppeteer){
     const pt=s.preConsentTrackers;
-    r['3_1']=(pt&&pt.advertising.length===0&&pt.analytics.length===0)?'pass':'fail';
+    const hasAdViolation=pt&&pt.advertising.length>0;
+    const hasAnalViolation=pt&&pt.analytics.length>0;
+    const hasFingerprint=pt&&pt.fingerprinting&&pt.fingerprinting.length>0;
+    r['3_1']=(hasAdViolation||hasAnalViolation||hasFingerprint)?'fail':'pass';
   }else{
     r['3_1']=s.hasCMP?'warn':'fail';
   }
-  // 3_2 crosssite, 3_3 adnet: hash-based
   r['3_4']=s.hasAnalyticsScript?(s.hasAnalyticsDisclosure?'warn':'fail'):'pass';
   // 4: US Privacy
   r['4_0']=s.hasDoNotSell?'pass':'fail';
   r['4_1']=s.hasDoNotSell?'warn':'fail';
-  // 4_2 sensitive, 4_3 minors, 4_4 finincent: hash-based
   // 5: Global
   r['5_0']=s.hasGDPR?'warn':'fail';
   r['5_1']=s.hasGDPR?'warn':'fail';
@@ -2540,11 +2609,9 @@ function mapSignalsToCheckResults(s,isPuppeteer){
   r['5_3']=s.hasPolicyText?'warn':'fail';
   r['5_4']=s.hasPolicyText?'warn':'fail';
   // 6: Security
-  // 6_0 https: set from URL in runComplianceScan; overridden by Puppeteer in fetchAndAnalyzeSite
   if(isPuppeteer&&s.cookieFlags){
     r['6_1']=s.cookieFlags.allSecure?'pass':'warn';
   }
-  // 6_1 cookieflags: hash-based when no Puppeteer
   r['6_2']=s.hasBreachPolicy?'warn':(s.hasPolicyText?'warn':'fail');
   r['6_3']=s.hasRetention?'pass':(s.hasPolicyText?'warn':'fail');
   // 6_4 dpia: hash-based
@@ -2615,26 +2682,81 @@ function renderComplianceReport(domain,fullUrl,profile){
     </div>`;
   }).join('');
 
-  // Recommendations
-  const recs=[];
+  // Priority Recommendations — full corrective action plan
+  const actionItems=[];
   COMP_CATS.forEach((cat,ci)=>{
     cat.checks.forEach((chk,ki)=>{
-      const s=getEffectiveCheckStatus(domain,ci,ki,profile);
-      if(s==='fail') recs.push({pri:'high',label:chk.label,desc:chk.fail});
-      else if(s==='warn') recs.push({pri:'med',label:chk.label,desc:chk.warn});
+      const st=getEffectiveCheckStatus(domain,ci,ki,profile);
+      if(st==='pass') return;
+      const key=`${ci}_${ki}`;
+      const plan=ACTION_PLAN[key];
+      actionItems.push({
+        key, st, chk,
+        title: plan?plan.title:chk.label,
+        what: plan?plan.what:(st==='fail'?chk.fail:chk.warn),
+        action: plan?plan.action:(st==='fail'?chk.fail:chk.warn),
+        regs: plan?plan.regs:[],
+        effort: plan?plan.effort:'',
+      });
     });
   });
-  const topRecs=recs.filter(r=>r.pri==='high').slice(0,3)
-    .concat(recs.filter(r=>r.pri==='med').slice(0,3));
-  if(topRecs.length===0){
+  // Sort: fails first, then warns; within each group preserve category order
+  const sorted=actionItems.filter(i=>i.st==='fail').concat(actionItems.filter(i=>i.st==='warn'));
+
+  // Build pre-consent tracker detail if available (from Puppeteer scan)
+  let preConsentDetail='';
+  if(compScanIsPuppeteer&&window._lastScanSignals){
+    const s=window._lastScanSignals;
+    const tags=[];
+    if(s.preConsentTrackers){
+      const pt=s.preConsentTrackers;
+      (pt.analytics||[]).forEach(d=>tags.push(`<span class="comp-tracker-tag analytics">${d}</span>`));
+      (pt.advertising||[]).forEach(d=>tags.push(`<span class="comp-tracker-tag advertising">${d}</span>`));
+      (pt.social||[]).forEach(d=>tags.push(`<span class="comp-tracker-tag social">${d}</span>`));
+      (pt.fingerprinting||[]).forEach(d=>tags.push(`<span class="comp-tracker-tag fingerprinting">${d}</span>`));
+    }
+    if(s.preConsentCookies&&s.preConsentCookies.trackingCookies&&s.preConsentCookies.trackingCookies.length){
+      s.preConsentCookies.trackingCookies.forEach(n=>tags.push(`<span class="comp-tracker-tag cookie">${n}</span>`));
+    }
+    if(s.preConsentStorage&&s.preConsentStorage.localStorageTrackingKeys&&s.preConsentStorage.localStorageTrackingKeys.length){
+      s.preConsentStorage.localStorageTrackingKeys.forEach(k=>tags.push(`<span class="comp-tracker-tag storage">ls:${k}</span>`));
+    }
+    if(tags.length){
+      preConsentDetail=`<details class="comp-pre-consent-detail"><summary>Pre-consent signals detected (${tags.length})</summary><div style="margin-top:6px">${tags.join('')}</div></details>`;
+    }
+    // Cookie disclosure detail
+    if(s.cmpDisclosure&&!s.cmpDisclosure.allDisclosed&&s.cmpDisclosure.missingDisclosures&&s.cmpDisclosure.missingDisclosures.length){
+      const missing=s.cmpDisclosure.missingDisclosures.map(n=>`<span class="comp-tracker-tag cookie">${n}</span>`).join('');
+      preConsentDetail+=`<div class="comp-disclosure-status">⚠ <strong>${s.cmpDisclosure.missingDisclosures.length} tracking cookie(s) not in Osano disclosure:</strong> ${missing}</div>`;
+    }
+    if(s.privacyPolicyLocations){
+      const loc=s.privacyPolicyLocations;
+      const locItems=[];
+      if(loc.inBanner) locItems.push('✓ CMP banner'); else locItems.push('✕ CMP banner');
+      if(loc.inFooter) locItems.push('✓ Footer'); else locItems.push('✕ Footer');
+      if(loc.inHeader) locItems.push('✓ Header');
+      preConsentDetail+=`<div class="comp-disclosure-status" style="margin-top:4px">Privacy policy found in: ${locItems.join(' · ')}</div>`;
+    }
+  }
+
+  if(sorted.length===0){
     document.getElementById('comp-recs-wrap').style.display='none';
   } else {
     document.getElementById('comp-recs-wrap').style.display='';
-    document.getElementById('comp-recs').innerHTML=topRecs.slice(0,5).map(r=>`
-      <div class="comp-rec">
-        <span class="comp-rec-pri ${r.pri}">${r.pri==='high'?'HIGH':'MED'}</span>
-        <div><strong>${r.label}</strong><p>${r.desc}</p></div>
+    const headerHtml=`<div class="comp-action-header"><h3>Corrective Action Plan — ${sorted.length} item${sorted.length===1?'':'s'} to address</h3><p>Complete these steps in priority order to reach 100% compliance. Critical items must be resolved first.</p></div>`;
+    const stepsHtml=sorted.slice(0,8).map((item,i)=>`
+      <div class="comp-action-step ${item.st}">
+        <div class="comp-action-num">${i+1}</div>
+        <div class="comp-action-body">
+          <div class="comp-action-title">${item.title}</div>
+          <div class="comp-action-what">${item.what}</div>
+          <div class="comp-action-do">${item.action}</div>
+          ${item.regs.length?`<div class="comp-action-regs">${item.regs.join(' · ')}</div>`:''}
+          ${item.effort?`<div class="comp-action-effort">Est. effort: ${item.effort}</div>`:''}
+        </div>
+        <span class="comp-action-badge ${item.st}">${item.st==='fail'?'CRITICAL':'REVIEW'}</span>
       </div>`).join('');
+    document.getElementById('comp-recs').innerHTML=headerHtml+(preConsentDetail?`<div style="margin-bottom:10px">${preConsentDetail}</div>`:'')+stepsHtml;
   }
 
   document.getElementById('comp-results').style.display='block';
