@@ -434,6 +434,72 @@ button{font-family:'DM Sans',sans-serif}
 .audit-scope-card h3{font-weight:700;color:#4c1d95;font-size:1rem;margin-bottom:.45rem}
 .audit-scope-card p{font-size:.8rem;color:#6b7280;line-height:1.55}
 .audit-scope-count{display:inline-block;margin-top:.75rem;font-size:.75rem;font-weight:600;background:#ede9fe;color:#7c3aed;border-radius:100px;padding:.15rem .65rem}
+
+/* ── DSAR FORM PAGE ── */
+.dsar-form-action-bar{padding:1.75rem 2rem 0;max-width:860px;margin:0 auto;display:flex;gap:.75rem;flex-wrap:wrap}
+.dsar-form-intro{padding:1.25rem 2rem 0;max-width:860px;margin:0 auto}
+.dsar-form-intro h2{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--navy);margin-bottom:.35rem}
+.dsar-form-intro p{font-size:.875rem;color:var(--text-2);line-height:1.65;margin-bottom:.5rem}
+.dsar-form-body{padding:1.5rem 2rem 4rem;max-width:860px;margin:0 auto}
+.dsar-embed-wrap{background:var(--white);border:1.5px solid var(--border);border-radius:var(--card-radius);padding:1.75rem;min-height:120px}
+
+/* ── DSAR API DEV PAGE ── */
+.dsar-dev-layout{max-width:1120px;margin:0 auto;padding:2.5rem 2rem 5rem}
+.dsar-dev-hero{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1.5px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap}
+.dsar-dev-hero h2{font-family:'DM Serif Display',serif;font-size:1.75rem;color:var(--navy);margin-bottom:.35rem}
+.dsar-dev-hero p{font-size:.875rem;color:var(--text-2);line-height:1.6}
+.dsar-dev-hero a{color:var(--teal);font-weight:600;text-decoration:none}
+.dsar-dev-hero a:hover{text-decoration:underline}
+.dsar-dev-badge{font-size:.72rem;font-weight:700;background:var(--teal-light);color:#065f46;padding:.3rem .8rem;border-radius:20px;white-space:nowrap;align-self:flex-start}
+.api-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+@media(max-width:820px){.api-grid{grid-template-columns:1fr}}
+.api-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--card-radius);overflow:hidden;display:flex;flex-direction:column}
+.api-card-head{padding:.9rem 1.25rem;display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+.method-badge{font-size:.67rem;font-weight:700;letter-spacing:.07em;padding:.22rem .65rem;border-radius:5px;flex-shrink:0;text-transform:uppercase}
+.mb-get{background:#d1fae5;color:#065f46}.mb-post{background:var(--purple-light);color:#4c3faf}.mb-patch{background:var(--amber-light);color:#92400e}
+.api-path{font-family:Consolas,'Courier New',monospace;font-size:.78rem;color:var(--navy);font-weight:600;word-break:break-all;line-height:1.4}
+.api-card-desc{padding:.6rem 1.25rem .85rem;font-size:.81rem;color:var(--text-2);border-top:1px solid var(--border);line-height:1.55}
+.api-tabs{display:flex;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:#f7fbfd}
+.api-tab{padding:.5rem 1rem;font-size:.78rem;font-weight:600;color:var(--text-3);border:none;background:none;cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-1px;transition:all .15s}
+.api-tab.act{color:var(--navy);border-bottom-color:var(--navy);background:var(--white)}
+.api-pane{display:none}.api-pane.act{display:block}
+.api-code-wrap{position:relative;background:#0f172a}
+.api-code{padding:1rem 1.25rem;font-size:.71rem;line-height:1.75;overflow-x:auto;max-height:220px;overflow-y:auto}
+.api-code pre{margin:0;color:#cbd5e1;font-family:Consolas,'Courier New',monospace;white-space:pre}
+.c-cm{color:#475569}.c-kw{color:#7dd3fc}.c-str{color:#86efac}.c-num{color:#f9a8d4}
+.c-key{color:#93c5fd}.c-bool{color:#fda4af}.c-url{color:#c084fc}.c-meth{color:#fbbf24}
+.api-copy-btn{position:absolute;top:.55rem;right:.65rem;background:#1e293b;border:1px solid #334155;color:#94a3b8;font-size:.67rem;padding:.18rem .5rem;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;z-index:2}
+.api-copy-btn:hover{color:#f1f5f9;border-color:#64748b}
+.api-preview-wrap{padding:1rem 1.25rem;border-top:1px solid var(--border);background:var(--bg)}
+.api-preview-lbl{font-size:.66rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text-3);margin-bottom:.6rem}
+.mock-table{width:100%;border-collapse:collapse;font-size:.74rem;background:var(--white);border-radius:7px;overflow:hidden;border:1px solid var(--border)}
+.mock-table th{background:#f7fbfd;padding:.42rem .7rem;text-align:left;font-size:.63rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);border-bottom:1px solid var(--border)}
+.mock-table td{padding:.48rem .7rem;border-bottom:1px solid #f0f4f8;vertical-align:middle;color:var(--text)}
+.mock-table tr:last-child td{border-bottom:none}
+.sp{display:inline-block;font-size:.63rem;font-weight:700;padding:.16rem .52rem;border-radius:10px;white-space:nowrap}
+.sp-prog{background:#dbeafe;color:#1e40af}.sp-done{background:#d1fae5;color:#065f46}
+.sp-pend{background:var(--amber-light);color:#92400e}.sp-rej{background:#fee2e2;color:#991b1b}
+.mock-detail{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;font-size:.75rem}
+.mock-detail-head{padding:.55rem .85rem;background:#f7fbfd;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);display:flex;justify-content:space-between;align-items:center}
+.mock-kv{display:flex;justify-content:space-between;padding:.38rem .85rem;border-bottom:1px solid #f5f7fb}
+.mock-kv:last-child{border-bottom:none}
+.mock-kv-k{color:var(--text-3);font-weight:500}.mock-kv-v{color:var(--text);font-weight:600;text-align:right;max-width:65%;word-break:break-all}
+.mock-timeline{display:flex;flex-direction:column;gap:.4rem}
+.mock-tl-item{display:flex;align-items:flex-start;gap:.55rem;font-size:.74rem}
+.tl-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.tl-done{background:var(--pass)}.tl-act{background:var(--teal)}.tl-pend{background:#d1d5db}
+.mock-tl-item strong{display:block;color:var(--text);font-weight:600}
+.mock-tl-item span{color:var(--text-3);font-size:.7rem}
+.mock-log-item{display:flex;gap:.5rem;font-size:.72rem;padding:.33rem .6rem;background:var(--white);border:1px solid var(--border);border-radius:6px;margin-bottom:.3rem}
+.mock-log-time{color:var(--text-3);flex-shrink:0;white-space:nowrap;font-family:Consolas,'Courier New',monospace}
+.mock-notif{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;font-size:.75rem}
+.mock-notif-from{font-size:.68rem;color:var(--text-3);margin-bottom:.35rem}
+.mock-notif-body{color:var(--text);line-height:1.55}
+.mock-id-upload{display:flex;align-items:center;gap:.75rem;background:var(--white);border:1.5px dashed var(--border);border-radius:8px;padding:.75rem 1rem}
+.mock-id-icon{width:36px;height:36px;background:var(--teal-light);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mock-id-info strong{display:block;font-size:.75rem;color:var(--text);font-weight:600}
+.mock-id-info span{font-size:.7rem;color:var(--text-3)}
+.resp-204{display:flex;align-items:center;gap:.5rem;padding:.6rem .85rem;background:#d1fae5;border-radius:7px;font-size:.8rem;font-weight:700;color:#065f46}
 </style>
 </head>
 <body>
@@ -536,7 +602,568 @@ button{font-family:'DM Sans',sans-serif}
     <span class="subnav-div">|</span>
     <span class="subnav-title">Data Subject Access Rights</span>
   </div>
+
+  <!-- Action bar -->
+  <div class="dsar-form-action-bar">
+    <button class="adv-btn" onclick="showPage('pg-dsar-dev')">
+      <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      Advanced Settings &amp; API Reference
+    </button>
+  </div>
+
+  <!-- Intro -->
+  <div class="dsar-form-intro" style="margin-top:1.25rem">
+    <h2>Submit a Data Subject Request</h2>
+    <p>Use this form to exercise your privacy rights — including access, deletion, correction, and portability — under GDPR, CPRA, and other applicable laws. Your request will be routed to our privacy team and fulfilled within the legally required timeframe.</p>
+  </div>
+
+  <!-- Embedded form -->
+  <div class="dsar-form-body">
+    <div class="dsar-embed-wrap">
+      <script type="text/javascript">
+      (function(w,d){
+        var i="osno-dsar-form_"+(new Date()).getTime();
+        var t=w.addEventListener?["addEventListener","message"]:["attachEvent","onmessage"];
+        w[t[0]](t[1],function(e){
+          var f=d.getElementById(i);
+          if(e.source&&e.origin&&e.source===f.contentWindow&&e.origin==="https://my.datasubject.com")
+            f.style.cssText="height:"+e.data+"px;min-width:100%";
+        },false);
+        d.write('<iframe frameborder="0" id="'+i+'" src="https://my.datasubject.com/AzZcpvRm9bbsqngN/68525" width="100%" height="0"></iframe>');
+      })(window,document);
+      </script>
+    </div>
+  </div>
 </div>
+
+
+<!-- ═══════════════ DSAR API DEV PAGE ═══════════════ -->
+<div id="pg-dsar-dev" class="page">
+  <nav class="main-nav">
+    <span class="nav-logo">osano<span>.</span></span>
+    <span class="nav-pill">Demo Portal</span>
+  </nav>
+  <div class="demo-subnav">
+    <button class="back-btn" onclick="showPage('pg-dsar')">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back to Form
+    </button>
+    <span class="subnav-div">|</span>
+    <span class="subnav-title">DSAR API Reference</span>
+  </div>
+
+  <div class="dsar-dev-layout">
+
+    <!-- Hero -->
+    <div class="dsar-dev-hero">
+      <div>
+        <h2>Subject Rights API</h2>
+        <p>Programmatically manage data subject requests via the Osano REST API. Full reference at <a href="https://developers.osano.com/customer-rest-api#tag/dsar" target="_blank">developers.osano.com ↗</a></p>
+      </div>
+      <span class="dsar-dev-badge">Base URL: api.osano.com/v1</span>
+    </div>
+
+    <!-- API Grid -->
+    <div class="api-grid">
+
+      <!-- ── 1. LIST REQUESTS ── -->
+      <div class="api-card">
+        <div class="api-card-head">
+          <span class="method-badge mb-get">GET</span>
+          <span class="api-path">/subject-rights/requests</span>
+        </div>
+        <div class="api-card-desc">List all subject rights requests, sorted newest first. Supports filtering by status, type, source, and date range.</div>
+        <div class="api-tabs">
+          <button class="api-tab act" onclick="apiTab(this,'req-1-req')">Request</button>
+          <button class="api-tab" onclick="apiTab(this,'req-1-res')">Response</button>
+          <button class="api-tab" onclick="apiTab(this,'req-1-pre')">Preview</button>
+        </div>
+        <div id="req-1-req" class="api-pane act">
+          <div class="api-code-wrap">
+            <button class="api-copy-btn" onclick="copyCode(this)">Copy</button>
+            <div class="api-code"><pre><span class="c-meth">GET</span> <span class="c-url">https://api.osano.com/v1/subject-rights/requests</span>
+    ?limit=<span class="c-num">10</span>
+    &amp;status=<span class="c-str">IN_PROGRESS</span>
+    &amp;requestType=<span class="c-str">DELETE</span>
+    &amp;after=<span class="c-str">2026-05-01T00:00:00Z</span>
+
+<span class="c-cm"># Headers</span>
+Authorization: Bearer <span class="c-str">YOUR_API_KEY</span>
+Content-Type: application/json</pre></div>
+          </div>
+        </div>
+        <div id="req-1-res" class="api-pane">
+          <div class="api-code-wrap">
+            <button class="api-copy-btn" onclick="copyCode(this)">Copy</button>
+            <div class="api-code"><pre>{
+  <span class="c-key">"items"</span>: [
+    {
+      <span class="c-key">"dsarId"</span>: <span class="c-str">"dsr_xK9mP2qR8vL"</span>,
+      <span class="c-key">"status"</span>: <span class="c-str">"IN_PROGRESS"</span>,
+      <span class="c-key">"requestType"</span>: <span class="c-str">"DELETE"</span>,
+      <span class="c-key">"requestSource"</span>: <span class="c-str">"WEB"</span>,
+      <span class="c-key">"dsarDetails"</span>: {
+        <span class="c-key">"email"</span>: <span class="c-str">"jane.doe@example.com"</span>,
+        <span class="c-key">"given-name"</span>: <span class="c-str">"Jane"</span>,
+        <span class="c-key">"family-name"</span>: <span class="c-str">"Doe"</span>
+      },
+      <span class="c-key">"created"</span>: <span class="c-str">"2026-05-20T14:32:00Z"</span>,
+      <span class="c-key">"due"</span>: <span class="c-str">"2026-06-19T14:32:00Z"</span>,
+      <span class="c-key">"form"</span>: { <span class="c-key">"id"</span>: <span class="c-num">68525</span> }
+    }
+  ],
+  <span class="c-key">"next"</span>: <span class="c-str">"eyJpZCI6ImRzcl94SzltUDJxUjh2TCJ9"</span>
+}</pre></div>
+          </div>
+        </div>
+        <div id="req-1-pre" class="api-pane">
+          <div class="api-preview-wrap">
+            <div class="api-preview-lbl">Simulated Requests Dashboard</div>
+            <table class="mock-table">
+              <thead><tr><th>ID</th><th>Requester</th><th>Type</th><th>Status</th><th>Due</th></tr></thead>
+              <tbody>
+                <tr><td style="font-family:monospace;font-size:.68rem">dsr_xK9mP2</td><td>Jane Doe</td><td>Delete</td><td><span class="sp sp-prog">In Progress</span></td><td>Jun 19</td></tr>
+                <tr><td style="font-family:monospace;font-size:.68rem">dsr_mR3vQ8</td><td>John Smith</td><td>Access</td><td><span class="sp sp-done">Completed</span></td><td>May 30</td></tr>
+                <tr><td style="font-family:monospace;font-size:.68rem">dsr_nT7wL1</td><td>Amy Chen</td><td>Correct</td><td><span class="sp sp-pend">Pending ID</span></td><td>Jun 5</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 2. CREATE REQUEST ── -->
+      <div class="api-card">
+        <div class="api-card-head">
+          <span class="method-badge mb-post">POST</span>
+          <span class="api-path">/subject-rights/requests</span>
+        </div>
+        <div class="api-card-desc">Create up to 100 subject rights requests in bulk. Requests created via API skip the email verification step.</div>
+        <div class="api-tabs">
+          <button class="api-tab act" onclick="apiTab(this,'req-2-req')">Request</button>
+          <button class="api-tab" onclick="apiTab(this,'req-2-res')">Response</button>
+          <button class="api-tab" onclick="apiTab(this,'req-2-pre')">Preview</button>
+        </div>
+        <div id="req-2-req" class="api-pane act">
+          <div class="api-code-wrap">
+            <button class="api-copy-btn" onclick="copyCode(this)">Copy</button>
+            <div class="api-code"><pre><span class="c-meth">POST</span> <span class="c-url">https://api.osano.com/v1/subject-rights/requests</span>
+
+[
+  {
+    <span class="c-key">"formId"</span>: <span class="c-num">68525</span>,
+    <span class="c-key">"requestType"</span>: <span class="c-str">"DELETE"</span>,
+    <span class="c-key">"status"</span>: <span class="c-str">"IN_PROGRESS"</span>,
+    <span class="c-key">"due"</span>: <span class="c-str">"2026-06-19T00:00:00Z"</span>,
+    <span class="c-key">"notes"</span>: <span class="c-str">"Submitted via CRM integration"</span>,
+    <span class="c-key">"dsarDetails"</span>: {
+      <span class="c-key">"email"</span>: <span class="c-str">"john.smith@example.com"</span>,
+      <span class="c-key">"given-name"</span>: <span class="c-str">"John"</span>,
+      <span class="c-key">"family-name"</span>: <span class="c-str">"Smith"</span>
+    }
+  }
+]</pre></div>
+          </div>
+        </div>
+        <div id="req-2-res" class="api-pane">
+          <div class="api-code-wrap">
+            <button class="api-copy-btn" onclick="copyCode(this)">Copy</button>
+            <div class="api-code"><pre><span class="c-cm">// 201 Created</span>
+[
+  {
+    <span class="c-key">"dsarId"</span>: <span class="c-str">"dsr_mR3vQ8jT5pN"</span>,
+    <span class="c-key">"status"</span>: <span class="c-str">"IN_PROGRESS"</span>,
+    <span class="c-key">"requestType"</span>: <span class="c-str">"DELETE"</span>,
+    <span class="c-key">"requestSource"</span>: <span class="c-str">"API"</span>,
+    <span class="c-key">"dsarDetails"</span>: {
+      <span class="c-key">"email"</span>: <span class="c-str">"john.smith@example.com"</span>,
+      <span class="c-key">"given-name"</span>: <span class="c-str">"John"</span>,
+      <span class="c-key">"family-name"</span>: <span class="c-str">"Smith"</span>
+    },
+    <span class="c-key">"created"</span>: <span class="c-str">"2026-05-22T09:15:00Z"</span>,
+    <span class="c-key">"due"</span>: <span class="c-str">"2026-06-19T00:00:00Z"</span>
+  }
+]</pre></div>
+          </div>
+        </div>
+        <div id="req-2-pre" class="api-pane">
+          <div class="api-preview-wrap">
+            <div class="api-preview-lbl">New Request Created</div>
+            <div class="mock-detail">
+              <div class="mock-detail-head"><span>dsr_mR3vQ8jT5pN</span><span class="sp sp-prog">In Progress</span></div>
+              <div class="mock-kv"><span class="mock-kv-k">Requester</span><span class="mock-kv-v">John Smith</span></div>
+              <div class="mock-kv"><span class="mock-kv-k">Email</span><span class="mock-kv-v">john.smith@example.com</span></div>
+              <div class="mock-kv"><span class="mock-kv-k">Type</span><span class="mock-kv-v">DELETE</span></div>
+              <div class="mock-kv"><span class="mock-kv-k">Source</span><span class="mock-kv-v">API</span></div>
+              <div class="mock-kv"><span class="mock-kv-k">Due</span><span class="mock-kv-v">Jun 19, 2026</span></div>
+              <div class="mock-kv"><span class="mock-kv-k">Notes</span><span class="mock-kv-v" style="color:var(--text-2);font-weight:400">Submitted via CRM integration</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 3. GET SINGLE REQUEST ── -->
+      <div class="api-card">
+        <div class="api-card-head">
+          <span class="method-badge mb-get">GET</span>
+          <span class="api-path">/subject-rights/requests/{dsarId}</span>
+        </div>
+        <div class="api-card-desc">Retrieve full details for a single subject rights request by its ID, including all metadata, status history, and form data.</div>
+        <div class="api-tabs">
+          <button class="api-tab act" onclick="apiTab(this,'req-3-req')">Request</button>
+          <button class="api-tab" onclick="apiTab(this,'req-3-res')">Response</button>
+          <button class="api-tab" onclick="apiTab(this,'req-3-pre')">Preview</button>
+        </div>
+        <div id="req-3-req" class="api-pane act">
+          <div class="api-code-wrap">
+            <button class="api-copy-btn" onclick="copyCode(this)">Copy</button>
+            <div class="api-code"><pre><span class="c-meth">GET</span> <span class="c-url">https://api.osano.com/v1/subject-rights/requests/dsr_xK9mP2qR8vL</span>
+
+<span class="c-cm"># Headers</span>
+Authorization: Bearer <span class="c-str">YOUR_API_KEY</span></pre></div>
+          </div>
+        </div>
+        <div id="req-3-res" class="api-pane">
+          <div class="api-code-wrap">
+            <button class="api-copy-btn" onclick="copyCode(this)">Copy</button>
+            <div class="api-code"><pre>{
+  <span class="c-key">"dsarId"</span>: <span class="c-str">"dsr_xK9mP2qR8vL"</span>,
+  <span class="c-key">"status"</span>: <span class="c-str">"IN_PROGRESS"</span>,
+  <span class="c-key">"requestType"</span>: <span class="c-str">"DELETE"</span>,
+  <span class="c-key">"requestSource"</span>: <span class="c-str">"WEB"</span>,
+  <span class="c-key">"notes"</span>: <span class="c-str">"User requested full account deletion"</span>,
+  <span class="c-key">"dsarDetails"</span>: {
+    <span class="c-key">"email"</span>: <span class="c-str">"jane.doe@example.com"</span>,
+    <span class="c-key">"given-name"</span>: <span class="c-str">"Jane"</span>,
+    <span class="c-key">"family-name"</span>: <span class="c-str">"Doe"</span>
+  },
+  <span class="c-key">"created"</span>: <span class="c-str">"2026-05-20T14:32:00Z"</span>,
+  <span class="c-key">"due"</span>: <span class="c-str">"2026-06-19T14:32:00Z"</span>,
+  <span class="c-key">"lastUpdated"</span>: <span class="c-str">"2026-05-21T10:00:00Z"</span>,
+  <span class="c-key">"lastUpdatedBy"</span>: <span class="c-str">"privacy@yourcompany.com"</span>,
+  <span class="c-key">"form"</span>: { <span class="c-key">"id"</span>: <span class="c-num">68525</span>, <span class="c-key">"name"</span>: <span class="c-str">"Default Form"</span> }
+}</pre></div>
+          </div>
+        </div>
+        <div id="req-3-pre" class="api-pane">
+          <div class="api-preview-wrap">
+            <div class="api-preview-lbl">Request Detail View</div>
+            <div class="mock-detail">
+              <div class="mock-detail-head"><span>dsr_xK9mP2qR8vL</span><span class="sp sp-prog">In Progress</span></div>
+              <div class="mock-kv"><span class="mock-kv-k">Requester</span><span class="mock-kv-v">Jane Doe</span></div>
+              <div class="mock-kv"><span class="mock-kv-k">Email</span><span class="mock-kv-v">jane.doe@example.com</span></div>
+              <div class="mock-kv"><span class="mock-kv-k">Type</span><span class="mock-kv-v">DELETE</span></div>
+              <div class="mock-kv"><span class="mock-kv-k">Source</span><span class="mock-kv-v">WEB</span></div>
+              <div class="mock-kv"><span class="mock-kv-k">Created</span><span class="mock-kv-v">May 20, 2026</span></div>
+              <div class="mock-kv"><span class="mock-kv-k">Due</span><span class="mock-kv-v" style="color:#d97706;font-weight:700">Jun 19, 2026</span></div>
+              <div class="mock-kv"><span class="mock-kv-k">Last Updated By</span><span class="mock-kv-v">privacy@yourcompany.com</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 4. UPDATE REQUEST ── -->
+      <div class="api-card">
+        <div class="api-card-head">
+          <span class="method-badge mb-patch">PATCH</span>
+          <span class="api-path">/subject-rights/requests/{dsarId}</span>
+        </div>
+        <div class="api-card-desc">Update a request's status, internal notes, or trigger a completion/rejection notification email to the requestor.</div>
+        <div class="api-tabs">
+          <button class="api-tab act" onclick="apiTab(this,'req-4-req')">Request</button>
+          <button class="api-tab" onclick="apiTab(this,'req-4-res')">Response</button>
+          <button class="api-tab" onclick="apiTab(this,'req-4-pre')">Preview</button>
+        </div>
+        <div id="req-4-req" class="api-pane act">
+          <div class="api-code-wrap">
+            <button class="api-copy-btn" onclick="copyCode(this)">Copy</button>
+            <div class="api-code"><pre><span class="c-meth">PATCH</span> <span class="c-url">.../requests/dsr_xK9mP2qR8vL</span>
+
+{
+  <span class="c-key">"status"</span>: <span class="c-str">"COMPLETED"</span>,
+  <span class="c-key">"notify"</span>: <span class="c-bool">true</span>,
+  <span class="c-key">"content"</span>: <span class="c-str">"Your deletion request is complete.
+All personal data has been removed
+from our systems as of today."</span>,
+  <span class="c-key">"notes"</span>: <span class="c-str">"Deletion confirmed across all stores"</span>
+}</pre></div>
+          </div>
+        </div>
+        <div id="req-4-res" class="api-pane">
+          <div class="api-code-wrap">
+            <button class="api-copy-btn" onclick="copyCode(this)">Copy</button>
+            <div class="api-code"><pre>{
+  <span class="c-key">"dsarId"</span>: <span class="c-str">"dsr_xK9mP2qR8vL"</span>,
+  <span class="c-key">"status"</span>: <span class="c-str">"COMPLETED"</span>,
+  <span class="c-key">"notes"</span>: <span class="c-str">"Deletion confirmed across all stores"</span>,
+  <span class="c-key">"lastUpdated"</span>: <span class="c-str">"2026-05-22T16:45:00Z"</span>,
+  <span class="c-key">"lastUpdatedBy"</span>: <span class="c-str">"api@yourcompany.com"</span>,
+  <span class="c-key">"notify"</span>: <span class="c-bool">true</span>
+}</pre></div>
+          </div>
+        </div>
+        <div id="req-4-pre" class="api-pane">
+          <div class="api-preview-wrap">
+            <div class="api-preview-lbl">Status Transition</div>
+            <div class="mock-timeline">
+              <div class="mock-tl-item"><span class="tl-dot tl-done"></span><div><strong>Submitted</strong><span>May 20 · WEB form</span></div></div>
+              <div class="mock-tl-item"><span class="tl-dot tl-done"></span><div><strong>Email Verified</strong><span>May 20 · auto</span></div></div>
+              <div class="mock-tl-item"><span class="tl-dot tl-done"></span><div><strong>Identity Verified</strong><span>May 21 · privacy team</span></div></div>
+              <div class="mock-tl-item"><span class="tl-dot tl-done"></span><div><strong>Processing</strong><span>May 21–22 · data stores reviewed</span></div></div>
+              <div class="mock-tl-item"><span class="tl-dot tl-act"></span><div><strong style="color:var(--teal)">Completed ✓</strong><span>May 22 · notification sent</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 5. UPLOAD ID ── -->
+      <div class="api-card">
+        <div class="api-card-head">
+          <span class="method-badge mb-post">POST</span>
+          <span class="api-path">/subject-rights/requests/{dsarId}/identification</span>
+        </div>
+        <div class="api-card-desc">Upload an identity verification image (JPEG, PNG, or WebP) to satisfy identity verification requirements for a request.</div>
+        <div class="api-tabs">
+          <button class="api-tab act" onclick="apiTab(this,'req-5-req')">Request</button>
+          <button class="api-tab" onclick="apiTab(this,'req-5-res')">Response</button>
+          <button class="api-tab" onclick="apiTab(this,'req-5-pre')">Preview</button>
+        </div>
+        <div id="req-5-req" class="api-pane act">
+          <div class="api-code-wrap">
+            <button class="api-copy-btn" onclick="copyCode(this)">Copy</button>
+            <div class="api-code"><pre><span class="c-meth">POST</span> <span class="c-url">.../requests/dsr_nT7wL1/identification</span>
+
+<span class="c-cm"># Content-Type: multipart/form-data</span>
+
+curl -X POST \
+  -H <span class="c-str">"Authorization: Bearer YOUR_API_KEY"</span> \
+  -F <span class="c-str">"file=@/path/to/id_photo.jpg"</span> \
+  https://api.osano.com/v1/subject-rights/\
+requests/dsr_nT7wL1/identification</pre></div>
+          </div>
+        </div>
+        <div id="req-5-res" class="api-pane">
+          <div class="api-code-wrap">
+            <div class="api-code"><pre><span class="c-cm">// 204 No Content — upload successful</span>
+<span class="c-cm">// No response body returned</span></pre></div>
+          </div>
+        </div>
+        <div id="req-5-pre" class="api-pane">
+          <div class="api-preview-wrap">
+            <div class="api-preview-lbl">Identity Verification Upload</div>
+            <div class="mock-id-upload">
+              <div class="mock-id-icon">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="var(--teal)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+              </div>
+              <div class="mock-id-info">
+                <strong>id_photo.jpg — 284 KB</strong>
+                <span>Uploaded for dsr_nT7wL1 · Amy Chen</span>
+              </div>
+              <span class="sp sp-done" style="margin-left:auto">✓ Received</span>
+            </div>
+            <p style="font-size:.72rem;color:var(--text-3);margin-top:.6rem;line-height:1.5">Accepted formats: <strong>JPEG · PNG · WebP</strong>. Image is stored securely and used only for identity verification.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 6. GET SUMMARIES ── -->
+      <div class="api-card">
+        <div class="api-card-head">
+          <span class="method-badge mb-get">GET</span>
+          <span class="api-path">/subject-rights/requests/summaries</span>
+        </div>
+        <div class="api-card-desc">Retrieve action-item summary entries across all requests — useful for building internal dashboards and workload tracking.</div>
+        <div class="api-tabs">
+          <button class="api-tab act" onclick="apiTab(this,'req-6-req')">Request</button>
+          <button class="api-tab" onclick="apiTab(this,'req-6-res')">Response</button>
+          <button class="api-tab" onclick="apiTab(this,'req-6-pre')">Preview</button>
+        </div>
+        <div id="req-6-req" class="api-pane act">
+          <div class="api-code-wrap">
+            <button class="api-copy-btn" onclick="copyCode(this)">Copy</button>
+            <div class="api-code"><pre><span class="c-meth">GET</span> <span class="c-url">https://api.osano.com/v1/subject-rights/requests/summaries</span>
+
+<span class="c-cm"># Headers</span>
+Authorization: Bearer <span class="c-str">YOUR_API_KEY</span></pre></div>
+          </div>
+        </div>
+        <div id="req-6-res" class="api-pane">
+          <div class="api-code-wrap">
+            <button class="api-copy-btn" onclick="copyCode(this)">Copy</button>
+            <div class="api-code"><pre>{
+  <span class="c-key">"summaries"</span>: [
+    {
+      <span class="c-key">"dsarId"</span>: <span class="c-str">"dsr_xK9mP2qR8vL"</span>,
+      <span class="c-key">"actionItemsTotal"</span>: <span class="c-num">4</span>,
+      <span class="c-key">"actionItemsCompleted"</span>: <span class="c-num">3</span>,
+      <span class="c-key">"actionItemsPending"</span>: <span class="c-num">1</span>,
+      <span class="c-key">"dueDate"</span>: <span class="c-str">"2026-06-19T14:32:00Z"</span>,
+      <span class="c-key">"requesterEmail"</span>: <span class="c-str">"jane.doe@example.com"</span>
+    }
+  ]
+}</pre></div>
+          </div>
+        </div>
+        <div id="req-6-pre" class="api-pane">
+          <div class="api-preview-wrap">
+            <div class="api-preview-lbl">Action Item Summary</div>
+            <table class="mock-table">
+              <thead><tr><th>Request</th><th>Completed</th><th>Pending</th><th>Due</th></tr></thead>
+              <tbody>
+                <tr><td style="font-family:monospace;font-size:.68rem">dsr_xK9mP2</td><td>3 / 4</td><td><span class="sp sp-pend">1 open</span></td><td>Jun 19</td></tr>
+                <tr><td style="font-family:monospace;font-size:.68rem">dsr_mR3vQ8</td><td>5 / 5</td><td><span class="sp sp-done">All done</span></td><td>May 30</td></tr>
+                <tr><td style="font-family:monospace;font-size:.68rem">dsr_nT7wL1</td><td>0 / 3</td><td><span class="sp sp-rej">Blocked</span></td><td>Jun 5</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 7. GET SUMMARY NOTIFICATION ── -->
+      <div class="api-card">
+        <div class="api-card-head">
+          <span class="method-badge mb-get">GET</span>
+          <span class="api-path">/subject-rights/requests/{dsarId}/summary-notification</span>
+        </div>
+        <div class="api-card-desc">Fetch the draft summary notification content that will be sent to the requestor upon completion or rejection.</div>
+        <div class="api-tabs">
+          <button class="api-tab act" onclick="apiTab(this,'req-7-req')">Request</button>
+          <button class="api-tab" onclick="apiTab(this,'req-7-res')">Response</button>
+          <button class="api-tab" onclick="apiTab(this,'req-7-pre')">Preview</button>
+        </div>
+        <div id="req-7-req" class="api-pane act">
+          <div class="api-code-wrap">
+            <button class="api-copy-btn" onclick="copyCode(this)">Copy</button>
+            <div class="api-code"><pre><span class="c-meth">GET</span> <span class="c-url">.../requests/dsr_xK9mP2qR8vL/summary-notification</span>
+
+<span class="c-cm"># Headers</span>
+Authorization: Bearer <span class="c-str">YOUR_API_KEY</span></pre></div>
+          </div>
+        </div>
+        <div id="req-7-res" class="api-pane">
+          <div class="api-code-wrap">
+            <button class="api-copy-btn" onclick="copyCode(this)">Copy</button>
+            <div class="api-code"><pre>{
+  <span class="c-key">"dsarId"</span>: <span class="c-str">"dsr_xK9mP2qR8vL"</span>,
+  <span class="c-key">"to"</span>: <span class="c-str">"jane.doe@example.com"</span>,
+  <span class="c-key">"subject"</span>: <span class="c-str">"Your data deletion request is complete"</span>,
+  <span class="c-key">"content"</span>: <span class="c-str">"Dear Jane, Your deletion request
+has been fulfilled. All personal data
+associated with your account has been
+removed from our systems."</span>,
+  <span class="c-key">"sent"</span>: <span class="c-bool">false</span>
+}</pre></div>
+          </div>
+        </div>
+        <div id="req-7-pre" class="api-pane">
+          <div class="api-preview-wrap">
+            <div class="api-preview-lbl">Draft Notification Preview</div>
+            <div class="mock-notif">
+              <div class="mock-notif-from">To: <strong>jane.doe@example.com</strong> · Subject: <em>Your data deletion request is complete</em></div>
+              <div class="mock-notif-body">Dear Jane,<br><br>Your deletion request has been fulfilled. All personal data associated with your account has been removed from our systems as of May 22, 2026.<br><br>Reference: <strong>dsr_xK9mP2qR8vL</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 8. SEND SUMMARY NOTIFICATION ── -->
+      <div class="api-card">
+        <div class="api-card-head">
+          <span class="method-badge mb-post">POST</span>
+          <span class="api-path">/subject-rights/requests/{dsarId}/summary-notification</span>
+        </div>
+        <div class="api-card-desc">Send the summary notification email to the requestor. Typically called after updating status to COMPLETED or REJECTED.</div>
+        <div class="api-tabs">
+          <button class="api-tab act" onclick="apiTab(this,'req-8-req')">Request</button>
+          <button class="api-tab" onclick="apiTab(this,'req-8-res')">Response</button>
+          <button class="api-tab" onclick="apiTab(this,'req-8-pre')">Preview</button>
+        </div>
+        <div id="req-8-req" class="api-pane act">
+          <div class="api-code-wrap">
+            <button class="api-copy-btn" onclick="copyCode(this)">Copy</button>
+            <div class="api-code"><pre><span class="c-meth">POST</span> <span class="c-url">.../requests/dsr_xK9mP2qR8vL/summary-notification</span>
+
+{
+  <span class="c-key">"content"</span>: <span class="c-str">"Dear Jane, Your deletion request
+has been fulfilled. All personal
+data has been removed from our
+systems as of today."</span>
+}</pre></div>
+          </div>
+        </div>
+        <div id="req-8-res" class="api-pane">
+          <div class="api-code-wrap">
+            <div class="api-code"><pre><span class="c-cm">// 204 No Content — email dispatched</span>
+<span class="c-cm">// No response body returned</span></pre></div>
+          </div>
+        </div>
+        <div id="req-8-pre" class="api-pane">
+          <div class="api-preview-wrap">
+            <div class="api-preview-lbl">Email Dispatched</div>
+            <div class="resp-204">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 6.76 19.79 19.79 0 01.21 2.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.29 6.29l1.08-1.08a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              Notification sent to jane.doe@example.com
+            </div>
+            <div class="mock-detail" style="margin-top:.65rem">
+              <div class="mock-kv"><span class="mock-kv-k">To</span><span class="mock-kv-v">jane.doe@example.com</span></div>
+              <div class="mock-kv"><span class="mock-kv-k">HTTP Status</span><span class="mock-kv-v" style="color:var(--pass);font-weight:700">204 No Content</span></div>
+              <div class="mock-kv"><span class="mock-kv-k">Sent At</span><span class="mock-kv-v">May 22, 2026 · 16:47 UTC</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 9. ACTIVITY LOG ── -->
+      <div class="api-card">
+        <div class="api-card-head">
+          <span class="method-badge mb-post">POST</span>
+          <span class="api-path">/subject-rights/requests/{dsarId}/activity-log</span>
+        </div>
+        <div class="api-card-desc">Append a timestamped activity entry to a request's audit trail — useful for logging external actions or system integrations.</div>
+        <div class="api-tabs">
+          <button class="api-tab act" onclick="apiTab(this,'req-9-req')">Request</button>
+          <button class="api-tab" onclick="apiTab(this,'req-9-res')">Response</button>
+          <button class="api-tab" onclick="apiTab(this,'req-9-pre')">Preview</button>
+        </div>
+        <div id="req-9-req" class="api-pane act">
+          <div class="api-code-wrap">
+            <button class="api-copy-btn" onclick="copyCode(this)">Copy</button>
+            <div class="api-code"><pre><span class="c-meth">POST</span> <span class="c-url">.../requests/dsr_xK9mP2qR8vL/activity-log</span>
+
+{
+  <span class="c-key">"message"</span>: <span class="c-str">"Deletion confirmed in Salesforce CRM
+and analytics data warehouse. Backup
+purge scheduled for 2026-06-22."</span>,
+  <span class="c-key">"actor"</span>: <span class="c-str">"data-pipeline@yourcompany.com"</span>
+}</pre></div>
+          </div>
+        </div>
+        <div id="req-9-res" class="api-pane">
+          <div class="api-code-wrap">
+            <button class="api-copy-btn" onclick="copyCode(this)">Copy</button>
+            <div class="api-code"><pre>{
+  <span class="c-key">"logId"</span>: <span class="c-str">"log_8zWpN3rT"</span>,
+  <span class="c-key">"dsarId"</span>: <span class="c-str">"dsr_xK9mP2qR8vL"</span>,
+  <span class="c-key">"message"</span>: <span class="c-str">"Deletion confirmed in Salesforce
+CRM and analytics data warehouse."</span>,
+  <span class="c-key">"actor"</span>: <span class="c-str">"data-pipeline@yourcompany.com"</span>,
+  <span class="c-key">"timestamp"</span>: <span class="c-str">"2026-05-22T17:02:00Z"</span>
+}</pre></div>
+          </div>
+        </div>
+        <div id="req-9-pre" class="api-pane">
+          <div class="api-preview-wrap">
+            <div class="api-preview-lbl">Activity Log — dsr_xK9mP2qR8vL</div>
+            <div class="mock-log-item"><span class="mock-log-time">09:15</span><span class="mock-log-msg">Request created via WEB form</span></div>
+            <div class="mock-log-item"><span class="mock-log-time">09:18</span><span class="mock-log-msg">Email verification sent to jane.doe@example.com</span></div>
+            <div class="mock-log-item"><span class="mock-log-time">10:42</span><span class="mock-log-msg">Identity verified by privacy@yourcompany.com</span></div>
+            <div class="mock-log-item"><span class="mock-log-time">16:45</span><span class="mock-log-msg">Status updated → COMPLETED by api@yourcompany.com</span></div>
+            <div class="mock-log-item" style="border-color:var(--teal);background:#e0f5f2"><span class="mock-log-time" style="color:var(--teal)">17:02</span><span class="mock-log-msg" style="color:var(--navy);font-weight:500">Deletion confirmed in Salesforce CRM · data-pipeline@yourcompany.com</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /api-grid -->
+  </div><!-- /dsar-dev-layout -->
+</div><!-- /pg-dsar-dev -->
 
 
 
@@ -840,6 +1467,7 @@ const PAGE_HASH={
   'pg-home':'',
   'pg-cc':'cookie-consent',
   'pg-dsar':'dsar',
+  'pg-dsar-dev':'dsar-dev',
   'pg-adv':'advanced-settings',
   'pg-geo-preview':'geo-preview',
   'pg-compliance':'compliance-checker',
@@ -2115,6 +2743,46 @@ function showAuditForm(){
   document.getElementById('audit-form-view').style.display='block';
   renderAuditForm(); // re-renders with saved answers intact
   window.scrollTo(0,0);
+}
+
+/* ── DSAR API Dev Page: tab switching ── */
+function apiTab(btn, paneId){
+  // Find the parent .api-card
+  const card = btn.closest('.api-card');
+  if(!card) return;
+  // Deactivate all tabs in this card
+  card.querySelectorAll('.api-tab').forEach(t => t.classList.remove('act'));
+  btn.classList.add('act');
+  // Hide all panes in this card via class (CSS: .api-pane{display:none} .api-pane.act{display:block})
+  card.querySelectorAll('.api-pane').forEach(p => p.classList.remove('act'));
+  const pane = document.getElementById(paneId);
+  if(pane) pane.classList.add('act');
+}
+
+/* ── DSAR API Dev Page: copy code to clipboard ── */
+function copyCode(btn){
+  const wrap = btn.closest('.api-code-wrap');
+  if(!wrap) return;
+  const code = wrap.querySelector('.api-code');
+  if(!code) return;
+  const text = code.innerText || code.textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(()=>{ btn.textContent = orig; }, 1800);
+  }).catch(()=>{
+    // Fallback for older browsers
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(()=>{ btn.textContent = orig; }, 1800);
+  });
 }
 </script>
 </body>
